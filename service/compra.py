@@ -73,6 +73,8 @@ def get_compra_id(idCompra: str) -> CompraPdf | None | str:
             # column_names = [i[0] for i in mycursor.description]
             # row_dict = dict(zip(column_names, myresult))
 
+            print(compra_pdf)
+
             mydb.close()
             return compra_pdf  # Retorna el objeto
         else:

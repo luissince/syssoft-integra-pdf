@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{title}}</title>
+    <title>titulo</title>
     <style>
         /*--------------------------------------------------------------
 >> TABLE OF CONTENTS:
@@ -868,18 +868,18 @@
 </head>
 
 <body>
-
+   
     <div class="cs-invoice cs-style1">
 
         <div class="cs-invoice_head cs-type1 cs-mb25">
             <div class="cs-invoice_item">
                 <div class="cs-invoice_column">
                     <h6 class="cs-mb10">
-                        <span class="cs-primary_color font-weight-bold">{{comprobante}}: </span>
-                        {{serie}} - {{numeracion}}
+                        <span class="cs-primary_color font-weight-bold">BOLETA ELECTRÓNICA: </span>
+                        B001-000036
                     </h6>
                     <p class="cs-mb10">
-                        <span class="cs-primary_color font-weight-bold">FECHA DE EMISIÓN: </span>{{fecha}} - {{hora}}
+                        <span class="cs-primary_color font-weight-bold">FECHA DE EMISIÓN: </span>2023-10-26
                     </p>
                 </div>
 
@@ -893,20 +893,21 @@
         <div class="cs-invoice_head cs-mb25">
             <div class="cs-invoice_item cs-mb10">
                 <div class="cs-invoice_column">
-                    <b class="cs-primary_color">{{informacion}}</b>
+                    <b class="cs-primary_color">LUIS ALEXANDER LARA SERNA</b>
                     <p>
-                        RUC / D.N.I.: {{documento}}<br>
-                        Dirección: {{direccion}}<br>
+                        D.N.I.: 76423388 <br>
+                        Dirección: <br>
                     </p>
                 </div>
                 <div class="cs-invoice_column cs-text_right">
-                    <b class="cs-primary_color">{{empresa}}</b>
+                    <b class="cs-primary_color">INVERSIONES KALLPAY DEL SUR
+                        S.A.C.</b>
                     <p>
-                        R.U.C. {{20102020511}}<br>
-                        {{direccion_emp}} <br>
-                        {{ubigeo_emp}} <br>
-                        {{telefono}} <br>
-                        {{email}}
+                        R.U.C. 20102020511<br>
+                        Av. Benavides 4040 <br>
+                        Lima, Lima, Lima <br>
+                        956672465 <br>
+                        silvabasauri@gmail.com
                     </p>
                 </div>
             </div>
@@ -921,7 +922,7 @@
                             <tr>
                                 <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">CANT. </th>
                                 <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">DESCRIPCIÓN</th>
-                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">COSTO</th>
+                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">PRECIO</th>
                                 <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">UNID/MED</th>
                                 <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">AFECT.IGV</th>
                                 <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">IMPORTE
@@ -929,16 +930,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for row in result_list %}
                             <tr>
-                                <td class="cs-width_1 cs-normal">{{ row.cantidad }}</td>
-                                <td class="cs-width_4 cs-normal">{{ row.producto }}</td>
-                                <td class="cs-width_2 cs-normal">{{ row.costo }}</td>
-                                <td class="cs-width_1 cs-normal">{{ row.medida }}</td>
-                                <td class="cs-width_1 cs-normal">{{ row.impuesto }}</td>
-                                <td class="cs-width_2 cs-normal cs-text_right">{{ row.costo * row.cantidad }}</td>
+                                <td class="cs-width_1 cs-normal">1</td>
+                                <td class="cs-width_4 cs-normal">Mobile & Ios Application Development</td>
+                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
+                                <td class="cs-width_1 cs-normal">DOCENA</td>
+                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
+                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
                             </tr>
-                            {% endfor %}
+                            <tr>
+                                <td class="cs-width_1 cs-normal">1</td>
+                                <td class="cs-width_4 cs-normal">Mobile & Ios Mobile App Design, Product Design</td>
+                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
+                                <td class="cs-width_1 cs-normal">DOCENA</td>
+                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
+                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
+                            </tr>
+                            <tr>
+                                <td class="cs-width_1 cs-normal">1</td>
+                                <td class="cs-width_4 cs-normal">Web Design & Developmen</td>
+                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
+                                <td class="cs-width_1 cs-normal">DOCENA</td>
+                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
+                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -989,7 +1004,8 @@
         </div>
 
         <div class="">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png" width="100" alt="Logo" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png" width="100"
+                alt="Logo" />
             <p>Consulte su documento electrónico en:</p>
             <p>https://tiquepos2.com/facturacion/consultas/index/5</p>
             <p>HASH: 1s6X8GrYa/IfPLrrgsWF4nL/KjE=</p>
@@ -1006,7 +1022,7 @@
             </p>
         </div>
     </div>
-
+    
 </body>
 
 </html>
