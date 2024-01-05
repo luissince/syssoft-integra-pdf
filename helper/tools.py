@@ -1,6 +1,38 @@
 from model.compra import CompraDetallePdf
 from decimal import Decimal
 
+import qrcode
+from io import BytesIO
+import base64
+
+def generar_qr(data_to_encode: str = 'https://pj.syssoftintegra.com/formulario'):
+
+    qr = qrcode.QRCode(
+        version=1,  # Tamaño del código QR (1 a 40)
+        error_correction=qrcode.constants.ERROR_CORRECT_L,  # Nivel de corrección de errores (L, M, Q, H)
+        box_size=10,  # Tamaño de cada "caja" del código QR
+        border=4,  # Margen del código QR   
+    )
+
+    # Añadir los datos al código QR
+    qr.add_data(data_to_encode)
+    qr.make(fit=True)
+
+    # Crear una imagen del código QR utilizando la biblioteca PIL (Python Imaging Library)
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Obtener bytes de la imagen
+    img_bytes_io = BytesIO()
+    img.save(img_bytes_io)
+    img_bytes = img_bytes_io.getvalue()
+
+    # Convertir bytes a Base64
+    base64_encoded = base64.b64encode(img_bytes).decode('utf-8')
+
+    return base64_encoded
+
+
+
 
 def calculate_tax_bruto( impuesto: float, monto: float):
     return Decimal(monto) / ((Decimal(impuesto) + Decimal('100')) * Decimal('0.01'))

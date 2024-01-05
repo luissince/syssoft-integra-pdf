@@ -190,7 +190,9 @@
 
         <p class="texto_12">Importe en Letras: {{total_letas}}</p>
         <div class="text-center texto_10 mt-2 codigo_qr_ticket">
-            <img width="70px" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png"
+            <!-- <img width="70px" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png"
+                style="display: block;margin: auto" class="mb-3" /> -->
+            <img width="70px" src="data:image/png;base64,{{qr_generado}}" 
                 style="display: block;margin: auto" class="mb-3" />
             <p class="mt-1">Representación Impresa de la Boleta Electrónica<br />
                 Consulte su Documento en:</p>
