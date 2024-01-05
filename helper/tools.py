@@ -5,9 +5,11 @@ from decimal import Decimal
 def calculate_tax_bruto( impuesto: float, monto: float):
     return Decimal(monto) / ((Decimal(impuesto) + Decimal('100')) * Decimal('0.01'))
 
+
 def calculate_tax(porcentaje: float, valor: float):
     igv = Decimal(porcentaje) / Decimal('100.0')
     return Decimal(valor) * (igv)
+
 
 def impuestos_generados_compra(detalle: CompraDetallePdf):
     impuestos = {}
@@ -31,7 +33,6 @@ def impuestos_generados_compra(detalle: CompraDetallePdf):
             }
 
     return list(impuestos.values())
-
 
 
 def number_format(value, currency="PEN"):
@@ -71,7 +72,6 @@ def number_format(value, currency="PEN"):
         return formatted_value + " " + currency
     else:
         return "MN " + format_decimal(value)
-    
 
 def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
     is_number = str(amount).replace('.', '').replace('-', '').isdigit()
@@ -99,6 +99,15 @@ def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
 
     return total
 
+
+def rounded(amount, decimal_count=2):
+    try:
+        amount = float(amount)
+        decimal_count = abs(int(decimal_count))
+        formatted_amount = "{:.{}f}".format(amount, decimal_count)
+        return formatted_amount
+    except ValueError:
+        return '0'
 
 # def impuestos_generados(detalle):
 #     resultado = []

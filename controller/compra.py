@@ -8,7 +8,8 @@ from jinja2 import Environment, FileSystemLoader
 from service.compra import get_compra_id, get_compra_id_detalle
 from model.response import response_Custom_Error
 from pdf.pdf_compra import generar_ticket, generar_a4
-from helper.tools import impuestos_generados_compra, calculate_tax_bruto, calculate_tax
+from helper.tools import impuestos_generados_compra, calculate_tax_bruto, calculate_tax, rounded
+from helper.convertir_letras_numero import ConvertirMonedaCadena
 
 from decimal import Decimal, ROUND_HALF_UP
 
@@ -45,6 +46,8 @@ async def generar_pdf_ticket(id_compra: str):
 
         impuestos = impuestos_generados_compra(obj_det)
         primer_impuesto = impuestos[0]
+
+        
         
         sub_total = 0
         total = 0
@@ -61,6 +64,14 @@ async def generar_pdf_ticket(id_compra: str):
 
             sub_total += valor_sub_neto
             total += valor_neto
+
+
+        # total_letras = NumberLleters()
+        # letras = total_letras.get_result(total, compra["moneda"])
+        
+        convertidor = ConvertirMonedaCadena()
+
+        letras = convertidor.convertir(rounded(total), True, compra["moneda"])
 
         data_html = {
 
@@ -90,7 +101,8 @@ async def generar_pdf_ticket(id_compra: str):
             #Datos total e impuestos
             "subTotal": sub_total.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
             "imp_valor": primer_impuesto['valor'].quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
-            "total": total.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+            "total": total.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
+            "total_letas": letras
         }
 
         # Cargar el template de Jinja2

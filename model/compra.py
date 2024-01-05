@@ -20,7 +20,9 @@ class CompraPdf(BaseModel):
     observacion: Optional[str]
     nota: Optional[str]
     codiso: Optional[str]
-    usurio: Optional[str]
+    moneda: Optional[str]
+    usuario: Optional[str]
+
 
 class CompraDetallePdf(BaseModel):
     producto: Optional[str]
