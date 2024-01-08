@@ -1,138 +1,123 @@
-from db.conecction import conectar_bd
-from model.compra import CompraPdf, CompraDetallePdf
+from model.empresa import Empresa
+from sqlalchemy import func
+from db.connection import Session
+from model.orm import Almacen, Categoria, ClienteNatural, CompraDetalle, Comprobante, Empresa, Compra, Impuesto, Medida, Moneda, Producto, Sucursal, Ubigeo, Usuario
+from typing import Union
 
-def get_compra_id(idCompra: str) -> CompraPdf | None | str: 
-
+def obtener_empresa() -> Empresa | None:
     try:
+        db = Session(expire_on_commit=False)
 
-        mydb = conectar_bd()
-        mycursor = mydb.cursor()
+        empresa = db.query(
+            Empresa.documento,
+            Empresa.razonSocial,
+            Empresa.nombreEmpresa,
+            Empresa.rutaLogo
+        ).first()
 
-        hora_formato = '%H:%i:%s'
+        return empresa
+    finally:
+        db.close()
 
 
-        query = '''
-                SELECT 
-                DATE_FORMAT(c.fecha, '%d/%m/%Y') AS fecha, 
-                DATE_FORMAT(c.hora, %s) AS hora,
-                co.nombre AS comprobante,
-                c.serie,
-                c.numeracion,
-                cn.documento,
-                cn.informacion,
-                cn.telefono,
-                cn.celular,
-                cn.email,
-                cn.direccion,                
-                al.nombre AS almacen,
-                c.tipo,
-                c.estado,
-                c.observacion,
-                c.nota,
-                mo.codiso,
-                mo.nombre AS moneda,
-                CONCAT(us.nombres,' ',us.apellidos) AS usuario
-            FROM 
-                compra AS c
-                INNER JOIN comprobante AS co ON co.idComprobante = c.idComprobante
-                INNER JOIN moneda AS mo ON mo.idMoneda = c.idMoneda
-                INNER JOIN almacen AS al ON al.idAlmacen = c.idAlmacen
-                INNER JOIN clienteNatural AS cn ON cn.idCliente = c.idCliente
-                INNER JOIN usuario AS us ON us.idUsuario = c.idUsuario 
-            WHERE 
-                c.idCompra = %s
-            '''
-        
-
-        mycursor.execute(query, (hora_formato, idCompra))
-        myresult = mycursor.fetchone()
-
-        if myresult:  # Verifica si se encontró algún resultado
-
-            row = myresult
-
-            compra_pdf = CompraPdf(
-                fecha=row[0],
-                hora=row[1],
-                comprobante=row[2],
-                serie=row[3],
-                numeracion=row[4],
-                documento=row[5],
-                informacion=row[6],
-                telefono=row[7],
-                celular=row[8],
-                email=row[9],
-                direccion=row[10],
-                almacen=row[11],
-                tipo=row[12],
-                estado=row[13],
-                observacion=row[14],
-                nota=row[15],
-                codiso=row[16],
-                moneda=row[17],
-                usuario=row[18] 
-            )
-
-            # column_names = [i[0] for i in mycursor.description]
-            # row_dict = dict(zip(column_names, myresult))
-
-            mydb.close()
-            return compra_pdf  # Retorna el objeto
-        else:
-            mydb.close()
-            return None 
-    
-    except Exception as err:
-        mydb.close()  # Asegura cerrar la conexión en caso de error
-        return f"Error de servidor: {err}" 
-    
-
-def get_compra_id_detalle(idCompra: str) -> list | str:
-    
+def obtener_sucursal(id_sucursal: str) -> Union[Sucursal, Ubigeo, None]:
     try:
+        db = Session(expire_on_commit=False)
 
-        mydb = conectar_bd()
-        mycursor = mydb.cursor()
+        sucursal = db.query(
+            Sucursal.telefono,
+            Sucursal.celular,
+            Sucursal.email,
+            Sucursal.paginaWeb,
+            Sucursal.direccion,
+            Ubigeo.departamento,
+            Ubigeo.provincia,
+            Ubigeo.distrito
+        ).join(
+            Ubigeo
+        ).filter(
+            Sucursal.idSucursal == id_sucursal
+        ).first()
 
-        query = '''
-                SELECT 
-                p.nombre AS producto,
-                md.nombre AS medida, 
-                m.nombre AS categoria, 
-                cd.costo,
-                cd.cantidad,
-                cd.idImpuesto,
-                imp.nombre AS impuesto,
-                imp.porcentaje
-            FROM compraDetalle AS cd 
-                INNER JOIN producto AS p ON cd.idProducto = p.idProducto 
-                INNER JOIN medida AS md ON md.idMedida = p.idMedida 
-                INNER JOIN categoria AS m ON p.idCategoria = m.idCategoria 
-                INNER JOIN impuesto AS imp ON cd.idImpuesto  = imp.idImpuesto  
-            WHERE cd.idCompra = %s
-        '''
+        return sucursal
+    finally:
+        db.close()
 
-        mycursor.execute(query,(idCompra,))
-        myresult = mycursor.fetchall()
 
-        result_list = []
+def obtener_compra_por_id(id_compra: str) -> Union[Compra, ClienteNatural, Comprobante, Almacen, Moneda, None]:
+    try:
+        db = Session(expire_on_commit=False)
 
-        for row in myresult:
-            detalle = CompraDetallePdf(
-                producto=row[0],
-                medida=row[1],
-                categoria=row[2],
-                costo=row[3],
-                cantidad=row[4],
-                idImpuesto=row[5],
-                impuesto=row[6],
-                porcentaje=row[7]
-            )
-            result_list.append(detalle)
+        compra = db.query(
+            func.DATE_FORMAT(Compra.fecha, '%d/%m/%Y').label('fecha'),
+            Compra.hora,
+            Comprobante.nombre.label('comprobante'),
+            Compra.serie,
+            Compra.numeracion,
+            Compra.idSucursal,
+            ClienteNatural.documento,
+            ClienteNatural.informacion,
+            ClienteNatural.telefono,
+            ClienteNatural.celular,
+            ClienteNatural.email,
+            ClienteNatural.direccion,
+            Almacen.nombre.label('almacen'),
+            Compra.tipo,
+            Compra.estado,
+            Compra.observacion,
+            Compra.nota,
+            Moneda.codiso,
+            Moneda.nombre.label('moneda'),
+            func.concat(Usuario.nombres, ' ',
+                        Usuario.apellidos).label('usuario')
+        ).join(
+            Comprobante
+        ).join(
+            Moneda
+        ).join(
+            Almacen
+        ).join(
+            ClienteNatural
+        ).join(
+            Usuario
+        ).filter(
+            Compra.idCompra == id_compra
+        ).first()
 
-        mydb.close()
-        return result_list
-    
-    except Exception as err:
-        mydb.close()  # Asegura cerrar la conexión en caso de error
-        return f"Error de servidor: {err}" 
+        return compra
+    finally:
+        db.close()
+
+
+def obtener_compra_detalle_por_id(id_compra: str):
+    try:
+        db = Session(expire_on_commit=False)
+
+        detalle = db.query(
+            Producto.nombre.label('producto'),
+            Medida.nombre.label('medida'),
+            Categoria.nombre.label('categoria'),
+            CompraDetalle.costo,
+            CompraDetalle.cantidad,
+            CompraDetalle.idImpuesto,
+            Impuesto.nombre.label('impuesto'),
+            Impuesto.porcentaje
+        ).join(
+            Producto,
+            Producto.idProducto == CompraDetalle.idProducto
+        ).join(
+            Medida,
+            Medida.idMedida == Producto.idMedida
+        ).join(
+            Categoria,
+            Categoria.idCategoria == Producto.idCategoria
+        ).join(
+            Impuesto,
+            Impuesto.idImpuesto == CompraDetalle.idImpuesto
+        ).filter(
+            CompraDetalle.idCompra == id_compra
+        ).all()
+
+        return detalle
+    finally:
+        db.close()

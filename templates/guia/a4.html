@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>titulo</title>
+    <title>{{title}}</title>
+
     <style>
         /*--------------------------------------------------------------
 >> TABLE OF CONTENTS:
@@ -585,6 +586,8 @@
             display: table-cell;
             padding: 0px;
             border: none;
+
+            /* margin: 5; */
         }
 
         .cs-invoice.cs-style1 .cs-invoice_head.cs-type1 {
@@ -868,51 +871,248 @@
 </head>
 
 <body>
-   
+
     <div class="cs-invoice cs-style1">
 
-        <div class="cs-invoice_head cs-type1 cs-mb25">
+        <div class="cs-invoice_head cs-type1 cs-mb15">
+
             <div class="cs-invoice_item">
                 <div class="cs-invoice_column">
-                    <h6 class="cs-mb10">
-                        <span class="cs-primary_color font-weight-bold">BOLETA ELECTRÓNICA: </span>
-                        B001-000036
-                    </h6>
-                    <p class="cs-mb10">
-                        <span class="cs-primary_color font-weight-bold">FECHA DE EMISIÓN: </span>2023-10-26
-                    </p>
-                </div>
 
-                <div class="cs-invoice_column cs-text_right">
-                    <img src="https://blog.hubspot.es/hs-fs/hubfs/ES%20Blog%20images/Los%2015%20logos%20m%C3%A1s%20creativos%20e%20inspiradores%20del%20mundo/logo_famoso_starbucks.jpg?width=650&name=logo_famoso_starbucks.jpg"
-                        width="152" alt="Logo" />
+                    <table>
+                        <tr>
+                            <td rowspan="5" class="cs-text_center">
+                                <img src="https://blog.hubspot.es/hs-fs/hubfs/ES%20Blog%20images/Los%2015%20logos%20m%C3%A1s%20creativos%20e%20inspiradores%20del%20mundo/logo_famoso_starbucks.jpg?width=650&name=logo_famoso_starbucks.jpg"
+                                    width="150px" class="margin-0">
+                            </td>
+                            <td rowspan="2">
+                                <h4 class="cs-text_center">
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{empresa}}</span> -->
+                                </h4>
+                            </td>
+                            <td colspan="2" class="cs-text_center">
+                                <P>
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{ruc}}</span> -->
+                                </P>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" class="cs-text_center">
+                                <h5 class="cs-mb2">
+                                    <span class="cs-primary_color font-weight-bold">GUIA DE REMISION</span>
+                                </h5>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3" class="cs-text_center">
+                                <p class="cs-mb2">
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{direccion}}</span> -->
+                                </p>
+                                <p class="cs-mb2">
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{telefono}} - {{celular}}</span> -->
+                                </p>
+                                <p class="cs-mb2">
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{email}}</span> -->
+                                </p>
+                            </td>
+                            <td colspan="2" class="cs-text_center">
+                                <P>
+                                    <!-- <span class="cs-primary_color font-weight-bold">{{serie}} - {{numeracion}}</span> -->
+                                </P>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>FECHA DE TRASLADO</td>
+                            <!-- <td>{{fecha}}</td> -->
+                        </tr>
+
+                        <tr>
+                            <td>NÚMERO DE FACTURA</td>
+                            <!-- <td>{{comp_facturado}}</td> -->
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="cs-invoice_head cs-mb25">
-            <div class="cs-invoice_item cs-mb10">
+        <br />
+
+        <div class="cs-invoice_head cs-type1 cs-mb15">
+            <div class="cs-invoice_item">
                 <div class="cs-invoice_column">
-                    <b class="cs-primary_color">LUIS ALEXANDER LARA SERNA</b>
-                    <p>
-                        D.N.I.: 76423388 <br>
-                        Dirección: <br>
-                    </p>
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th class="cs-text_center"><strong>Dirección de Partida</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- <td class="cs-text_center">{{dir_partida}}</td> -->
+                            </tr>
+                            <tr>
+                                <!-- <td class="cs-text_center">{{ubi_partida}}</td> -->
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
-                <div class="cs-invoice_column cs-text_right">
-                    <b class="cs-primary_color">INVERSIONES KALLPAY DEL SUR
-                        S.A.C.</b>
-                    <p>
-                        R.U.C. 20102020511<br>
-                        Av. Benavides 4040 <br>
-                        Lima, Lima, Lima <br>
-                        956672465 <br>
-                        silvabasauri@gmail.com
-                    </p>
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th class="cs-text_center"><strong>Dirección de Llegada</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- <td class="cs-text_center">{{dir_llegada}}</td> -->
+                            </tr>
+                            <tr>
+                                <!-- <td class="cs-text_center">{{ubi_llegada}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
+        <div class="cs-invoice_head cs-type1 cs-mb15">
+            <div class="cs-invoice_item">
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th colspan="2" class="cs-text_center"><strong>Remitente</strong></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Nombre / Razón</td>
+                                <!-- <td>{{nombre_comercial}}</td> -->
+                            </tr>
+                            <tr>
+                                <td>RUC</td>
+                                <!-- <td>{{ruc_empresa}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th colspan="2" class="cs-text_center"><strong>Destinatario</strong></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Nombre / Razón</td>
+                                <!-- <td>{{nombre_cliente}}</td> -->
+                            </tr>
+                            <tr>
+                                <td>RUC</td>
+                                <!-- <td>{{ruc_cliente}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="cs-invoice_head cs-type1 cs-mb15">
+            <div class="cs-invoice_item">
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th colspan="2" class="cs-text_center"><strong>Transportista</strong></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Apellidos y Nombres</td>
+                                <!-- <td>{{datos_transportista}}</td> -->
+                            </tr>
+                            <tr>
+                                <td>RUC/DNI</td>
+                                <!-- <td>{{documento_transportista}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th colspan="2" class="cs-text_center"><strong>Datos de la unidad de transporte</strong>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Licencia de conducir</td>
+                                <!-- <td>{{licencia_conducir}}</td> -->
+                            </tr>
+                            <tr>
+                                <td>Número de placa</td>
+                                <!-- <td>{{numero_placa}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="cs-invoice_head cs-type1 cs-mb15">
+            <div class="cs-invoice_item">
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th class="cs-text_center"><strong>Modalidad de traslado</strong></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <!-- <td>{{modalidad_traslado}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cs-invoice_column">
+                    <table>
+                        <thead>
+                            <tr colspan class="cs-width_12 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <th class="cs-text_center"><strong>Motivo de traslado</strong></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <!-- <td>{{motivo_traslado}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
 
         <div class="cs-table cs-style1">
             <div class="cs-round_border">
@@ -920,92 +1120,82 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">CANT. </th>
-                                <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">DESCRIPCIÓN</th>
-                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">PRECIO</th>
+                                <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">#</th>
+                                <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">CÓDIGO</th>
+                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">DESCRIPCIÓN</th>
                                 <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">UNID/MED</th>
-                                <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">AFECT.IGV</th>
-                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">IMPORTE
-                                </th>
+                                <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">CANTIDAD</th>
+                                <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">PESO</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- {% for row in result_list %}
                             <tr>
-                                <td class="cs-width_1 cs-normal">1</td>
-                                <td class="cs-width_4 cs-normal">Mobile & Ios Application Development</td>
-                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
-                                <td class="cs-width_1 cs-normal">DOCENA</td>
-                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
-                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
+                                <td class="cs-width_1 cs-normal">{{ row.id }}</td>
+                                <td class="cs-width_4 cs-normal">{{ row.cod_producto }}</td>
+                                <td class="cs-width_2 cs-normal">{{ row.producto }}</td>
+                                <td class="cs-width_1 cs-normal">{{ row.medida }}</td>
+                                <td class="cs-width_1 cs-normal">{{ row.cantida }}</td>
+                                <td class="cs-width_2 cs-normal cs-text_right">{{ row.peso }}</td>
                             </tr>
-                            <tr>
-                                <td class="cs-width_1 cs-normal">1</td>
-                                <td class="cs-width_4 cs-normal">Mobile & Ios Mobile App Design, Product Design</td>
-                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
-                                <td class="cs-width_1 cs-normal">DOCENA</td>
-                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
-                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
-                            </tr>
-                            <tr>
-                                <td class="cs-width_1 cs-normal">1</td>
-                                <td class="cs-width_4 cs-normal">Web Design & Developmen</td>
-                                <td class="cs-width_2 cs-normal">S/ 50.85</td>
-                                <td class="cs-width_1 cs-normal">DOCENA</td>
-                                <td class="cs-width_1 cs-normal">AFECT.IGV</td>
-                                <td class="cs-width_2 cs-normal cs-text_right">S/ 50.85</td>
-                            </tr>
+                            {% endfor %} -->
                         </tbody>
                     </table>
                 </div>
 
-                <div class="cs-invoice_footer cs-border_top">
+                <!-- <div class="cs-invoice_footer cs-border_top">
                     <div class="cs-left_footer cs-mobile_hide">
                         <p class="cs-mb0">
-                            <b class="cs-primary_color">SON: SESENTA Y OCHO CON 90/100 SOLES</b>
+                            <b class="cs-primary_color">SON: {{total_letras}}</b>
                         </p>
                     </div>
-                </div>
+                </div> -->
 
 
 
-                <div class="cs-right_footer">
+                <!-- <div class="cs-right_footer">
                     <table>
                         <tbody>
                             <tr class="cs-border_left">
                                 <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                    Subtoal
+                                    Gravada
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                    $1140
+                                    {{subTotal}}
                                 </td>
                             </tr>
                             <tr class="cs-border_left">
+
+                                {%for row in impuestos %}
                                 <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                    Tax
+                                    {{row.nombre}}
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                    -$20
+                                    {{row.valor}}
                                 </td>
+                                {% endfor %}
                             </tr>
                             <tr class="cs-border_left">
                                 <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                    Total Amount
+                                    Total
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                    $1160
+                                    {{total}}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
 
             </div>
         </div>
 
-        <div class="">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png" width="100"
-                alt="Logo" />
+        <br/>
+
+        <div class="cs-text_center">
+            <img class="cs-mb15" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png" width="100" alt="Logo" />
+            
             <p>Consulte su documento electrónico en:</p>
             <p>https://tiquepos2.com/facturacion/consultas/index/5</p>
             <p>HASH: 1s6X8GrYa/IfPLrrgsWF4nL/KjE=</p>
@@ -1022,7 +1212,7 @@
             </p>
         </div>
     </div>
-    
+
 </body>
 
 </html>

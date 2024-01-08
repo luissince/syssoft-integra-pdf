@@ -884,8 +884,7 @@
                 </div>
 
                 <div class="cs-invoice_column cs-text_right">
-                    <img src="https://blog.hubspot.es/hs-fs/hubfs/ES%20Blog%20images/Los%2015%20logos%20m%C3%A1s%20creativos%20e%20inspiradores%20del%20mundo/logo_famoso_starbucks.jpg?width=650&name=logo_famoso_starbucks.jpg"
-                        width="152" alt="Logo" />
+                    <img src="{{logo_emp}}" width="152" alt="Logo" />
                 </div>
             </div>
         </div>
@@ -901,13 +900,12 @@
                 </div>
                 <div class="cs-invoice_column cs-text_right">
                     <b class="cs-primary_color">{{empresa}}</b>
-                    <p>
-                        R.U.C. {{20102020511}}<br>
-                        {{direccion_emp}} <br>
-                        {{ubigeo_emp}} <br>
-                        {{telefono}} <br>
-                        {{email}}
-                    </p>
+                    <p>R.U.C.: {{ruc}}</p>
+                    <p>{{direccion_emp}}</p>
+                    <p>{{ubigeo_emp}}</p>
+                    <p>Telf.: {{telefono}} </p>
+                    <p>Cel.: {{celular}} </p>
+                    <p><i class="flaticon-envelope mr-2"></i>Email: {{email}}</p>
                 </div>
             </div>
         </div>
@@ -946,7 +944,7 @@
                 <div class="cs-invoice_footer cs-border_top">
                     <div class="cs-left_footer cs-mobile_hide">
                         <p class="cs-mb0">
-                            <b class="cs-primary_color">SON: {{total_letas}}</b>
+                            <b class="cs-primary_color">SON: {{total_letras}}</b>
                         </p>
                     </div>
                 </div>
@@ -958,26 +956,37 @@
                         <tbody>
                             <tr class="cs-border_left">
                                 <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                    Subtoal
+                                    Gravada
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                    $1140
+                                    {{subTotal}}
                                 </td>
                             </tr>
                             <tr class="cs-border_left">
-                                <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
+                                <!-- <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
                                     Tax
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
                                     -$20
-                                </td>
+                                </td> -->
+
+                                {%for row in impuestos %}
+                                    <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
+                                        {{row.nombre}}
+                                    </td>
+                                    <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
+                                        {{row.valor}}
+                                    </td>
+
+                                    <!-- <p>{{row.nombre}}: <span class="simbolo_moneda">{{row.valor}}</span></p> -->
+                                {% endfor %}
                             </tr>
                             <tr class="cs-border_left">
                                 <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                    Total Amount
+                                    Total
                                 </td>
                                 <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                    $1160
+                                    {{total}}
                                 </td>
                             </tr>
                         </tbody>

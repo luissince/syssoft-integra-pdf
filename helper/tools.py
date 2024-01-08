@@ -5,13 +5,15 @@ import qrcode
 from io import BytesIO
 import base64
 
-def generar_qr(data_to_encode: str = 'https://pj.syssoftintegra.com/formulario'):
+
+def generar_qr(data_to_encode: str = 'https://www.syssoftintegra.com/formulario'):
 
     qr = qrcode.QRCode(
         version=1,  # Tamaño del código QR (1 a 40)
-        error_correction=qrcode.constants.ERROR_CORRECT_L,  # Nivel de corrección de errores (L, M, Q, H)
+        # Nivel de corrección de errores (L, M, Q, H)
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,  # Tamaño de cada "caja" del código QR
-        border=4,  # Margen del código QR   
+        border=4,  # Margen del código QR
     )
 
     # Añadir los datos al código QR
@@ -32,42 +34,16 @@ def generar_qr(data_to_encode: str = 'https://pj.syssoftintegra.com/formulario')
     return base64_encoded
 
 
-
-
-def calculate_tax_bruto( impuesto: float, monto: float):
+def calculate_tax_bruto(impuesto: float, monto: float) -> Decimal:
     return Decimal(monto) / ((Decimal(impuesto) + Decimal('100')) * Decimal('0.01'))
 
 
-def calculate_tax(porcentaje: float, valor: float):
+def calculate_tax(porcentaje: float, valor: float) -> Decimal:
     igv = Decimal(porcentaje) / Decimal('100.0')
-    return Decimal(valor) * (igv)
+    return Decimal(valor) * igv
 
 
-def impuestos_generados_compra(detalle: CompraDetallePdf):
-    impuestos = {}
-
-    for item in detalle:
-
-        # print(item.cantidad)
-        total = item.cantidad * item.costo
-        sub_total = calculate_tax_bruto(item.porcentaje, total)
-        impuesto_total = calculate_tax(item.porcentaje, sub_total)
-
-        if item.idImpuesto in impuestos:
-            # impuestos[item.idImpuesto]['valor'] += impuesto_total
-            impuestos[item.idImpuesto]['valor'] = impuestos[item.idImpuesto].get('valor', 0) + impuesto_total
-
-        else:
-            impuestos[item.idImpuesto] = {
-                'idImpuesto': item.idImpuesto,
-                'nombre': item.impuesto,
-                'valor': impuesto_total
-            }
-
-    return list(impuestos.values())
-
-
-def number_format(value, currency="PEN"):
+def number_format(value, currency="PEN") -> str:
     formats = [
         {
             'locales': 'es-PE',
@@ -95,7 +71,8 @@ def number_format(value, currency="PEN"):
         },
     ]
 
-    new_format = next((item for item in formats if currency == item['options']['currency']), None)
+    new_format = next((item for item in formats if currency ==
+                      item['options']['currency']), None)
 
     if new_format:
         formatter = "{0:,.2f}".format(value)
@@ -104,6 +81,7 @@ def number_format(value, currency="PEN"):
         return formatted_value + " " + currency
     else:
         return "MN " + format_decimal(value)
+
 
 def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
     is_number = str(amount).replace('.', '').replace('-', '').isdigit()
@@ -132,7 +110,7 @@ def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
     return total
 
 
-def rounded(amount, decimal_count=2):
+def rounded(amount, decimal_count=2) -> str:
     try:
         amount = float(amount)
         decimal_count = abs(int(decimal_count))
@@ -141,22 +119,11 @@ def rounded(amount, decimal_count=2):
     except ValueError:
         return '0'
 
-# def impuestos_generados(detalle):
-#     resultado = []
-#     for item in detalle:
-#         total = item['cantidad'] * item['costo']
-#         sub_total = calculate_tax_bruto(item['porcentaje'], total)
-#         impuesto_total = calculate_tax(item['porcentaje'], sub_total)
 
-#         existing_impuesto = next((imp for imp in resultado if imp['idImpuesto'] == item['idImpuesto']), None)
+def format_number_with_zeros(numero) -> str:
+    # Convierte el número a cadena y maneja números negativos
+    numero_absoluto = abs(numero)
+    numero_formateado = str(numero_absoluto).zfill(6)
 
-#         if existing_impuesto:
-#             existing_impuesto['valor'] += impuesto_total
-#         else:
-#             resultado.append({
-#                 'idImpuesto': item['idImpuesto'],
-#                 'nombre': item['impuesto'],
-#                 'valor': impuesto_total
-#             })
-
-#     return resultado
+    # Añade el signo negativo si el número original era negativo
+    return f"-{numero_formateado}" if numero < 0 else numero_formateado

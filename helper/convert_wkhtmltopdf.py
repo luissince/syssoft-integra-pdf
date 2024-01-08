@@ -1,10 +1,24 @@
 import pdfkit
 import io
+import os
+from jinja2 import Environment, FileSystemLoader
+from dotenv import load_dotenv
 
-def generar_ticket(rendered_template):
+load_dotenv()
+
+config = pdfkit.configuration(wkhtmltopdf=os.getenv("PATH_WKHTMLTOPDF"))
+
+
+def generar_ticket(path_template, name_html, data, count):
+    # Cargar el template de Jinja2
+    env = Environment(loader=FileSystemLoader(path_template))
+    template = env.get_template(name_html)
+
+    # Renderizar el template con los datos
+    rendered_template = template.render(data)
+
     # Opciones de configuración para generar el PDF
-    height = 8.4 + (2 * 0.4)
-    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+    height = 8.6 + (count * 0.6)
     pdf_bytes = pdfkit.from_string(rendered_template, None, options={
         "dpi": '600',
         'image-dpi': 600,
@@ -25,9 +39,16 @@ def generar_ticket(rendered_template):
 
     return io.BytesIO(pdf_bytes)
 
-def generar_a4(rendered_template):
-    # Opciones de configuración para generar el PDF
-    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+
+def generar_a4(path_template, name_html, data):
+    # Cargar el template de Jinja2
+    env = Environment(loader=FileSystemLoader(path_template))
+    template = env.get_template(name_html)
+
+    # Renderizar el template con los datos
+    rendered_template = template.render(data)
+
+    # Generar PDF
     pdf_bytes = pdfkit.from_string(rendered_template, None, options={
         "dpi": '600',
         'image-dpi': 600,

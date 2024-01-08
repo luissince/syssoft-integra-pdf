@@ -1,12 +1,10 @@
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://facturalaya.com/servicio-de-facturacion-electronica/fonts/flaticon/flaticon.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <title>{{title}}</title>
 </head>
@@ -22,8 +20,6 @@
         font-size: 11px;
         position: relative;
     }
-
-
 
     .line-title {
         display: inline-block;
@@ -128,12 +124,16 @@
 
 <body>
     <div class="masthead text-center">
-        <img width="100" src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c516.png" />
+        <div>
+            <img width="100" src="{{logo_emp}}" />
+        </div>
+        <br/>
         <h6 class="font-weight-bold text-uppercase">{{empresa}}</h6>
         <p>R.U.C.: {{ruc}}</p>
         <p>{{direccion_emp}}</p>
         <p>{{ubigeo_emp}}</p>
-        <p>Telf.: {{956672465}} </p>
+        <p>Telf.: {{telefono}} </p>
+        <p>Cel.: {{celular}} </p>
         <p><i class="flaticon-envelope mr-2"></i>Email: {{email}}</p>
 
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
@@ -168,8 +168,8 @@
                 <tr>
                     <td>{{ row.cantidad }}</td>
                     <td>{{ row.producto }}</td>
-                    <td>{{ row.costo }}</td>
-                    <td>{{ row.costo * row.cantidad }}</td>
+                    <td>{{ row.precio }}</td>
+                    <td>{{ row.precio * row.cantidad }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -178,7 +178,10 @@
         <div class="w-100 condiciones-box  mb-1">
             <div class="resumen_totales text-right mt-2" style="font-size: 14px">
                 <p>Gravada: <span class="simbolo_moneda">{{subTotal}}</span></p>
-                <p>IGV : <span class="simbolo_moneda">{{imp_valor}}</span></p>
+                {%for row in impuestos %}
+                    <p>{{row.nombre}}: <span class="simbolo_moneda">{{row.valor}}</span></p>
+                {% endfor %}
+                <!-- <p>IGV : <span class="simbolo_moneda">{{imp_valor}}</span></p> -->
                 <p>Descuento Total: <span class="simbolo_moneda">-</span></p>
                 <p>Total: <span class="simbolo_moneda">{{total}}</span></p>
             </div>
@@ -188,7 +191,7 @@
     <footer class="mt-2">
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
 
-        <p class="texto_12">Importe en Letras: {{total_letas}}</p>
+        <p class="texto_12">Importe en Letras: {{total_letras}}</p>
         <div class="text-center texto_10 mt-2 codigo_qr_ticket">
             <!-- <img width="70px" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png"
                 style="display: block;margin: auto" class="mb-3" /> -->
@@ -202,10 +205,9 @@
         </div>
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
         <div class="text-center mt-2">
-            <img src="https://blog.hubspot.es/hs-fs/hubfs/ES%20Blog%20images/Los%2015%20logos%20m%C3%A1s%20creativos%20e%20inspiradores%20del%20mundo/logo_famoso_starbucks.jpg?width=650&name=logo_famoso_starbucks.jpg"
-                width="120px" class="margin-0">
-            <p class="argin-0" style="font-style: italic">Emitido por: <span class="font-weight-bold">
-                    tiquepos2.com</span></p>
+            <img src="{{logo}}" width="120px" class="margin-0">
+            <br />
+            <a href="https://www.syssoftintegra.com/" class="argin-0" style="font-style: italic">Emitido por: <span class="font-weight-bold">www.syssosftintegra.com</span></a>
         </div>
         <p class="text-danger font-weight-bold text-center">
             Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
