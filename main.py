@@ -2,10 +2,14 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 
 from controller.compra import routerCompra
 from controller.venta import routerVenta
 from controller.guia_remision import routerGuiaRemision
+
+load_dotenv()
 
 base_path_compra = "/api/v1/compra"
 base_path_venta = "/api/v1/venta"
@@ -16,9 +20,7 @@ app.include_router(routerCompra, prefix=base_path_compra)
 app.include_router(routerVenta, prefix=base_path_venta)
 app.include_router(routerGuiaRemision, prefix=base_path_guia_remision)
 
-origins = [
-    "http://localhost:3000",
-]
+origins = [origin.strip() for origin in os.getenv("ORIGINS", "").split(",")]
 
 app.add_middleware(
     CORSMiddleware,

@@ -16,9 +16,9 @@ services:
       - luis
     # Mapeo de puertos: Mapea el puerto 6000 del host al puerto 80 del contenedor
     ports:
-      - 6000:80
+      - 6002:80
     # Nombre del contenedor
-    container_name: sysintegra-pdf
+    container_name: sysintegra-pdf-test
     # Configuración para reiniciar siempre el contenedor
     restart: always
 

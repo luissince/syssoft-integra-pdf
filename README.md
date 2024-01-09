@@ -121,7 +121,7 @@ A continuación, se presenta la configuración de las variables de entorno utili
 
 ```bash
 APP_URL_FILES="http://localhost"
-
+ORIGINS="http://localhost:3000"
 PATH_WKHTMLTOPDF=""
 
 DB_HOST="localhost"

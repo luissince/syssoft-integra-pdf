@@ -19,7 +19,7 @@ DATABASE = os.getenv("DB_DATABASE")
 Base = declarative_base()
 
 # Crear una conexión a la base de datos MySQL
-engine = create_engine(f'mysql+mysqlconnector://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}')
+engine = create_engine(f'mysql+mysqlconnector://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}', pool_pre_ping=True)
 
 # Crear una sesión para interactuar con la base de datos
 Session = sessionmaker(bind=engine)

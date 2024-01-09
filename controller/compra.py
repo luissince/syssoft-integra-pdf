@@ -126,6 +126,7 @@ async def generar_pdf_ticket(id_compra: str):
         # Devolver el PDF como respuesta
         return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_tiket_compra.pdf")
     except Exception as ex:
+        print(str(ex))
         # Manejar errores generales
         return response_custom_error(message="Error de servidor: "+str(ex), code=500)
 
