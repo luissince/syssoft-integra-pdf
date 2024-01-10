@@ -15,7 +15,11 @@ base_path_compra = "/api/v1/compra"
 base_path_venta = "/api/v1/venta"
 base_path_guia_remision = "/api/v1/guiaremision"
 
-app = FastAPI()
+app = FastAPI(
+    openapi_url="/openapi.json",  # Ruta personalizada para el archivo OpenAPI JSON
+    redoc_url=None,  # Desactiva la interfaz ReDoc si no es necesario
+    docs_url="/docs",
+)
 app.include_router(routerCompra, prefix=base_path_compra)
 app.include_router(routerVenta, prefix=base_path_venta)
 app.include_router(routerGuiaRemision, prefix=base_path_guia_remision)
@@ -38,3 +42,7 @@ def index():
 
 
 
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
