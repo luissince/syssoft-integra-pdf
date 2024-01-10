@@ -26,6 +26,8 @@ RUN pip install --upgrade pip
 # Instala las dependencias especificadas en requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt 
 
+RUN python3 --version 
+
 # Expone el puerto 80 en el contenedor
 EXPOSE 80
 
