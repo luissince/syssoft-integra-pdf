@@ -8,7 +8,13 @@ WORKDIR /app
 COPY . /app
 
 # Instala las dependencias especificadas en requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        wkhtmltopdf \
+        xvfb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Expone el puerto 80 en el contenedor
 EXPOSE 80
