@@ -1,5 +1,5 @@
 # Usa una imagen oficial de Python 3.12 como base
-FROM python:3.9-buster
+FROM python:3.12
 
 RUN apt-get update \
     && apt-get install -y \
