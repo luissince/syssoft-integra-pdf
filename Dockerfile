@@ -1,21 +1,14 @@
-# Usa una imagen oficial de Python 3.12 como base
 FROM python:3.12
 
-RUN apt-get update \
-    && apt-get install -y \
-        curl \
-        libxrender1 \
-        libjpeg62-turbo \
-        fontconfig \
-        libxtst6 \
-        xfonts-75dpi \
-        xfonts-base \
-        xz-utils \
-        libssl1.3
-        
-RUN curl "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb" -L -o "wkhtmltopdf.deb"
+# Instalar las dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    libjpeg-turbo8 \
+    libssl1.1
 
-RUN dpkg -i wkhtmltopdf.deb
+# Descargar e instalar wkhtmltopdf 0.12.6
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb \
+    && apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb \
+    && rm ./wkhtmltox_0.12.6-1.focal_amd64.deb
 
 # Establece el directorio de trabajo en /app
 WORKDIR /app
