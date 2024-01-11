@@ -1,5 +1,5 @@
 # Utiliza la imagen base de Ubuntu 20.04
-FROM ubuntu:20.04
+FROM  ubuntu:20.04
 
 RUN apt-get update -y
 
