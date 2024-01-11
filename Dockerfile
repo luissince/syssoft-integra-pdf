@@ -25,17 +25,22 @@ WORKDIR /app
 
 COPY . /app
 
+# Crea y activa el entorno virtual
 RUN python3.12 -m venv myenv
 
-RUN . myenv/bin/activate
+# Copia el script de inicio al directorio de trabajo
+COPY start.sh .
 
-RUN python3 --version
+# Otorga permisos de ejecución al script
+RUN chmod +x start.sh
 
-RUN pip install -r requirements.txt
+# Instala las dependencias desde requirements.txt
+RUN . myenv/bin/activate && pip install -r requirements.txt
 
 EXPOSE 80
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+# Configura el comando principal para ejecutar el script de inicio
+CMD ["./start.sh"]
 
 # # Usa una imagen oficial de Python 3.12 como base
 # FROM python:3.12-slim
