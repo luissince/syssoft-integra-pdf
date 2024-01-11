@@ -1,4 +1,4 @@
-FROM xanderls/python3.12-wkhtmltopdf
+FROM xanderls/python3.12-wkhtmltopdf:1.1.0
 
 COPY . /app
 
