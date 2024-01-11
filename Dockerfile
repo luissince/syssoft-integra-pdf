@@ -29,7 +29,7 @@ RUN python3.12 -m venv myenv
 
 RUN . myenv/bin/activate
 
-RUN python --version
+RUN python3 --version
 
 RUN pip install -r requirements.txt
 
