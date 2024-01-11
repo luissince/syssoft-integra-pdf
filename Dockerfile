@@ -1,25 +1,48 @@
 # Utiliza la imagen base de Ubuntu 20.04
 FROM  ubuntu:20.04
 
-RUN apt-get update -y
+# Actualiza la lista de paquetes e instala dependencias
+RUN apt-get update -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        software-properties-common \
+        wget \
+        python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
+# Añade el repositorio de deadsnakes y actualiza
+RUN add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update -y
 
-RUN apt install python3-pip -y
+# Instala Python 3.12 y herramientas relacionadas
+RUN apt-get install -y --no-install-recommends \
+        python3.12 \
+        python3.12-venv \
+        python3.12-dev
 
-RUN add-apt-repository ppa:deadsnakes/ppa -y
+# Descarga e instala wkhtmltopdf
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb \
+    && apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb -y \
+    && rm wkhtmltox_0.12.6-1.focal_amd64.deb
 
-RUN apt update -y
+# RUN apt-get update -y
 
-RUN apt install python3.12 -y
+# RUN DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
 
-RUN apt install wget -y
+# RUN apt install python3-pip -y
 
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN add-apt-repository ppa:deadsnakes/ppa -y
 
-RUN apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb -y
+# RUN apt update -y
 
-RUN apt-get install python3.12-venv python3.12-dev -y
+# RUN apt install python3.12 -y
+
+# RUN apt install wget -y
+
+# RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+
+# RUN apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb -y
+
+# RUN apt-get install python3.12-venv python3.12-dev -y
 
 WORKDIR /app
 
