@@ -27,7 +27,7 @@ COPY . /app
 
 RUN python3.12 -m venv myenv
 
-RUN source myenv/bin/activate
+RUN . myenv/bin/activate
 
 RUN python --version
 
