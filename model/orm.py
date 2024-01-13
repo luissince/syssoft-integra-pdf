@@ -167,12 +167,6 @@ class Venta(Base):
 
     idVenta = Column(String(12), primary_key=True)
 
-    # idCliente = Column(String(12), nullable=True)
-    # idUsuario = Column(String(12), nullable=True)
-    # idComprobante = Column(String(12), nullable=True)
-    # idSucursal = Column(String(12), nullable=True)
-    # idMoneda = Column(String(12), nullable=False)
-
     idCliente = Column(String(12), ForeignKey('clienteNatural.idCliente'), nullable=True)
     idUsuario = Column(String(12), ForeignKey('usuario.idUsuario'), nullable=True)
     idComprobante = Column(String(12), ForeignKey('comprobante.idComprobante'), nullable=True)
@@ -182,7 +176,7 @@ class Venta(Base):
     serie = Column(String(50), nullable=True)
     numeracion = Column(Integer, nullable=True)
     comentario = Column(String(200), nullable=False)
-    tipo = Column(Integer, nullable=True)
+    idFormaVenta = Column(String(12), nullable=True)
     estado = Column(Integer, nullable=True)
     fecha = Column(Date, nullable=True)
     hora = Column(Time, nullable=True)
