@@ -70,6 +70,10 @@
             top: -0.5em;
         }
 
+        .text-center {
+            text-align: center;
+        }
+
         /* Embedded content
    ========================================================================== */
         /**
@@ -964,12 +968,12 @@
                             </tr>
                             <tr class="cs-border_left">
                                 {%for row in impuestos %}
-                                    <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
-                                        {{row.nombre}}
-                                    </td>
-                                    <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
-                                        {{row.valor}}
-                                    </td>
+                                <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">
+                                    {{row.nombre}}
+                                </td>
+                                <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
+                                    {{row.valor}}
+                                </td>
                                 {% endfor %}
                             </tr>
                             <tr class="cs-border_left">

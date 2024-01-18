@@ -182,7 +182,7 @@ class Venta(Base):
     hora = Column(Time, nullable=True)
     xmlSunat = Column(Text, nullable=True)
     xmlDescripcion = Column(Text, nullable=True)
-    codigoHash = Column(Integer, nullable=True)
+    codigoHash = Column(Text, nullable=True)
     correlativo = Column(Integer, nullable=True)
     fechaCorrelativo = Column(Date, nullable=True)
     xmlGenerado = Column(Text, nullable=True)

@@ -127,7 +127,7 @@
         <div>
             <img width="100" src="{{logo_emp}}" />
         </div>
-        <br/>
+        <br />
         <h6 class="font-weight-bold text-uppercase">{{empresa}}</h6>
         <p>R.U.C.: {{ruc}}</p>
         <p>{{direccion_emp}}</p>
@@ -179,7 +179,7 @@
             <div class="resumen_totales text-right mt-2" style="font-size: 14px">
                 <p>Gravada: <span class="simbolo_moneda">{{subTotal}}</span></p>
                 {%for row in impuestos %}
-                    <p>{{row.nombre}}: <span class="simbolo_moneda">{{row.valor}}</span></p>
+                <p>{{row.nombre}}: <span class="simbolo_moneda">{{row.valor}}</span></p>
                 {% endfor %}
                 <!-- <p>Descuento Total: <span class="simbolo_moneda">-</span></p> -->
                 <p>Total: <span class="simbolo_moneda">{{total}}</span></p>
@@ -192,21 +192,22 @@
 
         <p class="texto_12">Importe en Letras: {{total_letras}}</p>
         <div class="text-center texto_10 mt-2 codigo_qr_ticket">
-            <!-- <img width="70px" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png"
-                style="display: block;margin: auto" class="mb-3" /> -->
-            <img width="70px" src="data:image/png;base64,{{qr_generado}}" 
-                style="display: block;margin: auto" class="mb-3" />
-            <p class="mt-1">Representación Impresa de la Boleta Electrónica<br />
-                Consulte su Documento en:</p>
-            <p>https://tiquepos2.com/facturacion/consultas/index/5
-                HASH: 1s6X8GrYa/IfPLrrgsWF4nL/KjE=</p>
-            <p>VENDEDOR: Demo Tiquepos (cod: 4)</p>
+            <img width="70px" src="data:image/png;base64,{{qr_generado}}" style="display: block;margin: auto"
+                class="mb-3" />
+            <p class="mt-1">Representación Impresa de la Factura Electrónica</p>
+            <p>Consulte su Documento en:</p>
+            <a href="https://ww1.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/consulta">
+                www.consultas-sunat.com
+            </a>
+            <p>HASH: {{codigo_hash}}</p>
+            <p>VENDEDOR: {{usuario}}</p>
         </div>
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
         <div class="text-center mt-2">
             <img src="{{logo}}" width="120px" class="margin-0">
             <br />
-            <a href="https://www.syssoftintegra.com/" class="argin-0" style="font-style: italic">Emitido por: <span class="font-weight-bold">www.syssosftintegra.com</span></a>
+            <a href="https://www.syssoftintegra.com/" class="argin-0" style="font-style: italic">Emitido por: <span
+                    class="font-weight-bold">www.syssosftintegra.com</span></a>
         </div>
         <p class="text-danger font-weight-bold text-center">
             Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!

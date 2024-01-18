@@ -1,12 +1,10 @@
-from model.compra import CompraDetallePdf
 from decimal import Decimal
 
 import qrcode
 from io import BytesIO
 import base64
 
-
-def generar_qr(data_to_encode: str = 'https://www.syssoftintegra.com/formulario'):
+def generar_qr(data_to_encode: str = 'https://www.syssoftintegra.com/'):
 
     qr = qrcode.QRCode(
         version=1,  # Tamaño del código QR (1 a 40)

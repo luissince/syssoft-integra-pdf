@@ -1,4 +1,3 @@
-from model.empresa import Empresa
 from sqlalchemy import func
 from db.connection import Session
 from model.orm import Almacen, Categoria, ClienteNatural, CompraDetalle, Comprobante, Empresa, Compra, Impuesto, Medida, Moneda, Producto, Sucursal, Ubigeo, Usuario
