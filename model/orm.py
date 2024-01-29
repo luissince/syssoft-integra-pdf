@@ -35,7 +35,7 @@ class Compra(Base):
     idComprobante = Column(Integer, ForeignKey('comprobante.idComprobante'))
     idMoneda = Column(Integer, ForeignKey('moneda.idMoneda'))
     idAlmacen = Column(Integer, ForeignKey('almacen.idAlmacen'))
-    idCliente = Column(Integer, ForeignKey('clienteNatural.idCliente'))
+    idPersona = Column(String(12), ForeignKey('persona.idPersona'))
     idUsuario = Column(Integer, ForeignKey('usuario.idUsuario'))
     idSucursal = Column(String(12))
     tipo = Column(String(50))
@@ -46,7 +46,7 @@ class Compra(Base):
     comprobante = relationship('Comprobante')
     moneda = relationship('Moneda')
     almacen = relationship('Almacen')
-    cliente = relationship('ClienteNatural')
+    cliente = relationship('Persona')
     usuario = relationship('Usuario')
 
 class Comprobante(Base):
@@ -67,16 +67,23 @@ class Almacen(Base):
     idAlmacen = Column(String(12), primary_key=True)
     nombre = Column(String(100))
 
-class ClienteNatural(Base):
-    __tablename__ = 'clienteNatural'
-    idCliente = Column(String(12), primary_key=True)
+class Persona(Base):
+    __tablename__ = 'persona'
+    idPersona = Column(String(12), primary_key=True)
+    idTipoCliente = Column(String(12), ForeignKey('tipoCliente.idTipoCliente'), nullable=True)
     idTipoDocumento = Column(String(12), ForeignKey('tipoDocumento.idTipoDocumento'), nullable=True)
     documento = Column(String(50))
     informacion = Column(String(255))
+    cliente = Column(Integer)
+    proveedor = Column(Integer)
+    conductor = Column(Integer)
+    licenciaConducir = Column(String(50))
     telefono = Column(String(20))
     celular = Column(String(20))
     email = Column(String(100))
     direccion = Column(String(255))
+    idUbigeo = Column(Integer, ForeignKey('ubigeo.idUbigeo'))
+    idUsuario = Column(String(12), ForeignKey('usuario.idUsuario'))
 
 class Usuario(Base):
     __tablename__ = 'usuario'
@@ -167,7 +174,7 @@ class Venta(Base):
 
     idVenta = Column(String(12), primary_key=True)
 
-    idCliente = Column(String(12), ForeignKey('clienteNatural.idCliente'), nullable=True)
+    idPersona = Column(String(12), ForeignKey('persona.idPersona'), nullable=True)
     idUsuario = Column(String(12), ForeignKey('usuario.idUsuario'), nullable=True)
     idComprobante = Column(String(12), ForeignKey('comprobante.idComprobante'), nullable=True)
     idSucursal = Column(String(12), ForeignKey('sucursal.idSucursal'), nullable=True)
@@ -176,7 +183,9 @@ class Venta(Base):
     serie = Column(String(50), nullable=True)
     numeracion = Column(Integer, nullable=True)
     comentario = Column(String(200), nullable=False)
-    idFormaVenta = Column(String(12), nullable=True)
+    
+    idFormaPago = Column(String(12), ForeignKey('formaPago.idFormaPago'), nullable=True)
+    
     estado = Column(Integer, nullable=True)
     fecha = Column(Date, nullable=True)
     hora = Column(Time, nullable=True)
@@ -189,12 +198,14 @@ class Venta(Base):
     xmlRespuesta = Column(Text, nullable=True)
 
 
-    cliente = relationship('ClienteNatural')
+    persona = relationship('Persona')
     usuario = relationship('Usuario')
     comprobante = relationship('Comprobante')
 
     sucursal = relationship('Sucursal')
     moneda = relationship('Moneda')
+    
+    formaPago = relationship('FormaPago')
 
 
 class VentaDetalle(Base):
@@ -239,6 +250,20 @@ class Inventario(Base):
     producto = relationship('Producto')
     almacen = relationship('Almacen')
     
+
+class TipoCliente(Base):
+    __tablename__ = 'tipoCliente'
+    
+    idTipoCliente = Column(String(12), primary_key=True)
+    codigo = Column(String(20), nullable=False)
+    nombre = Column(String(100), nullable=False)
+    
+class FormaPago(Base):
+    __tablename__ = 'formaPago'
+    
+    idFormaPago = Column(String(12), primary_key=True)
+    nombre = Column(String(50), nullable=False)
+    descripcion = Column(String(100), nullable=False)
   
 
 

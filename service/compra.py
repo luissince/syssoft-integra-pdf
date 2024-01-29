@@ -1,6 +1,6 @@
 from sqlalchemy import func
 from db.connection import Session
-from model.orm import Almacen, Categoria, ClienteNatural, CompraDetalle, Comprobante, Empresa, Compra, Impuesto, Medida, Moneda, Producto, Sucursal, Ubigeo, Usuario
+from model.orm import Almacen, Categoria, Persona, CompraDetalle, Comprobante, Empresa, Compra, Impuesto, Medida, Moneda, Producto, Sucursal, Ubigeo, Usuario
 from typing import Union
 
 def obtener_empresa() -> Empresa | None:
@@ -43,7 +43,7 @@ def obtener_sucursal(id_sucursal: str) -> Union[Sucursal, Ubigeo, None]:
         db.close()
 
 
-def obtener_compra_por_id(id_compra: str) -> Union[Compra, ClienteNatural, Comprobante, Almacen, Moneda, None]:
+def obtener_compra_por_id(id_compra: str) -> Union[Compra, Persona, Comprobante, Almacen, Moneda, None]:
     try:
         db = Session(expire_on_commit=False)
 
@@ -54,12 +54,12 @@ def obtener_compra_por_id(id_compra: str) -> Union[Compra, ClienteNatural, Compr
             Compra.serie,
             Compra.numeracion,
             Compra.idSucursal,
-            ClienteNatural.documento,
-            ClienteNatural.informacion,
-            ClienteNatural.telefono,
-            ClienteNatural.celular,
-            ClienteNatural.email,
-            ClienteNatural.direccion,
+            Persona.documento,
+            Persona.informacion,
+            Persona.telefono,
+            Persona.celular,
+            Persona.email,
+            Persona.direccion,
             Almacen.nombre.label('almacen'),
             Compra.tipo,
             Compra.estado,
@@ -76,7 +76,7 @@ def obtener_compra_por_id(id_compra: str) -> Union[Compra, ClienteNatural, Compr
         ).join(
             Almacen
         ).join(
-            ClienteNatural
+            Persona
         ).join(
             Usuario
         ).filter(
