@@ -3,46 +3,6 @@ from db.connection import Session
 from model.orm import Almacen, Categoria, Persona, CompraDetalle, Comprobante, Empresa, Compra, Impuesto, Medida, Moneda, Producto, Sucursal, Ubigeo, Usuario
 from typing import Union
 
-def obtener_empresa() -> Empresa | None:
-    try:
-        db = Session(expire_on_commit=False)
-
-        empresa = db.query(
-            Empresa.documento,
-            Empresa.razonSocial,
-            Empresa.nombreEmpresa,
-            Empresa.rutaLogo
-        ).first()
-
-        return empresa
-    finally:
-        db.close()
-
-
-def obtener_sucursal(id_sucursal: str) -> Union[Sucursal, Ubigeo, None]:
-    try:
-        db = Session(expire_on_commit=False)
-
-        sucursal = db.query(
-            Sucursal.telefono,
-            Sucursal.celular,
-            Sucursal.email,
-            Sucursal.paginaWeb,
-            Sucursal.direccion,
-            Ubigeo.departamento,
-            Ubigeo.provincia,
-            Ubigeo.distrito
-        ).join(
-            Ubigeo
-        ).filter(
-            Sucursal.idSucursal == id_sucursal
-        ).first()
-
-        return sucursal
-    finally:
-        db.close()
-
-
 def obtener_compra_por_id(id_compra: str) -> Union[Compra, Persona, Comprobante, Almacen, Moneda, None]:
     try:
         db = Session(expire_on_commit=False)

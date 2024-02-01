@@ -9,7 +9,7 @@ load_dotenv()
 config = pdfkit.configuration(wkhtmltopdf=os.getenv("PATH_WKHTMLTOPDF"))
 
 
-def generar_ticket(path_template, name_html, data, count):
+def generar_ticket(path_template, name_html, data, count, height = 9.5):
     # Cargar el template de Jinja2
     env = Environment(loader=FileSystemLoader(path_template))
     template = env.get_template(name_html)

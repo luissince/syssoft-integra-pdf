@@ -17,6 +17,7 @@ load_dotenv()
 
 tag = "Venta"
 
+
 @routerVenta.get('/ticket/{id_venta}', tags=[tag])
 async def generar_pdf_ticket(id_venta: str):
     try:
@@ -129,7 +130,10 @@ async def generar_pdf_ticket(id_venta: str):
 
         # Generar PDF
         pdf_in_memory = generar_ticket(
-            path_template='templates/venta', name_html='ticket.html', data=data_html, count=len(detalle))
+            path_template='templates/venta',
+            name_html='ticket.html',
+            data=data_html,
+            count=len(detalle))
 
         # Devolver el PDF como respuesta
         return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_tiket_venta.pdf")
@@ -250,7 +254,9 @@ async def generar_pdf_a4(id_venta: str):
 
         # Generar PDF
         pdf_in_memory = generar_a4(
-            path_template='templates/venta', name_html='a4.html', data=data_html)
+            path_template='templates/venta',
+            name_html='a4.html',
+            data=data_html)
 
         # Devolver el PDF como respuesta
         return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_a4_venta.pdf")

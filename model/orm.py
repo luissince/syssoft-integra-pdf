@@ -1,5 +1,6 @@
 from sqlalchemy import  Column, String, Date, Time, Text, Integer, ForeignKey, Boolean, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import Mapped
 from db.connection import Base
 
 class Empresa(Base):
@@ -53,7 +54,10 @@ class Comprobante(Base):
     __tablename__ = 'comprobante'
     idComprobante = Column(String(12), primary_key=True)
     nombre = Column(String(100))
+    serie = Column(String(50))
+    numeracion = Column(Integer) 
     codigo = Column(String(10))
+    impresion = Column(String(100))
 
 class Moneda(Base):
     __tablename__ = 'moneda'
@@ -84,7 +88,7 @@ class Persona(Base):
     direccion = Column(String(255))
     idUbigeo = Column(Integer, ForeignKey('ubigeo.idUbigeo'))
     idUsuario = Column(String(12), ForeignKey('usuario.idUsuario'))
-
+    
 class Usuario(Base):
     __tablename__ = 'usuario'
     idUsuario = Column(String(12), primary_key=True)
@@ -140,6 +144,7 @@ class Producto(Base):
 
     idProducto = Column(String(12), primary_key=True)
     nombre = Column(String)
+    codigo = Column(String(20))
     idMedida = Column(String(12), ForeignKey('medida.idMedida')) 
     idCategoria = Column(String(12), ForeignKey('categoria.idCategoria'))
 
@@ -196,14 +201,13 @@ class Venta(Base):
     fechaCorrelativo = Column(Date, nullable=True)
     xmlGenerado = Column(Text, nullable=True)
     xmlRespuesta = Column(Text, nullable=True)
-
-
+    
     persona = relationship('Persona')
     usuario = relationship('Usuario')
     comprobante = relationship('Comprobante')
 
     sucursal = relationship('Sucursal')
-    moneda = relationship('Moneda')
+    moneda:Mapped[Moneda] = relationship('Moneda')
     
     formaPago = relationship('FormaPago')
 
@@ -265,6 +269,79 @@ class FormaPago(Base):
     nombre = Column(String(50), nullable=False)
     descripcion = Column(String(100), nullable=False)
   
+class GuiaRemision(Base):
+    __tablename__ = 'guiaRemision'
 
+    idGuiaRemision = Column(String(12), primary_key=True)
+    idSucursal = Column(String(12), ForeignKey('sucursal.idSucursal'), nullable=True)
+    idVenta = Column(String(12), ForeignKey('venta.idVenta'), nullable=True)
+    idComprobante = Column(String(12), ForeignKey('comprobante.idComprobante'), nullable=True)
+    serie = Column(String(50), nullable=False)
+    numeracion = Column(Integer, nullable=False)
+    idModalidadTraslado = Column(String(12), nullable=False)
+    idMotivoTraslado = Column(String(12), nullable=False)
+    fechaTraslado = Column(Date, nullable=False)
+    idTipoPeso = Column(String(12), nullable=False)
+    peso = Column(Float, nullable=False)
+    idVehiculo = Column(String(12), nullable=False)
+    idConductor = Column(String(12), nullable=False)
+    direccionPartida = Column(Text, nullable=False)
+    idUbigeoPartida = Column(Integer, nullable=False)
+    direccionLlegada = Column(Text, nullable=False)
+    idUbigeoLlegada = Column(Integer, nullable=False)
+    fecha = Column(Date, nullable=False)
+    hora = Column(Time, nullable=False)
+    estado = Column(Boolean, nullable=False)
+    idUsuario = Column(String(12), nullable=False)
+    xmlSunat = Column(Text, default=None)
+    xmlDescripcion = Column(Text, default=None)
+    codigoHash = Column(Text, default=None)
+    xmlGenerado = Column(Text, default=None)
+    numeroTicketSunat = Column(Text, default=None)
+    
+    sucursal = relationship('Sucursal')
+    venta = relationship('Venta')
+    comprobante = relationship('Comprobante')
 
+class GuiaRemisionDetalle(Base):
+    __tablename__ = 'guiaRemisionDetalle'
+
+    idGuiaRemisionDetalle = Column(Integer, primary_key=True)
+    idGuiaRemision = Column(String(12), nullable=False)
+    idProducto = Column(String(12), nullable=False)
+    cantidad = Column(Float, nullable=False)
+    peso = Column(Float, nullable=False)
+    
+class ModalidadTraslado(Base):
+    __tablename__ = 'modalidadTraslado'
+
+    idModalidadTraslado = Column(String(12), primary_key=True)
+    codigo = Column(String(50), nullable=False)
+    nombre = Column(String(100), nullable=False)
+    
+class MotivoTraslado(Base):
+    __tablename__ = 'motivoTraslado'
+
+    idMotivoTraslado = Column(String(12), primary_key=True)
+    codigo = Column(String(20), nullable=False)
+    nombre = Column(String(200), nullable=False)
+    
+class TipoPeso(Base):
+    __tablename__ = 'tipoPeso'
+
+    idTipoPeso = Column(String(12), primary_key=True)
+    codigo = Column(String(50), nullable=False)
+    nombre = Column(String(100), nullable=False)
+    
+class Vehiculo(Base):
+    __tablename__ = 'vehiculo'
+
+    idVehiculo = Column(String(12), primary_key=True)
+    marca = Column(String(100), nullable=False)
+    numeroPlaca = Column(String(50), nullable=False)
+    preferido = Column(Boolean, nullable=False)
+    estado = Column(Boolean, nullable=False)
+    fecha = Column(Date, nullable=False)
+    hora = Column(Time, nullable=False)
+    idUsuario = Column(String(12), nullable=False)
 

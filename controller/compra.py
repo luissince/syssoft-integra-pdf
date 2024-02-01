@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 from dotenv import load_dotenv
 import os
-from service.compra import obtener_compra_detalle_por_id, obtener_compra_por_id, obtener_empresa, obtener_sucursal
+from service.compra import obtener_compra_detalle_por_id, obtener_compra_por_id
+from service.sucursal import obtener_sucursal
+from service.empresa import obtener_empresa
 from model.response import response_custom_error, response_custom_pdf
 from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
 from helper.tools import generar_qr, calculate_tax_bruto, calculate_tax, rounded

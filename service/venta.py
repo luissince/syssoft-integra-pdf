@@ -3,7 +3,6 @@ from db.connection import Session
 from model.orm import Categoria, Persona, Comprobante, Venta, VentaDetalle, Impuesto, Medida, Moneda, Producto, Usuario, TipoDocumento, FormaPago
 from typing import Union
 
-
 def obtener_venta_por_id(id_venta: str) -> Union[Venta, Persona, Usuario, TipoDocumento, Comprobante, Moneda, FormaPago, None]:
     try:
         db = Session(expire_on_commit=False)

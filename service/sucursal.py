@@ -5,7 +5,7 @@ from typing import Union
 def obtener_sucursal(id_sucursal: str) -> Union[Sucursal, Ubigeo, None]:
     try:
         db = Session(expire_on_commit=False)
-
+   
         sucursal = db.query(
             Sucursal.telefono,
             Sucursal.celular,
