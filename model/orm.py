@@ -310,7 +310,6 @@ class GuiaRemisionDetalle(Base):
     idGuiaRemision = Column(String(12), nullable=False)
     idProducto = Column(String(12), nullable=False)
     cantidad = Column(Float, nullable=False)
-    peso = Column(Float, nullable=False)
     
 class ModalidadTraslado(Base):
     __tablename__ = 'modalidadTraslado'

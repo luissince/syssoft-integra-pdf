@@ -104,7 +104,6 @@ def obtener_guia_remision_detalle_por_id(id_guia_remision: str):
             Producto.codigo,
             Producto.nombre,
             GuiaRemisionDetalle.cantidad,
-            GuiaRemisionDetalle.peso,
             Medida.nombre.label('medida')
         ).join(
             Producto,
