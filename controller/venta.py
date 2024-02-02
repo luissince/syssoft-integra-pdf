@@ -230,8 +230,8 @@ async def generar_pdf_a4(id_venta: str):
 
         # Crear diccionario de datos para el template HTML
         data_html = {
-            # "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
-            # "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
+            "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
+            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "title": f"{venta.comprobante} {venta.serie}-{format_number_with_zeros(venta.numeracion)}",
             "empresa": empresa.razonSocial,
             "ruc": empresa.documento,
