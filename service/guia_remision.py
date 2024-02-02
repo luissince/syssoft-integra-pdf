@@ -86,7 +86,7 @@ def obtener_guia_remision_por_id(id_guia_remision: str) -> GuiaRemisionResponse:
             Venta.idComprobante == comporbante_venta.idComprobante
         ).join(
             persona_cliente,
-            Venta.idPersona == persona_cliente.idPersona
+            Venta.idCliente == persona_cliente.idPersona
         ).filter(
             GuiaRemision.idGuiaRemision == id_guia_remision
         ).one()

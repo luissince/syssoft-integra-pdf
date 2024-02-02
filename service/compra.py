@@ -36,7 +36,8 @@ def obtener_compra_por_id(id_compra: str) -> Union[Compra, Persona, Comprobante,
         ).join(
             Almacen
         ).join(
-            Persona
+            Persona,
+            Persona.idPersona == Compra.idProveedor
         ).join(
             Usuario
         ).filter(

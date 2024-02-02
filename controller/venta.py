@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from dotenv import load_dotenv
 import os
+from service.banco import obtener_bancos
 from service.venta import obtener_venta_por_id, obtener_venta_detalle_por_id
 from service.sucursal import obtener_sucursal
 from service.empresa import obtener_empresa
@@ -100,6 +101,7 @@ async def generar_pdf_ticket(id_venta: str):
         # Crear diccionario de datos para el template HTML
         data_html = {
             "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
+            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "title": f"{venta.comprobante} {venta.serie}-{format_number_with_zeros(venta.numeracion)}",
             "empresa": empresa.razonSocial,
             "ruc": empresa.documento,
@@ -112,17 +114,21 @@ async def generar_pdf_ticket(id_venta: str):
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
             "forma_pago": venta.formaPago,
+            
             "fecha": venta.fecha,
             "hora": venta.hora,
             "informacion": venta.informacion,
             "documento": venta.documento,
             "direccion": venta.direccion,
+            
+            "simbolo": venta.simbolo,
+            "codiso": venta.codiso, 
+            
             "result_list": detalle,
             "subTotal": sub_total,
             "impuestos": impuestos,
             "total": total,
             "total_letras": letras,
-            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "qr_generado": qr_generado,
             "codigo_hash": '' if venta.codigoHash is None else venta.codigoHash,
             "usuario": venta.usuario
@@ -155,6 +161,7 @@ async def generar_pdf_a4(id_venta: str):
         # Obtener datos de la empresa y sucursal
         empresa = obtener_empresa()
         sucursal = obtener_sucursal(venta.idSucursal)
+        bancos = obtener_bancos()
 
         # Obtener detalles de la compra
         detalle = obtener_venta_detalle_por_id(id_venta)
@@ -223,7 +230,8 @@ async def generar_pdf_a4(id_venta: str):
 
         # Crear diccionario de datos para el template HTML
         data_html = {
-            "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
+            # "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
+            # "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "title": f"{venta.comprobante} {venta.serie}-{format_number_with_zeros(venta.numeracion)}",
             "empresa": empresa.razonSocial,
             "ruc": empresa.documento,
@@ -231,25 +239,34 @@ async def generar_pdf_a4(id_venta: str):
             "ubigeo_emp": f"{sucursal.departamento} - {sucursal.provincia} - {sucursal.distrito}",
             "telefono": sucursal.telefono,
             "celular": sucursal.celular,
+            "contacto": f"{sucursal.telefono} {sucursal.celular}",
             "email": sucursal.email,
+            "web_email": f"{sucursal.paginaWeb} | {sucursal.email}",
+
             "comprobante": venta.comprobante,
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
+
             "forma_pago": venta.formaPago,
             "fecha": venta.fecha,
             "hora": venta.hora,
             "informacion": venta.informacion,
             "documento": venta.documento,
             "direccion": venta.direccion,
+            
+            "simbolo": venta.moneda,
+            "codiso": venta.codiso, 
+            
             "result_list": detalle,
             "subTotal": sub_total,
             "impuestos": impuestos,
             "total": total,
             "total_letras": letras,
-            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "qr_generado": qr_generado,
             "codigo_hash": '' if venta.codigoHash is None else venta.codigoHash,
-            "usuario": venta.usuario
+            "usuario": venta.usuario,
+            
+            "bancos": bancos
         }
 
         # Generar PDF

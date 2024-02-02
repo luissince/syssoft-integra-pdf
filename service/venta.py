@@ -32,7 +32,7 @@ def obtener_venta_por_id(id_venta: str) -> Union[Venta, Persona, Usuario, TipoDo
             FormaPago.nombre.label('formaPago')
         ).join(
             Persona,
-            Persona.idPersona == Venta.idPersona
+            Persona.idPersona == Venta.idCliente
         ).join(
             Usuario,
             Usuario.idUsuario == Venta.idUsuario

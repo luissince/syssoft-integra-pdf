@@ -15,7 +15,6 @@ load_dotenv()
 
 tag = "GuiaRemision"
 
-
 @routerGuiaRemision.get('/ticket/{id_guia_remision}', tags=[tag])
 async def generar_pdf_ticket(id_guia_remision: str):
     try:

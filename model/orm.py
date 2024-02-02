@@ -36,7 +36,7 @@ class Compra(Base):
     idComprobante = Column(Integer, ForeignKey('comprobante.idComprobante'))
     idMoneda = Column(Integer, ForeignKey('moneda.idMoneda'))
     idAlmacen = Column(Integer, ForeignKey('almacen.idAlmacen'))
-    idPersona = Column(String(12), ForeignKey('persona.idPersona'))
+    idProveedor = Column(String(12), ForeignKey('persona.idPersona'))
     idUsuario = Column(Integer, ForeignKey('usuario.idUsuario'))
     idSucursal = Column(String(12))
     tipo = Column(String(50))
@@ -179,7 +179,7 @@ class Venta(Base):
 
     idVenta = Column(String(12), primary_key=True)
 
-    idPersona = Column(String(12), ForeignKey('persona.idPersona'), nullable=True)
+    idCliente = Column(String(12), ForeignKey('persona.idPersona'), nullable=True)
     idUsuario = Column(String(12), ForeignKey('usuario.idUsuario'), nullable=True)
     idComprobante = Column(String(12), ForeignKey('comprobante.idComprobante'), nullable=True)
     idSucursal = Column(String(12), ForeignKey('sucursal.idSucursal'), nullable=True)
@@ -344,3 +344,22 @@ class Vehiculo(Base):
     hora = Column(Time, nullable=False)
     idUsuario = Column(String(12), nullable=False)
 
+class Banco(Base):
+    __tablename__ = 'banco'
+
+    idBanco = Column(String(12), primary_key=True)
+    nombre = Column(String(50), nullable=False)
+    tipoCuenta = Column(String(50), nullable=False)
+    idMoneda = Column(String(12), nullable=False)
+    numCuenta = Column(String(30), nullable=False)
+    idSucursal = Column(String(12), nullable=False)
+    cci = Column(String(50), nullable=False)
+    preferido = Column(Boolean, nullable=False)
+    vuelto = Column(Boolean, nullable=False)
+    reporte = Column(Boolean, nullable=False)
+    estado = Column(Boolean, nullable=False)
+    fecha = Column(Date, nullable=False)
+    hora = Column(Time, nullable=False)
+    fupdate = Column(Date, nullable=False)
+    hupdate = Column(Time, nullable=False)
+    idUsuario = Column(String(12), nullable=False)
