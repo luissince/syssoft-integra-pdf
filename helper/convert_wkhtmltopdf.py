@@ -18,7 +18,7 @@ def generar_ticket(path_template, name_html, data, count, height = 9.5):
     rendered_template = template.render(data)
 
     # Opciones de configuración para generar el PDF
-    height = 9.5 + (count * 1.0)
+    page_height = height + (count * 1.0)
     pdf_bytes = pdfkit.from_string(rendered_template, None, options={
         "dpi": '600',
         'image-dpi': 600,
@@ -34,7 +34,7 @@ def generar_ticket(path_template, name_html, data, count, height = 9.5):
         "margin-top": "2mm",
         "margin-bottom": "5mm",
         "page-width": '3.07087',
-        "page-height": str(height) + "in",
+        "page-height": str(page_height) + "in",
     }, configuration=config)
 
     return io.BytesIO(pdf_bytes)
