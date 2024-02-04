@@ -9,7 +9,6 @@ from model.response import response_custom_error, response_custom_pdf
 from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
 from helper.tools import format_number_with_zeros, generar_qr, calculate_tax_bruto, calculate_tax, rounded
 from helper.convertir_letras_numero import ConvertirMonedaCadena
-
 from decimal import Decimal, ROUND_HALF_UP
 
 routerVenta = APIRouter()
@@ -17,7 +16,6 @@ routerVenta = APIRouter()
 load_dotenv()
 
 tag = "Venta"
-
 
 @routerVenta.get('/ticket/{id_venta}', tags=[tag])
 async def generar_pdf_ticket(id_venta: str):

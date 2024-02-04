@@ -8,7 +8,6 @@ from model.response import response_custom_error, response_custom_pdf
 from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
 from helper.tools import generar_qr, calculate_tax_bruto, calculate_tax, rounded
 from helper.convertir_letras_numero import ConvertirMonedaCadena
-
 from decimal import Decimal, ROUND_HALF_UP
 
 routerCompra = APIRouter()

@@ -8,7 +8,6 @@ from model.response import response_custom_error, response_custom_pdf
 from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
 from service.sucursal import obtener_sucursal
 
-
 routerGuiaRemision = APIRouter()
 
 load_dotenv()
@@ -28,8 +27,8 @@ async def generar_pdf_ticket(id_guia_remision: str):
 
         detalle = obtener_guia_remision_detalle_por_id(id_guia_remision)
 
-        qr_generado = generar_qr(
-            f"https://e-factura.sunat.gob.pe/v1/contribuyente/gre/comprobantes/descargaqr?hashqr={guia_remision.codigoHash}")
+        qr_generado = generar_qr(guia_remision.codigoHash)
+        
         data_html = {
             "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
@@ -102,8 +101,8 @@ async def generar_pdf_a4(id_guia_remision: str):
 
         detalle = obtener_guia_remision_detalle_por_id(id_guia_remision)
 
-        qr_generado = generar_qr(
-            f"https://e-factura.sunat.gob.pe/v1/contribuyente/gre/comprobantes/descargaqr?hashqr={guia_remision.codigoHash}")
+        qr_generado = generar_qr(guia_remision.codigoHash)
+        
         data_html = {
             "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
             "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
