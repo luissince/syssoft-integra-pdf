@@ -1,0 +1,80 @@
+name: Docker Image CI - SysSoftIntegra Pdf
+
+on:
+  push:
+    branches: [ "master", "test"]
+
+jobs:
+  build-and-deploy-app-test:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/test'
+    runs-on: self-hosted
+    environment: desarrollo
+
+    env:  
+      APP_URL_FILES: ${{ secrets.APP_URL_FILES }}
+      ORIGINS: ${{ secrets.ORIGINS }}
+      PATH_WKHTMLTOPDF: ${{ secrets.PATH_WKHTMLTOPDF }}
+      
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Copiar .env.example a .env
+        run: cp .env.example .env
+
+      - name: Configurar valores en .env
+        run: |
+          sed -i "s~APP_URL_FILES=.*~APP_URL_FILES=${APP_URL_FILES}~" .env
+          sed -i "s~ORIGINS=.*~ORIGINS=${ORIGINS}~" .env
+          sed -i "s~PATH_WKHTMLTOPDF=.*~PATH_WKHTMLTOPDF=${PATH_WKHTMLTOPDF}~" .env
+          sed -i "s~DB_DATABASE=.*~DB_DATABASE=${DB_DATABASE}~" .env
+          sed -i "s~DB_HOST=.*~DB_HOST=${DB_HOST}~" .env
+          sed -i "s~DB_PASSWORD=.*~DB_PASSWORD=${DB_PASSWORD}~" .env
+          sed -i "s~DB_PORT=.*~DB_PORT=${DB_PORT}~" .env
+          sed -i "s~DB_USER=.*~DB_USER=${DB_USER}~" .env
+
+      - name: Creando y ejecutando contenedor
+        run: docker compose -f docker-compose.yml up --build sysintegra-pdf-services -d
+
+  build-and-deploy-app-legrand-tiquepos:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: self-hosted
+    environment: legrand-tiquepos
+
+    env:  
+      APP_URL_FILES: ${{ secrets.APP_URL_FILES }}
+      ORIGINS: ${{ secrets.ORIGINS }}
+      PATH_WKHTMLTOPDF: ${{ secrets.PATH_WKHTMLTOPDF }}
+      
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Copiar .env.example a .env
+        run: cp .env.example .env
+
+      - name: Configurar valores en .env
+        run: |
+          sed -i "s~APP_URL_FILES=.*~APP_URL_FILES=${APP_URL_FILES}~" .env
+          sed -i "s~ORIGINS=.*~ORIGINS=${ORIGINS}~" .env
+          sed -i "s~PATH_WKHTMLTOPDF=.*~PATH_WKHTMLTOPDF=${PATH_WKHTMLTOPDF}~" .env
+          sed -i "s~DB_DATABASE=.*~DB_DATABASE=${DB_DATABASE}~" .env
+          sed -i "s~DB_HOST=.*~DB_HOST=${DB_HOST}~" .env
+          sed -i "s~DB_PASSWORD=.*~DB_PASSWORD=${DB_PASSWORD}~" .env
+          sed -i "s~DB_PORT=.*~DB_PORT=${DB_PORT}~" .env
+          sed -i "s~DB_USER=.*~DB_USER=${DB_USER}~" .env
+
+      - name: Creando y ejecutando contenedor
+        run: docker compose -f docker-compose.yml up --build legrand-tiquepos-pdf-services -d
