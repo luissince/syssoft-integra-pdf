@@ -21,4 +21,4 @@ EXPOSE 80
 
 # Ejecuta el script start.sh cuando se inicie el contenedor
 # CMD ["./start.sh"]
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
