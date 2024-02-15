@@ -1,5 +1,6 @@
 from decimal import Decimal
-
+import re
+from datetime import datetime
 import qrcode
 from io import BytesIO
 import base64
@@ -39,46 +40,6 @@ def calculate_tax_bruto(impuesto: float, monto: float) -> Decimal:
 def calculate_tax(porcentaje: float, valor: float) -> Decimal:
     igv = Decimal(porcentaje) / Decimal('100.0')
     return Decimal(valor) * igv
-
-
-def number_format(value, currency="PEN") -> str:
-    formats = [
-        {
-            'locales': 'es-PE',
-            'options': {
-                'style': 'currency',
-                'currency': 'PEN',
-                'minimumFractionDigits': 2,
-            },
-        },
-        {
-            'locales': 'en-US',
-            'options': {
-                'style': 'currency',
-                'currency': 'USD',
-                'minimumFractionDigits': 2,
-            },
-        },
-        {
-            'locales': 'de-DE',
-            'options': {
-                'style': 'currency',
-                'currency': 'EUR',
-                'minimumFractionDigits': 2,
-            },
-        },
-    ]
-
-    new_format = next((item for item in formats if currency ==
-                      item['options']['currency']), None)
-
-    if new_format:
-        formatter = "{0:,.2f}".format(value)
-        formatted_value = formatter.replace(",", "").replace(".", ",")
-
-        return formatted_value + " " + currency
-    else:
-        return "MN " + format_decimal(value)
 
 
 def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
@@ -125,3 +86,18 @@ def format_number_with_zeros(numero) -> str:
 
     # Añade el signo negativo si el número original era negativo
     return f"-{numero_formateado}" if numero < 0 else numero_formateado
+
+def is_valid_date(date_str):
+    try:
+        datetime.fromisoformat(date_str)
+        return True
+    except ValueError:
+        return False
+    
+# def is_date(fecha: str)->bool:
+#     patron_fecha = r'\b\d{4}-\d{2}-\d{2}\b'
+#     match = re.search(patron_fecha, fecha)
+#     if match:
+#         return True
+#     else:
+#         return False

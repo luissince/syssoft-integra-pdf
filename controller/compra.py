@@ -16,7 +16,6 @@ load_dotenv()
 
 tagCompra = "Compra"
 
-
 @routerCompra.get('/ticket/{id_compra}', tags=[tagCompra])
 async def generar_pdf_ticket(id_compra: str):
     try:
