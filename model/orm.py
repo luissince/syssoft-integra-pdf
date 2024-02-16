@@ -20,6 +20,7 @@ class Empresa(Base):
     claveCertificadoSunat = Column(String(20), default=None)
     idApiSunat = Column(Text, default=None)
     claveApiSunat = Column(Text, default=None)
+    tipoEnvio = Column(Boolean, default=False)
     fecha = Column(Date, nullable=False)
     hora = Column(Time, nullable=False)
     fupdate = Column(Date, nullable=False)

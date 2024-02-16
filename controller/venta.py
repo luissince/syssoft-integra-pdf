@@ -17,6 +17,7 @@ load_dotenv()
 
 tag = "Venta"
 
+
 @routerVenta.get('/ticket/{id_venta}', tags=[tag])
 async def generar_pdf_ticket(id_venta: str):
     try:
@@ -112,16 +113,16 @@ async def generar_pdf_ticket(id_venta: str):
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
             "forma_pago": venta.formaPago,
-            
+
             "fecha": venta.fecha,
             "hora": venta.hora,
             "informacion": venta.informacion,
             "documento": venta.documento,
             "direccion": venta.direccion,
-            
+
             "simbolo": venta.simbolo,
-            "codiso": venta.codiso, 
-            
+            "codiso": venta.codiso,
+
             "result_list": detalle,
             "subTotal": sub_total,
             "impuestos": impuestos,
@@ -129,7 +130,9 @@ async def generar_pdf_ticket(id_venta: str):
             "total_letras": letras,
             "qr_generado": qr_generado,
             "codigo_hash": '' if venta.codigoHash is None else venta.codigoHash,
-            "usuario": venta.usuario
+            "usuario": venta.usuario,
+
+            "tipo_envio": empresa.tipoEnvio
         }
 
         # Generar PDF
@@ -251,10 +254,10 @@ async def generar_pdf_a4(id_venta: str):
             "informacion": venta.informacion,
             "documento": venta.documento,
             "direccion": venta.direccion,
-            
+
             "simbolo": venta.moneda,
-            "codiso": venta.codiso, 
-            
+            "codiso": venta.codiso,
+
             "result_list": detalle,
             "subTotal": sub_total,
             "impuestos": impuestos,
@@ -263,7 +266,9 @@ async def generar_pdf_a4(id_venta: str):
             "qr_generado": qr_generado,
             "codigo_hash": '' if venta.codigoHash is None else venta.codigoHash,
             "usuario": venta.usuario,
-            
+
+            "tipo_envio": empresa.tipoEnvio,
+
             "bancos": bancos
         }
 

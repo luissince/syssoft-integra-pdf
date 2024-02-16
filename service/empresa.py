@@ -9,7 +9,8 @@ def obtener_empresa() -> Empresa | None:
             Empresa.documento,
             Empresa.razonSocial,
             Empresa.nombreEmpresa,
-            Empresa.rutaLogo
+            Empresa.rutaLogo,
+            Empresa.tipoEnvio
         ).first()
 
         return empresa

@@ -210,7 +210,11 @@
                     class="font-weight-bold">www.syssosftintegra.com</span></a>
         </div>
         <p class="text-danger font-weight-bold text-center">
-            Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
+            {%if tipo_envio %}
+                Representación Impresa de Documento Electrónico Generado!
+            {%else%}
+                Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
+            {%endif %}
         </p>
     </footer>
 
