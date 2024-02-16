@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: Dockerfile
     # Nombre de la imagen resultante
-    image: sysintegra-pdf-image
+    image: legrand-tiquepos-pdf-image
     # Conexión a la red llamada 'luis'
     networks:
       - luis
@@ -48,7 +48,7 @@ services:
       context: .
       dockerfile: Dockerfile
     # Nombre de la imagen resultante
-    image: sysintegra-pdf-image
+    image: raices-pdf-image
     # Conexión a la red llamada 'luis'
     networks:
       - luis

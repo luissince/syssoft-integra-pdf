@@ -1,0 +1,223 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <title>{{title}}</title>
+</head>
+<style>
+    @page {
+        margin: 20px !important;
+    }
+
+    body {
+        font-family: Arial Narrow, Arial, sans-serif;
+        margin: 10px;
+        color: #000;
+        font-size: 11px;
+        position: relative;
+    }
+
+    .line-title {
+        display: inline-block;
+        width: 80px;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 11px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 11px !important;
+    }
+
+    th {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px dashed #000;
+        border-top: 1px dashed #000;
+    }
+
+    td {
+        padding: 3px;
+    }
+
+    .tb_resumen_totales {
+        width: 60%;
+        margin: 5px;
+        font-size: 11px !important;
+
+    }
+
+    .tb_resumen_totales td,
+    .tb_resumen_totales th {
+        border: none !important;
+        padding: 0px;
+    }
+
+    .codigo_qr_ticket p {
+        font-size: 11px;
+    }
+
+    .masthead p {
+        font-size: 11px;
+    }
+
+    .table-main-head th {
+        font-weight: 200;
+    }
+
+    /* tamaño de letra */
+    .texto_12 {
+        font-size: 11px !important;
+    }
+
+    .texto_14_bold {
+        font-size: 11px !important;
+        font-weight: bold !important;
+    }
+
+    .texto_11 {
+        font-size: 11px !important;
+    }
+
+    .texto_10 {
+        font-size: 10px !important;
+    }
+
+    [class^="flaticon-"]:before,
+    [class*=" flaticon-"]:before,
+    [class^="flaticon-"]:after,
+    [class*=" flaticon-"]:after {
+        font-family: Flaticon;
+        font-size: 11px;
+        font-style: normal;
+        margin-left: 20px;
+    }
+
+    .codigo_qr_ticket {
+        -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    .table-main-head .td_descripcion {
+        -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+</style>
+
+<body>
+    <div class="masthead text-center">
+        <div>
+            <img width="100" src="{{logo_emp}}" />
+        </div>
+        <br />
+        <h6 class="font-weight-bold text-uppercase">{{empresa}}</h6>
+        <p>R.U.C.: {{ruc}}</p>
+        <p>{{direccion_emp}}</p>
+        <p>{{ubigeo_emp}}</p>
+        <p>Telf.: {{telefono}} </p>
+        <p>Cel.: {{celular}} </p>
+        <p><i class="flaticon-envelope mr-2"></i>Email: {{email}}</p>
+
+        <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
+    </div>
+
+    <div class="text-center">
+        <p class="font-weight-bold text-uppercase">{{comprobante}}
+        <p></p>
+        <p class="font-weight-bold">{{serie}} - {{numeracion}}</p>
+    </div>
+
+    <div class="text-left">
+        <!-- <p class="font-weight-bold text-uppercase">{{comprobante}}<p>
+        <p class="font-weight-bold">{{serie}} - {{numeracion}}</p> -->
+        <p><span class="font-weight-bold">Fecha de Emisión: </span> {{fecha}} {{hora}}</p>
+        <p><span class="font-weight-bold">Nombre:</span> {{informacion}}</p>
+        <p><span class="font-weight-bold">RUC / D.N.I.</span> {{documento}}</p>
+        <p><span class="font-weight-bold">Dirección:</span> {{direccion}}</p>
+        <p><span class="text-theme-default font-weight-bold">Forma de pago: </span> {{forma_pago}}</p>
+    </div>
+
+    <div class="table-content">
+        <table class="table-main-head mt-2">
+            <tbody>
+                <tr class="font-weight-bold mb-4">
+                    <th>Cant.</th>
+                    <th>Descripción</th>
+                    <th>Costo </th>
+                    <th>Importe</th>
+                </tr>
+                {% for row in result_list %}
+                <tr>
+                    <td>{{ row.cantidad }}</td>
+                    <td>{{ row.producto }}</td>
+                    <td>{{ row.precio }}</td>
+                    <td>{{ row.precio * row.cantidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
+        <div class="w-100 condiciones-box  mb-1">
+            <div class="resumen_totales text-right mt-2" style="font-size: 14px">
+                <p>Gravada: <span class="simbolo_moneda">{{subTotal}}</span></p>
+                {%for row in impuestos %}
+                <p>{{row.nombre}}: <span class="simbolo_moneda">{{row.valor}}</span></p>
+                {% endfor %}
+                <!-- <p>Descuento Total: <span class="simbolo_moneda">-</span></p> -->
+                <p>Total: <span class="simbolo_moneda">{{total}}</span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-2">
+        <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
+
+        <p class="texto_12">Importe en Letras: {{total_letras}}</p>
+        <div class="text-center texto_10 mt-2 codigo_qr_ticket">
+            <img width="100px" src="data:image/png;base64,{{qr_generado}}" style="display: block;margin: auto"
+                class="mb-3" />
+            <p class="mt-1">Representación Impresa de la Factura Electrónica</p>
+            <p>Consulte su Documento en:</p>
+            <a href="https://ww1.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/consulta">
+                www.consultas-sunat.com
+            </a>
+            <p>HASH: {{codigo_hash}}</p>
+            <p>VENDEDOR: {{usuario}}</p>
+        </div>
+        <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
+        <div class="text-center mt-2">
+            <img src="{{logo}}" width="70px" class="margin-0">
+            <br />
+            <a href="https://www.syssoftintegra.com/" class="argin-0" style="font-style: italic">Emitido por: <span
+                    class="font-weight-bold">www.syssosftintegra.com</span></a>
+        </div>
+        <p class="text-danger font-weight-bold text-center">
+            {%if tipo_envio %}
+                Representación Impresa de Documento Electrónico Generado!
+            {%else%}
+                Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
+            {%endif %}
+        </p>
+    </footer>
+
+</body>
+
+</html>
