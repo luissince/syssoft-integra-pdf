@@ -1,0 +1,5 @@
+class FormaPago:
+    CONTADO = 'FP0001'
+    CREDITO_FIJO = 'FP0002'
+    CREDITO_VARIABLE = 'FP0003'
+    ADELANTADO = 'FP0004'

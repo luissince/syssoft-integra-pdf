@@ -25,6 +25,8 @@ def obtener_venta_por_id(id_venta: str) -> Union[Venta, Persona, Usuario, TipoDo
             func.DATE_FORMAT(Venta.fecha, '%Y-%m-%d').label('fechaQR'),
             Venta.hora,
             Venta.idFormaPago,
+            Venta.numeroCuota,
+            Venta.frecuenciaPago,
             Venta.estado,
             Moneda.simbolo,
             Moneda.codiso,

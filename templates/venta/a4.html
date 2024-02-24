@@ -310,6 +310,11 @@
             font-size: 0.8rem;
         }
 
+        #bank span {
+            display: block;
+            margin-bottom: 2px;
+        }
+
         #bank table {
             border-collapse: separate;
             width: 100%;
@@ -557,6 +562,34 @@
                         <td>{{row.nombre}}</td>
                         <td>{{row.numCuenta}}</td>
                         <td>{{row.cci}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </section>
+        {%endif %}
+
+        <div class="clearfix"></div>
+
+        {%if plazos|length > 0%}
+        <section id="bank">
+            <p>INFORMACIÓN DEL CRÉDITO</p>
+            <span>TOTAL DE CUOTAS: {{numero_cuota}}</span>
+            <span>FRECUENCIA DE PAGO: {{frecuencia_pago}} DÍAS</span>
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>N° CUOTA</th>
+                        <th>FECHA DE VENCIMIENTO</th>
+                        <th>MONTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for row in plazos%}
+                    <tr>
+                        <td>{{row.cuota}}</td>
+                        <td>{{row.fecha}}</td>
+                        <td>{{row.monto}}</td>
                     </tr>
                     {%endfor%}
                 </tbody>

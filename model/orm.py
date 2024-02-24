@@ -191,6 +191,8 @@ class Venta(Base):
     comentario = Column(String(200), nullable=False)
     
     idFormaPago = Column(String(12), ForeignKey('formaPago.idFormaPago'), nullable=True)
+    numeroCuota = Column(Integer, nullable=False)
+    frecuenciaPago = Column(String(5), nullable=False)
     
     estado = Column(Integer, nullable=True)
     fecha = Column(Date, nullable=True)

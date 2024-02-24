@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 from dotenv import load_dotenv
 import os
+from model.forma_pago import FormaPago
 from service.banco import obtener_bancos
+from service.plazo import obtener_plazos
 from service.venta import obtener_venta_por_id, obtener_venta_detalle_por_id
 from service.sucursal import obtener_sucursal
 from service.empresa import obtener_empresa
@@ -96,6 +98,13 @@ async def generar_pdf_ticket(id_venta: str):
         # Generar QR
         cadena_qr = f'{empresa.documento}|{venta.codigoVenta}|{venta.serie}-{venta.numeracion}|sumatoria impuestos|{total}|{venta.fechaQR}|{venta.tipoDoc}|{venta.documento}'
         qr_generado = generar_qr(cadena_qr)
+        
+         # Forma Pago
+        forma_pago = ""
+        if venta.idFormaPago == FormaPago.CONTADO or venta.idFormaPago == FormaPago.ADELANTADO:
+            forma_pago = "CONTADO"
+        else:
+            forma_pago = "CRÉDITO"
 
         # Crear diccionario de datos para el template HTML
         data_html = {
@@ -112,7 +121,7 @@ async def generar_pdf_ticket(id_venta: str):
             "comprobante": venta.comprobante,
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
-            "forma_pago": venta.formaPago,
+            "forma_pago": forma_pago,
 
             "fecha": venta.fecha,
             "hora": venta.hora,
@@ -163,6 +172,7 @@ async def generar_pdf_a4(id_venta: str):
         empresa = obtener_empresa()
         sucursal = obtener_sucursal(venta.idSucursal)
         bancos = obtener_bancos()
+        plazos = obtener_plazos(id_venta)
 
         # Obtener detalles de la compra
         detalle = obtener_venta_detalle_por_id(id_venta)
@@ -229,6 +239,13 @@ async def generar_pdf_a4(id_venta: str):
         cadena_qr = f'{empresa.documento}|{venta.codigoVenta}|{venta.serie}-{venta.numeracion}|sumatoria impuestos|{total}|{venta.fechaQR}|{venta.tipoDoc}|{venta.documento}'
         qr_generado = generar_qr(cadena_qr)
 
+        # Forma Pago
+        forma_pago = ""
+        if venta.idFormaPago == FormaPago.CONTADO or venta.idFormaPago == FormaPago.ADELANTADO:
+            forma_pago = "CONTADO"
+        else:
+            forma_pago = "CRÉDITO"
+
         # Crear diccionario de datos para el template HTML
         data_html = {
             "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
@@ -248,7 +265,9 @@ async def generar_pdf_a4(id_venta: str):
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
 
-            "forma_pago": venta.formaPago,
+            "forma_pago": forma_pago,
+            "numero_cuota": venta.numeroCuota,
+            "frecuencia_pago": venta.frecuenciaPago,
             "fecha": venta.fecha,
             "hora": venta.hora,
             "informacion": venta.informacion,
@@ -269,7 +288,9 @@ async def generar_pdf_a4(id_venta: str):
 
             "tipo_envio": empresa.tipoEnvio,
 
-            "bancos": bancos
+            "bancos": bancos,
+
+            "plazos": plazos
         }
 
         # Generar PDF
