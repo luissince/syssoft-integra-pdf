@@ -189,7 +189,6 @@
 
     <footer class="mt-2">
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
-
         <p class="texto_12">Importe en Letras: {{total_letras}}</p>
         <div class="text-center texto_10 mt-2 codigo_qr_ticket">
             <img width="100px" src="data:image/png;base64,{{qr_generado}}" style="display: block;margin: auto"
@@ -202,6 +201,34 @@
             <p>HASH: {{codigo_hash}}</p>
             <p>VENDEDOR: {{usuario}}</p>
         </div>
+
+        {%if plazos|length > 0%}
+        <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
+        <div class="text-left">
+            <p><span class="font-weight-bold">Total de Cuotas: </span> {{numero_cuota}} </p>
+            <p><span class="font-weight-bold">Frecuencia de Pago:</span> {{frecuencia_pago}} días</p>
+        </div>
+
+        <div class="table-content">
+            <table class="table-main-head mt-2">
+                <tbody>
+                    <tr class="font-weight-bold mb-4">
+                        <th>N° Cuota.</th>
+                        <th>Fec. Venc.</th>
+                        <th>Monto </th>
+                    </tr>
+                    {% for row in plazos %}
+                    <tr>
+                        <td>{{ row.cuota }}</td>
+                        <td>{{ row.fecha }}</td>
+                        <td>{{ row.monto }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {%endif %}
+
         <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
         <div class="text-center mt-2">
             <img src="{{logo}}" width="70px" class="margin-0">
@@ -211,9 +238,9 @@
         </div>
         <p class="text-danger font-weight-bold text-center">
             {%if tipo_envio %}
-                Representación Impresa de Documento Electrónico Generado!
+            Representación Impresa de Documento Electrónico Generado!
             {%else%}
-                Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
+            Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
             {%endif %}
         </p>
     </footer>

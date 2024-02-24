@@ -33,6 +33,7 @@ async def generar_pdf_ticket(id_venta: str):
         # Obtener datos de la empresa y sucursal
         empresa = obtener_empresa()
         sucursal = obtener_sucursal(venta.idSucursal)
+        plazos = obtener_plazos(id_venta)
 
         # Obtener detalles de la compra
         detalle = obtener_venta_detalle_por_id(id_venta)
@@ -98,8 +99,8 @@ async def generar_pdf_ticket(id_venta: str):
         # Generar QR
         cadena_qr = f'{empresa.documento}|{venta.codigoVenta}|{venta.serie}-{venta.numeracion}|sumatoria impuestos|{total}|{venta.fechaQR}|{venta.tipoDoc}|{venta.documento}'
         qr_generado = generar_qr(cadena_qr)
-        
-         # Forma Pago
+
+        # Forma Pago
         forma_pago = ""
         if venta.idFormaPago == FormaPago.CONTADO or venta.idFormaPago == FormaPago.ADELANTADO:
             forma_pago = "CONTADO"
@@ -122,7 +123,8 @@ async def generar_pdf_ticket(id_venta: str):
             "serie": venta.serie,
             "numeracion": format_number_with_zeros(venta.numeracion),
             "forma_pago": forma_pago,
-
+            "numero_cuota": venta.numeroCuota,
+            "frecuencia_pago": venta.frecuenciaPago,
             "fecha": venta.fecha,
             "hora": venta.hora,
             "informacion": venta.informacion,
@@ -141,15 +143,19 @@ async def generar_pdf_ticket(id_venta: str):
             "codigo_hash": '' if venta.codigoHash is None else venta.codigoHash,
             "usuario": venta.usuario,
 
-            "tipo_envio": empresa.tipoEnvio
+            "tipo_envio": empresa.tipoEnvio,
+
+            "plazos": plazos
         }
+
+        count = len(plazos) + len(detalle)
 
         # Generar PDF
         pdf_in_memory = generar_ticket(
             path_template='templates/venta',
             name_html='ticket.html',
             data=data_html,
-            count=len(detalle))
+            count=count)
 
         # Devolver el PDF como respuesta
         return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_tiket_venta.pdf")
