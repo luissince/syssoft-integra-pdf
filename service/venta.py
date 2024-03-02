@@ -91,3 +91,17 @@ def obtener_venta_detalle_por_id(id_venta: str):
         return detalle
     finally:
         db.close()
+        
+
+# def reporte_venta_general(fecha_inicio: str, fecha_final: str, comprobantes:str, clientes:str, vendedor:str, tipo:str ):
+#     try:
+#         db = Session(expire_on_commit=False)
+
+#         query = text('''
+#                      ''')
+#         resultado = db.execute(query).all()
+
+#         return resultado
+        
+#     finally:
+#         db.close()
