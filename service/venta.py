@@ -58,7 +58,6 @@ def obtener_venta_por_id(id_venta: str) -> Union[Venta, Persona, Usuario, TipoDo
     finally:
         db.close()
 
-
 def obtener_venta_detalle_por_id(id_venta: str):
     try:
         db = Session(expire_on_commit=False)
@@ -92,7 +91,6 @@ def obtener_venta_detalle_por_id(id_venta: str):
     finally:
         db.close()
         
-
 # def reporte_venta_general(fecha_inicio: str, fecha_final: str, comprobantes:str, clientes:str, vendedor:str, tipo:str ):
 #     try:
 #         db = Session(expire_on_commit=False)
