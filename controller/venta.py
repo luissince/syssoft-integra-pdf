@@ -12,6 +12,7 @@ from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
 from helper.tools import format_number_with_zeros, generar_qr, calculate_tax_bruto, calculate_tax, rounded
 from helper.convertir_letras_numero import ConvertirMonedaCadena
 from decimal import Decimal, ROUND_HALF_UP
+from pydantic import BaseModel
 
 routerVenta = APIRouter()
 
@@ -19,6 +20,11 @@ load_dotenv()
 
 tag = "Venta"
 
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
 
 @routerVenta.get('/ticket/{id_venta}', tags=[tag])
 async def generar_pdf_ticket(id_venta: str):
@@ -310,3 +316,9 @@ async def generar_pdf_a4(id_venta: str):
     except Exception as ex:
         # Manejar errores generales
         return response_custom_error(message="Error de servidor: "+str(ex), code=500)
+
+@routerVenta.post('/items', tags=[tag])
+async def create_item(item: Item):
+    print(item)
+    print(item.description)
+    return item
