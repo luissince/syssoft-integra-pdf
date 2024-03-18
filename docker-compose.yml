@@ -117,6 +117,25 @@ services:
     # Configuración para reiniciar siempre el contenedor
     restart: always
 
+  # Servicio para la aplicación de leatsac
+  leatsac-pdf-services:
+    # Configuración para construir la imagen del contenedor
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Nombre de la imagen resultante
+    image: leatsac-pdf-image
+    # Conexión a la red llamada 'luis'
+    networks:
+      - luis
+    # Mapeo de puertos: Mapea el puerto 6024 del host al puerto 80 del contenedor
+    ports:
+      - 6032:80
+    # Nombre del contenedor
+    container_name: leatsac-pdf
+    # Configuración para reiniciar siempre el contenedor
+    restart: always
+
 # Definición de redes
 networks:
   # Definición de la red llamada 'luis'
