@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import urllib.parse
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,7 +11,7 @@ load_dotenv()
 
 # Configuración de la conexión a MySQL
 USERNAME = os.getenv("DB_USER")
-PASSWORD = os.getenv("DB_PASSWORD")
+PASSWORD = urllib.parse.quote_plus(os.getenv("DB_PASSWORD"))
 HOST = os.getenv("DB_HOST")
 PORT = os.getenv("DB_PORT")
 DATABASE = os.getenv("DB_DATABASE")
