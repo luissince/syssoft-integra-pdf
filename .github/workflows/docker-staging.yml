@@ -6,9 +6,9 @@ on:
       - staging
 
 jobs:
-  build-and-deploy-app-leatsac:
+  build-and-deploy-app-felicitygirls-tiquepos:
     runs-on: self-hosted
-    environment: leatsac
+    environment: felicitygirls-tiquepos
 
     env:  
       APP_URL_FILES: ${{ secrets.APP_URL_FILES }}
@@ -40,5 +40,4 @@ jobs:
           sed -i "s~DB_USER=.*~DB_USER=${DB_USER}~" .env
 
       - name: Creando y ejecutando contenedor
-        run: docker compose -f docker-compose.yml up --build leatsac-pdf-services -d
-  
+        run: docker compose -f docker-compose.yml up --build felicitygirls-tiquepos-pdf-services -d
