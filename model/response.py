@@ -9,14 +9,12 @@ class Valor(BaseModel):
 
 class CustomError(BaseModel):
     code: int       # codigo http 400, 500, etc.
-    message: str
-
+    message: str    
 
 def response_custom_pdf(data: bytes, file_name: str) -> Response:
     response = Response(content=data, media_type='application/pdf')
     response.headers['Content-Disposition'] = f'inline; filename={file_name}'
     return response
-
 
 def response_custom_error(message: str, code: int = 500) -> dict:
     obj = CustomError(

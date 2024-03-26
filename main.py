@@ -9,6 +9,7 @@ from controller.compra import routerCompra
 from controller.venta import routerVenta
 from controller.guia_remision import routerGuiaRemision
 from controller.finanzas import routerFinanzas
+from controller.cotizacion import routerCotizacion
 
 load_dotenv()
 
@@ -16,6 +17,7 @@ base_path_compra = "/api/v1/compra"
 base_path_venta = "/api/v1/venta"
 base_path_guia_remision = "/api/v1/guiaremision"
 base_path_finanzas = "/api/v1/finanzas"
+base_path_cotizacion = "/api/v1/cotizacion"
 
 app = FastAPI(
     openapi_url="/openapi.json",  # Ruta personalizada para el archivo OpenAPI JSON
@@ -26,6 +28,7 @@ app.include_router(routerCompra, prefix=base_path_compra)
 app.include_router(routerVenta, prefix=base_path_venta)
 app.include_router(routerGuiaRemision, prefix=base_path_guia_remision)
 app.include_router(routerFinanzas, prefix=base_path_finanzas)
+app.include_router(routerCotizacion, prefix=base_path_cotizacion)
 
 origins = [origin.strip() for origin in os.getenv("ORIGINS", "").split(",")]
 

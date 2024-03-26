@@ -423,9 +423,6 @@
                         <th>Código SUNAT</th>
                         <th>Unidad de Medida</th>
                         <th>Cantidad</th>
-
-                        <!-- <th class="tax">Tax</th> -->
-                        <!-- <th class="line-total">Linetotal</th> -->
                     </tr>
                     {% for row in detalle %}
                     {% set count = loop.index %}
@@ -442,54 +439,6 @@
             </table>
         </section>
 
-        <!-- <section id="sums">
-            <table cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr>
-                        <th>Subtotal:</th>
-                        <td>100,00 €</td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <th>Tax 19%:</th>
-                        <td>19,00 €
-                        </td>
-                    </tr>
-                    <tr style="display: none;">
-                        <th></th>
-                        <td></td>
-                    </tr>
-                    <tr class="amount_total">
-                        <th>Total:</th>
-                        <td>119,00 €</td>
-                    </tr>
-                    <tr class="showForPaidOption" style="display:none">
-                        <th></th>
-                        <td></td>
-                    </tr>
-                    <tr class="showForPaidOption" style="display:none">
-                        <th></th>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section> -->
-
-        <!-- <div class="clearfix"></div>
-
-        <section id="terms">
-            <div class="label">
-                <span>Terms & Notes</span>
-            </div>
-
-            <div class="text">
-                <span>
-                    Fred, thank you very much. We really appreciate your business.
-                    <br>
-                    Please send payments before the due date.
-                </span>
-            </div>
-        </section> -->
-
         <div class="clearfix"></div>
 
         <section id="info">
@@ -501,9 +450,13 @@
                 <p>
                     <span>Representación Impresa de la GUÍA DE REMISIÓN REMITENTE ELECTRÓNICO</span>
                     <br />
-                    <span>Este es una representación sin valor tributario de la Guía de Remisión Electrínica generada en
-                        el
-                        sistema de la SUNAT. Puede verificar utilizando sun clave sol.</span>
+                    <span>
+                        {%if tipo_envio %}
+                            Este es una representación impresa de la Guía de Remisión Electrínica generada en el sistema de la SUNAT.
+                        {%else%}
+                            Este es una representación impresa sin valor tributario de la Guía de Remisión Electrínica generada en el sistema de la SUNAT.
+                        {%endif %}
+                      </span>
                 </p>
             </div>
         </section>

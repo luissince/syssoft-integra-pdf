@@ -1,6 +1,8 @@
+from typing import List, Optional
 from fastapi import APIRouter
 from dotenv import load_dotenv
 import os
+from model.base_model import Banco, Empresa, Sucursal
 from model.forma_pago import FormaPago
 from service.banco import obtener_bancos
 from service.plazo import obtener_plazos
@@ -19,30 +21,65 @@ routerVenta = APIRouter()
 load_dotenv()
 
 tag = "Venta"
+    
+class DetalleVenta(BaseModel):
+    producto: Optional[str] = None
+    medida: Optional[str] = None
+    categoria: Optional[str] = None
+    precio: Optional[float] = None
+    cantidad: Optional[int] = None
+    idImpuesto: Optional[str] = None
+    impuesto: Optional[str] = None
+    porcentaje: Optional[int] = None
 
-class Item(BaseModel):
-    name: str
-    description: str | None = None
-    price: float
-    tax: float | None = None
+class Plazo(BaseModel):
+    cuota: Optional[str] = None
+    fecha: Optional[str] = None
+    monto: Optional[float] = None
+    
+class Venta(BaseModel):
+    idVenta: Optional[str] = None
+    comprobante: Optional[str] = None
+    codigoVenta: Optional[str] = None
+    serie: Optional[str] = None
+    numeracion: Optional[int] = None
+    idSucursal: Optional[str] = None
+    codigoHash: Optional[str] = None
+    tipoDoc: Optional[str] = None 
+    codigoCliente: Optional[str] = None 
+    documento: Optional[str] = None
+    informacion: Optional[str] = None
+    direccion: Optional[str] = None
+    usuario: Optional[str] = None
+    fecha: Optional[str] = None
+    fechaQR: Optional[str] = None
+    hora: Optional[str] = None
+    idFormaPago: Optional[str] = None
+    numeroCuota: Optional[int] = None
+    frecuenciaPago: Optional[str] = None
+    estado: Optional[bool] = None
+    simbolo: Optional[str] = None
+    codiso: Optional[str] = None
+    moneda: Optional[str] = None
+    formaPago: Optional[str] = None
+    
+    empresa: Empresa
+    sucursal: Sucursal
+    ventaDetalle: List[DetalleVenta] = []
+    plazos: List[Plazo] = []
+    bancos: List[Banco] = []
 
-@routerVenta.get('/ticket/{id_venta}', tags=[tag])
-async def generar_pdf_ticket(id_venta: str):
+@routerVenta.post('/ticket', tags=[tag])
+async def generar_pdf_ticket(venta: Venta):
     try:
-        # Obtener datos de la compra
-        venta = obtener_venta_por_id(id_venta)
-
-        if venta is None:
-            # Manejar el caso en que no se encuentren resultados
-            return response_custom_error(message="No se encontraron resultados", code=400)
-
         # Obtener datos de la empresa y sucursal
-        empresa = obtener_empresa()
-        sucursal = obtener_sucursal(venta.idSucursal)
-        plazos = obtener_plazos(id_venta)
+        empresa = venta.empresa
+        sucursal = venta.sucursal
+        bancos = venta.bancos
+        plazos = venta.plazos
 
         # Obtener detalles de la compra
-        detalle = obtener_venta_detalle_por_id(id_venta)
+        detalle = venta.ventaDetalle
 
         # Inicializar variables para cálculos
         sub_total = 0
@@ -115,8 +152,8 @@ async def generar_pdf_ticket(id_venta: str):
 
         # Crear diccionario de datos para el template HTML
         data_html = {
-            "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
-            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
+            "logo_emp": empresa.logoEmpresa,
+            "logo": empresa.logoDesarrollador,
             "title": f"{venta.comprobante} {venta.serie}-{format_number_with_zeros(venta.numeracion)}",
             "empresa": empresa.razonSocial,
             "ruc": empresa.documento,
@@ -170,24 +207,17 @@ async def generar_pdf_ticket(id_venta: str):
         return response_custom_error(message="Error de servidor: "+str(ex), code=500)
 
 
-@routerVenta.get('/a4/{id_venta}', tags=[tag])
-async def generar_pdf_a4(id_venta: str):
+@routerVenta.post('/a4', tags=[tag])
+async def generar_pdf_a4(venta: Venta):
     try:
-        # Obtener datos de la compra
-        venta = obtener_venta_por_id(id_venta)
-
-        if venta is None:
-            # Manejar el caso en que no se encuentren resultados
-            return response_custom_error(message="No se encontraron resultados", code=400)
-
         # Obtener datos de la empresa y sucursal
-        empresa = obtener_empresa()
-        sucursal = obtener_sucursal(venta.idSucursal)
-        bancos = obtener_bancos()
-        plazos = obtener_plazos(id_venta)
+        empresa = venta.empresa
+        sucursal = venta.sucursal
+        bancos = venta.bancos
+        plazos = venta.plazos
 
         # Obtener detalles de la compra
-        detalle = obtener_venta_detalle_por_id(id_venta)
+        detalle = venta.ventaDetalle
 
         # Inicializar variables para cálculos
         sub_total = 0
@@ -260,8 +290,8 @@ async def generar_pdf_a4(id_venta: str):
 
         # Crear diccionario de datos para el template HTML
         data_html = {
-            "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
-            "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
+            "logo_emp": empresa.logoEmpresa,
+            "logo": empresa.logoDesarrollador,
             "title": f"{venta.comprobante} {venta.serie}-{format_number_with_zeros(venta.numeracion)}",
             "empresa": empresa.razonSocial,
             "ruc": empresa.documento,
@@ -316,9 +346,3 @@ async def generar_pdf_a4(id_venta: str):
     except Exception as ex:
         # Manejar errores generales
         return response_custom_error(message="Error de servidor: "+str(ex), code=500)
-
-@routerVenta.post('/items', tags=[tag])
-async def create_item(item: Item):
-    print(item)
-    print(item.description)
-    return item

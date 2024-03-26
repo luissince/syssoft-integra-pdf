@@ -21,11 +21,6 @@
     position: relative;
   }
 
-  .line-title {
-    display: inline-block;
-    width: 80px;
-  }
-
   p {
     margin: 0;
     padding: 0;
@@ -46,19 +41,6 @@
 
   td {
     padding: 3px;
-  }
-
-  .tb_resumen_totales {
-    width: 60%;
-    margin: 5px;
-    font-size: 11px !important;
-
-  }
-
-  .tb_resumen_totales td,
-  .tb_resumen_totales th {
-    border: none !important;
-    padding: 0px;
   }
 
   .codigo_qr_ticket p {
@@ -90,17 +72,7 @@
   .texto_10 {
     font-size: 10px !important;
   }
-
-  [class^="flaticon-"]:before,
-  [class*=" flaticon-"]:before,
-  [class^="flaticon-"]:after,
-  [class*=" flaticon-"]:after {
-    font-family: Flaticon;
-    font-size: 11px;
-    font-style: normal;
-    margin-left: 20px;
-  }
-
+  
   .codigo_qr_ticket {
     -ms-word-break: break-all;
     word-break: break-all;
@@ -184,20 +156,20 @@
     <table class="table-main-head mt-2">
       <tbody>
         <tr class="font-weight-bold mb-4">
-          <th>#</th>
+          <th class="text-center">#</th>
           <th>Producto</th>
           <!-- <th>Código Bien </th> -->
           <!-- <th>Código Sunat</th> -->
-          <th>Unidad de Medida</th>
-          <th>Cantidad</th>
+          <th class="text-center">Uni.</th>
+          <th class="text-center">Cantidad</th>
         </tr>
         {% for row in detalle %}
         {% set count = loop.index %}
         <tr>
-          <td>{{ count }}</td>
+          <td class="text-center">{{ count }}</td>
           <td>{{row.nombre}}</td>
-          <td>{{row.medida}}</td>
-          <td>{{row.cantidad}}</td>
+          <td class="text-center">{{row.medida}}</td>
+          <td class="text-right">{{row.cantidad}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -206,12 +178,17 @@
 
   <footer class="mt-2">
     <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
-
     <div class="text-center texto_10 mt-2 codigo_qr_ticket">
       <img width="100px" src="data:image/png;base64,{{qr_generado}}" style="display: block;margin: auto"
-                class="mb-3" />
-      <p class="mt-1">Representación Impresa de la GUÍA DE REMISIÓN REMITENTE ELECTRÓNICO</p>   
+          class="mb-3" />
+      <p class="mt-1">Representación Impresa de la Guía de Remisión Electrónica</p>
+      <p>Consulte su Documento en:</p>
+      <a href="https://ww1.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/consulta">
+          www.consultas-sunat.com
+      </a>
+      <p>VENDEDOR: {{usuario}}</p>
     </div>
+
     <hr style="border-top: 1px dashed #000; color: #fff; background-color: #fff; height: 2px; margin: 3px" />
     <div class="text-center mt-2">
       <img src="{{logo}}" width="70px" class="margin-0">
@@ -219,6 +196,13 @@
       <a href="https://www.syssoftintegra.com/" class="argin-0" style="font-style: italic">Emitido por: <span
           class="font-weight-bold">www.syssosftintegra.com</span></a>
     </div>
+    <p class="text-danger font-weight-bold text-center">
+      {%if tipo_envio %}
+      Representación Impresa de Documento Electrónico Generado!
+      {%else%}
+      Representación Impresa de Documento Electrónico Generado En Una Versión de Pruebas. No tiene Validez!
+      {%endif %}
+    </p>
   </footer>
 
 </body>

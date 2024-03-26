@@ -4,6 +4,8 @@ from datetime import datetime
 import qrcode
 from io import BytesIO
 import base64
+from datetime import date as Date
+
 
 def generar_qr(data_to_encode: str = 'https://www.syssoftintegra.com/'):
 
@@ -42,33 +44,6 @@ def calculate_tax(porcentaje: float, valor: float) -> Decimal:
     return Decimal(valor) * igv
 
 
-def format_decimal(amount, decimal_count=2, decimal='.', thousands=','):
-    is_number = str(amount).replace('.', '').replace('-', '').isdigit()
-    if not is_number:
-        return '0.00'
-
-    amount = float(amount)
-    decimal_count = abs(int(decimal_count))
-
-    negative_sign = '-' if amount < 0 else ''
-
-    i = str(int(abs(amount * 10 ** decimal_count)))
-    j = len(i) % 3 if len(i) > 3 else 0
-
-    negative = negative_sign + (i[:j] + thousands if j else '')
-
-    a = i[j:]
-    a = a[::-1]
-    a = thousands.join(a[i:i + 3] for i in range(0, len(a), 3))
-    a = a[::-1]
-
-    d = decimal + str(abs(amount - int(amount))[2:]) if decimal_count else ''
-
-    total = negative + a + d
-
-    return total
-
-
 def rounded(amount, decimal_count=2) -> str:
     try:
         amount = float(amount)
@@ -87,17 +62,46 @@ def format_number_with_zeros(numero) -> str:
     # Añade el signo negativo si el número original era negativo
     return f"-{numero_formateado}" if numero < 0 else numero_formateado
 
+
 def is_valid_date(date_str):
     try:
         datetime.fromisoformat(date_str)
         return True
     except ValueError:
         return False
-    
-# def is_date(fecha: str)->bool:
-#     patron_fecha = r'\b\d{4}-\d{2}-\d{2}\b'
-#     match = re.search(patron_fecha, fecha)
-#     if match:
-#         return True
-#     else:
-#         return False
+
+
+def format_date(date: str) -> str:
+    dateRegex = r"^\d{4}-\d{2}-\d{2}$"
+    match = re.match(dateRegex, date)
+    if match is None:
+        return 'Invalid Date'
+
+    parts = date.split("-")
+    to_day = Date(int(parts[0]), int(parts[1]), int(parts[2]))
+    day = to_day.day if to_day.day > 9 else f"0{to_day.day}"
+    month = to_day.month if to_day.month > 9 else f"0{to_day.month}"
+    year = to_day.year
+    return f"{day}/{month}/{year}"
+
+
+def format_time(time: str, add_seconds=False) -> str:
+    timeRegex = r"^(0\d|1\d|2[0-3]):([0-5]\d):([0-5]\d)$"
+    match = re.search(timeRegex, time)
+    if match is None:
+        return 'Invalid Time'
+
+    parts = time.split(":")
+
+    HH = int(parts[0])
+    mm = int(parts[1])
+    ss = int(parts[2])
+
+    thf = HH % 12 or 12
+    ampm = 'AM' if HH < 12 or HH == 24 else 'PM'
+    formattedHour = f'0{thf}' if thf < 10 else thf
+
+    if add_seconds == True:
+        return f"{formattedHour}:{mm}:{ss} {ampm}"
+
+    return f"{formattedHour}:{mm} {ampm}"

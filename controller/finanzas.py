@@ -1,89 +1,104 @@
+from datetime import datetime
+from typing import List
 from fastapi import APIRouter
 from dotenv import load_dotenv
-import os
-from helper.tools import is_valid_date
+from pydantic import BaseModel
+from helper.tools import rounded
+from model.base_model import Empresa, Sucursal
 import service.finanzas as fi
 from service.sucursal import obtener_sucursal
 from service.empresa import obtener_empresa
 from model.response import response_custom_error, response_custom_pdf
-from helper.convert_wkhtmltopdf import generar_ticket, generar_a4
-from datetime import datetime
-import re
+from helper.convert_wkhtmltopdf import generar_a4
+from decimal import Decimal, ROUND_HALF_UP
 
 routerFinanzas = APIRouter()
 
 load_dotenv()
 
-tagFinanzas = "Finanzas"
+tag = "Finanzas"
 
-@routerFinanzas.get("/", tags=[tagFinanzas])
-async def generar_pdf_finanzas(fecha_inicio: str = '', fecha_final: str = '', id_sucursal: str = '', id_usuario: str = ''):
+class Concepto(BaseModel):
+    concepto: str
+    cantidad: int
+    codiso: str
+    ingreso: float
+    salida: float
+    
+class ConceptoResumen(BaseModel):
+    nombre: str
+    monto: float
+    
+class Finanzas(BaseModel):
+    fechaInicio: str
+    fechaFinal: str
+    empresa: Empresa
+    sucursal: Sucursal
+    conceptos: List[Concepto] = []
+    resumenes: List[ConceptoResumen] = []
 
-    if not is_valid_date(fecha_inicio):
-        return response_custom_error(message="El formato de fecha inicio es incorrecto.", code=400)
+@routerFinanzas.post('/', tags=[tag])
+async def generar_pdf_finanzas(finanzas: Finanzas):
+    try:
+        transaciones = finanzas.conceptos
+        bancos = finanzas.resumenes
 
-    if not is_valid_date(fecha_final):
-        return response_custom_error(message="El formato de fecha final es incorrecto.", code=400)
+        empresa = finanzas.empresa
+        sucursal = finanzas.sucursal
 
-    fecha_ini = datetime.strptime(fecha_inicio, "%Y-%m-%d").date()
-    fecha_fin = datetime.strptime(fecha_final, "%Y-%m-%d").date()
+        fecha_inicio_formateada = datetime.strptime(finanzas.fechaInicio, "%Y-%m-%d").date().strftime("%d/%m/%Y")
+        fecha_final_formateada = datetime.strptime(finanzas.fechaFinal, "%Y-%m-%d").date().strftime("%d/%m/%Y")
 
-    if fecha_fin < fecha_ini:
-        return response_custom_error(message="La fecha inicial no  puede ser mayor a la final.", code=400)
+        ingresos = 0.00
+        salidas = 0.00
 
-    transaciones = fi.obtener_transacciones(
-        fecha_inicio, fecha_final, id_sucursal, id_usuario)
-    bancos = fi.obtener_bancos(
-        fecha_inicio, fecha_final, id_sucursal, id_usuario)
+        for item in transaciones:
+            ingresos += item.ingreso
+            salidas += item.salida
 
-    if transaciones is None:
-        # Manejar el caso en que no se encuentren resultados
-        return response_custom_error(message="No se encontraron resultados", code=400)
+        ingresos = Decimal(ingresos)
+        salidas = Decimal(salidas)
 
-    empresa = obtener_empresa()
-    sucursal = obtener_sucursal(id_sucursal)
+        total = (ingresos+salidas).quantize(Decimal('0.00'),
+                                            rounding=ROUND_HALF_UP)
 
-    fecha_inicio_formateada = fecha_ini.strftime("%d/%m/%Y")
-    fecha_final_formateada = fecha_fin.strftime("%d/%m/%Y")
+        sumas = 0.00
 
-    ingresos = 0
-    salidas = 0
+        for item in bancos:
+            sumas += item.monto
 
-    for item in transaciones:
-        ingresos += item.ingreso
-        salidas += item.salida
+        sumas = Decimal(sumas)
 
-    sumas = 0
+        data_html = {
+            "logo_emp": empresa.logoEmpresa,
+            "logo": empresa.logoDesarrollador,
+            "empresa": empresa.razonSocial,
+            "ruc": empresa.documento,
+            "direccion_emp": sucursal.direccion,
+            "ubigeo_emp": f"{sucursal.departamento} - {sucursal.provincia} - {sucursal.distrito}",
+            "telefono": sucursal.telefono,
+            "celular": sucursal.celular,
+            "contacto": f"{sucursal.telefono} {sucursal.celular}",
+            "email": sucursal.email,
+            "web_email": f"{sucursal.paginaWeb} | {sucursal.email}",
 
-    for item in bancos:
-        sumas += item.monto
+            "periodo": f"{fecha_inicio_formateada} - {fecha_final_formateada}",
 
-    data_html = {
-        "logo_emp": f"{os.getenv('APP_URL_FILES')}/files/company/{empresa.rutaLogo}",
-        "logo": f"{str(os.getenv('APP_URL_FILES'))}/files/to/logo.png",
-        "empresa": empresa.razonSocial,
-        "ruc": empresa.documento,
-        "direccion_emp": sucursal.direccion,
-        "ubigeo_emp": f"{sucursal.departamento} - {sucursal.provincia} - {sucursal.distrito}",
-        "telefono": sucursal.telefono,
-        "celular": sucursal.celular,
-        "contacto": f"{sucursal.telefono} {sucursal.celular}",
-        "email": sucursal.email,
-        "web_email": f"{sucursal.paginaWeb} | {sucursal.email}",
+            "transaciones": transaciones,
+            "bancos": bancos,
 
-        "periodo": f"{fecha_inicio_formateada} - {fecha_final_formateada}",
+            "ingresos": ingresos.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
+            "salidas": salidas.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
+            "total": total,
+            "sumas": sumas.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+        }
 
-        "transaciones": transaciones,
-        "bancos": bancos,
+        # Generar PDF
+        pdf_in_memory = generar_a4(
+            path_template='templates/finanzas', name_html='a4.html', data=data_html)
 
-        "ingresos": ingresos,
-        "salidas": salidas,
-        "sumas": sumas
-    }
-
-    # Generar PDF
-    pdf_in_memory = generar_a4(
-        path_template='templates/finanzas', name_html='a4.html', data=data_html)
-
-    # Devolver el PDF como respuesta
-    return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_finanzas.pdf")
+        # Devolver el PDF como respuesta
+        return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_finanzas.pdf")
+    except Exception as ex:
+        # Manejar errores generales
+        return response_custom_error(message="Error de servidor: "+str(ex), code=500)
