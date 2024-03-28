@@ -185,15 +185,15 @@
             <table class="table-main-head mt-2">
                 <tbody>
                     <tr class="font-weight-bold mb-4">
-                        <th>N° Cuota.</th>
-                        <th>Fec. Venc.</th>
-                        <th>Monto </th>
+                        <th class="text-center">N° Cuota.</th>
+                        <th class="text-center">Fec. Venc.</th>
+                        <th class="text-center">Monto </th>
                     </tr>
                     {% for row in plazos %}
                     <tr>
-                        <td>{{ row.cuota }}</td>
-                        <td>{{ row.fecha }}</td>
-                        <td>{{ row.monto }}</td>
+                        <td class="text-center">{{ row.cuota }}</td>
+                        <td class="text-center">{{ row.fecha }}</td>
+                        <td class="text-center">{{ row.monto }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,120 +1,92 @@
-from sqlalchemy import func
-from sqlalchemy.orm import aliased
-from model.clases import GuiaRemisionResponse
-from model.orm import GuiaRemision, Comprobante, GuiaRemisionDetalle, Medida, ModalidadTraslado, MotivoTraslado, Producto, TipoPeso, Vehiculo, Persona, Venta, Ubigeo, Usuario
-from db.connection import Session
-from typing import Union
+
+from typing import List, Optional
+
+from pydantic import BaseModel
+from helper.tools import format_number_with_zeros, generar_qr
+from model.base_model import Empresa, Sucursal
 
 
-def obtener_guia_remision_por_id(id_guia_remision: str) -> GuiaRemisionResponse:
-    try:
-        db = Session(expire_on_commit=False)
-
-        comprobante_guia = aliased(Comprobante, name='cgui')
-        comporbante_venta = aliased(Comprobante, name='cv')
-
-        persona_conductor = aliased(Persona, name='cd')
-        persona_cliente = aliased(Persona, name='cl')
-
-        ubigeo_partida = aliased(Ubigeo, name='up')
-        ubigeo_llegada = aliased(Ubigeo, name='ul')
-
-        guia_remision = db.query(
-            GuiaRemision.idSucursal,
-            func.DATE_FORMAT(GuiaRemision.fecha, '%d/%m/%Y').label('fecha'),
-            GuiaRemision.hora,
-            comprobante_guia.nombre.label('comprobante'),
-            GuiaRemision.serie,
-            GuiaRemision.numeracion,
-            ModalidadTraslado.nombre.label('modalidadTraslado'),
-            MotivoTraslado.nombre.label('motivoTraslado'),
-            func.DATE_FORMAT(GuiaRemision.fechaTraslado,
-                             '%d/%m/%Y').label('fechaTraslado'),
-            TipoPeso.nombre.label('tipoPeso'),
-            GuiaRemision.peso,
-            Vehiculo.marca,
-            Vehiculo.numeroPlaca,
-            persona_conductor.documento.label('documentoConductor'),
-            persona_conductor.informacion.label('informacionConductor'),
-            persona_conductor.licenciaConducir,
-            GuiaRemision.direccionPartida,
-            func.CONCAT(ubigeo_partida.departamento, ' - ', ubigeo_partida.provincia, ' - ',
-                        ubigeo_partida.distrito, '(', ubigeo_partida.ubigeo, ')').label('ubigeoPartida'),
-            GuiaRemision.direccionLlegada,
-            func.CONCAT(ubigeo_llegada.departamento, ' - ', ubigeo_llegada.provincia, ' - ',
-                        ubigeo_llegada.distrito, '(', ubigeo_llegada.ubigeo, ')').label('ubigeoLlegada'),
-            func.CONCAT(Usuario.apellidos, ', ',
-                        Usuario.nombres).label('usuario'),
-            comporbante_venta.nombre.label('comprobanteRef'),
-            Venta.serie.label('serieRef'),
-            Venta.numeracion.label('numeracionRef'),
-            persona_cliente.documento.label("documentoCliente"),
-            persona_cliente.informacion.label("informacionCliente"),
-            GuiaRemision.codigoHash
-        ).join(
-            comprobante_guia,
-            GuiaRemision.idComprobante == comprobante_guia.idComprobante
-        ).join(
-            ModalidadTraslado,
-            GuiaRemision.idModalidadTraslado == ModalidadTraslado.idModalidadTraslado
-        ).join(
-            MotivoTraslado,
-            GuiaRemision.idMotivoTraslado == MotivoTraslado.idMotivoTraslado
-        ).join(
-            TipoPeso,
-            GuiaRemision.idTipoPeso == TipoPeso.idTipoPeso
-        ).join(
-            Vehiculo,
-            GuiaRemision.idVehiculo == Vehiculo.idVehiculo
-        ).join(
-            persona_conductor,
-            GuiaRemision.idConductor == persona_conductor.idPersona
-        ).join(
-            ubigeo_partida,
-            GuiaRemision.idUbigeoPartida == ubigeo_partida.idUbigeo
-        ).join(
-            ubigeo_llegada,
-            GuiaRemision.idUbigeoLlegada == ubigeo_llegada.idUbigeo
-        ).join(
-            Usuario,
-            GuiaRemision.idUsuario == Usuario.idUsuario
-        ).join(
-            Venta,
-            GuiaRemision.idVenta == Venta.idVenta
-        ).join(
-            comporbante_venta,
-            Venta.idComprobante == comporbante_venta.idComprobante
-        ).join(
-            persona_cliente,
-            Venta.idCliente == persona_cliente.idPersona
-        ).filter(
-            GuiaRemision.idGuiaRemision == id_guia_remision
-        ).one()
-
-        return guia_remision
-    finally:
-        db.close()
+class GuiaRemisionDetalle(BaseModel):
+    codigo: Optional[str] = None
+    nombre: Optional[str] = None
+    cantidad: Optional[float] = None
+    medida: Optional[str] = None
 
 
-def obtener_guia_remision_detalle_por_id(id_guia_remision: str):
-    try:
-        db = Session(expire_on_commit=False)
+class GuiaRemision(BaseModel):
+    idSucursal: Optional[str] = None
+    fecha: Optional[str] = None
+    hora: Optional[str] = None
+    comprobante: Optional[str] = None
+    serie: Optional[str] = None
+    numeracion: Optional[int] = None
+    modalidadTraslado: Optional[str] = None
+    motivoTraslado: Optional[str] = None
+    fechaTraslado: Optional[str] = None
+    tipoPeso: Optional[str] = None
+    peso: Optional[float] = None
+    marca: Optional[str] = None
+    numeroPlaca: Optional[str] = None
+    documentoConductor: Optional[str] = None
+    informacionConductor: Optional[str] = None
+    licenciaConducir: Optional[str] = None
+    direccionPartida: Optional[str] = None
+    ubigeoPartida: Optional[str] = None
+    direccionLlegada: Optional[str] = None
+    ubigeoLlegada: Optional[str] = None
+    usuario: Optional[str] = None
+    comprobanteRef: Optional[str] = None
+    serieRef: Optional[str] = None
+    numeracionRef: Optional[int] = None
+    documentoCliente: Optional[str] = None
+    informacionCliente: Optional[str] = None
+    codigoHash: Optional[str] = None
 
-        guia_remision_detalle = db.query(
-            Producto.codigo,
-            Producto.nombre,
-            GuiaRemisionDetalle.cantidad,
-            Medida.nombre.label('medida')
-        ).join(
-            Producto,
-            GuiaRemisionDetalle.idProducto == Producto.idProducto
-        ).join(
-            Medida,
-            Medida.idMedida == Producto.idMedida
-        ).where(
-            GuiaRemisionDetalle.idGuiaRemision == id_guia_remision
-        ).all()
+    empresa: Empresa
+    sucursal: Sucursal
+    guiaRemisionDetalle: List[GuiaRemisionDetalle] = []
 
-        return guia_remision_detalle
-    finally:
-        db.close()
+
+def generar_reporte(guia_remision: GuiaRemision):
+    empresa = guia_remision.empresa
+    sucursal = guia_remision.sucursal
+    detalle = guia_remision.guiaRemisionDetalle
+    qr_generado = generar_qr(guia_remision.codigoHash)
+    data_html = {
+        "logo_emp": empresa.logoEmpresa,
+        "logo": empresa.logoDesarrollador,
+        "title": f"{guia_remision.comprobante} {guia_remision.serie}-{format_number_with_zeros(guia_remision.numeracion)}",
+        "empresa": empresa.razonSocial,
+        "direccion": sucursal.direccion,
+        "ubigeo": f"{sucursal.departamento} - {sucursal.provincia} - {sucursal.distrito}",
+        "contacto": f"{sucursal.telefono} {sucursal.celular}",
+        "telefono": f"{sucursal.telefono}",
+        "celular": f"{sucursal.celular}",
+        "web_email": f"{sucursal.paginaWeb} | {sucursal.email}",
+        "web": f"{sucursal.paginaWeb}",
+        "email": f"{sucursal.email}",
+        "ruc": f"RUC: {empresa.documento}",
+        "comprobante": guia_remision.comprobante,
+        "serie_numeracion": f"{guia_remision.serie}-{format_number_with_zeros(guia_remision.numeracion)}",
+        "fecha_traslado": guia_remision.fechaTraslado,
+        "documento_relacionado": f"{guia_remision.serieRef}-{format_number_with_zeros(guia_remision.numeracionRef)}",
+        "destinatario_documento": guia_remision.documentoCliente,
+        "destinatario_informacion": guia_remision.informacionCliente,
+        "direccion_partida": guia_remision.direccionPartida,
+        "ubigeo_partida": guia_remision.ubigeoPartida,
+        "conductor_informacion": guia_remision.documentoConductor,
+        "conductor_documento": guia_remision.informacionConductor,
+        "modalidad_trasporte": guia_remision.modalidadTraslado,
+        "direccion_llegada": guia_remision.direccionLlegada,
+        "ubigeo_llegada":  guia_remision.ubigeoLlegada,
+        "vehiculo_licencia": guia_remision.licenciaConducir,
+        "vehiculo_placa": guia_remision.numeroPlaca,
+        "motivo_traslado": guia_remision.motivoTraslado,
+        "qr_generado": qr_generado,
+
+        "tipo_envio": empresa.tipoEnvio,
+
+        "detalle": detalle
+    }
+
+    return data_html
