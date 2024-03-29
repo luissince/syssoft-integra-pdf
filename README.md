@@ -19,8 +19,6 @@ Algunos recursos para iniciar con este proyecto puedes ver en:
 
 - [PDFKit](https://pypi.org/project/pdfkit/) Envoltorio Python 2 y 3 para la utilidad wkhtmltopdf para convertir HTML a PDF usando Webkit. 
 
-- [SQLAlchemy](https://code.visualstudio.com/) Es el kit de herramientas Python SQL y el mapeador relacional de objetos que brinda a los desarrolladores de aplicaciones todo el poder y la flexibilidad de SQL.
-
 - [Visual Studio](https://code.visualstudio.com/) Editor de código para todos tipos de lenguaje de programación.
 
 - [Git](https://git-scm.com/) Software de control de versiones.
