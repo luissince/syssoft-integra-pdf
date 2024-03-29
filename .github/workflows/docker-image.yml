@@ -26,4 +26,4 @@ jobs:
           sed -i "s~PATH_WKHTMLTOPDF=.*~PATH_WKHTMLTOPDF=${PATH_WKHTMLTOPDF}~" .env
 
       - name: Creando y ejecutando contenedor
-        run: docker compose -f docker-compose.yml up --build sysintegra-pdf-services -d
+        run: docker compose -f docker-compose.yml up --build pdf-services -d
