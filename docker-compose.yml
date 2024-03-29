@@ -3,136 +3,22 @@ version: '3'
 
 # Definición de servicios
 services:
-  # Servicio para la aplicación de test
-  sysintegra-pdf-services:
+  # Servicio para la aplicación principal
+  pdf-services:
     # Configuración para construir la imagen del contenedor
     build:
       context: .
       dockerfile: Dockerfile
     # Nombre de la imagen resultante
-    image: sysintegra-pdf-image
+    image: pdf-image
     # Conexión a la red llamada 'luis'
     networks:
       - luis
-    # Mapeo de puertos: Mapea el puerto 6000 del host al puerto 80 del contenedor
+    # Mapeo de puertos: Mapea el puerto 6002 del host al puerto 80 del contenedor
     ports:
       - 6002:80
     # Nombre del contenedor
-    container_name: sysintegra-pdf-test
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de legrand
-  legrand-tiquepos-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: legrand-tiquepos-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6012 del host al puerto 80 del contenedor
-    ports:
-      - 6012:80
-    # Nombre del contenedor
-    container_name: legrand-tiquepos-pdf
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de raices
-  raices-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: raices-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6012 del host al puerto 80 del contenedor
-    ports:
-      - 6016:80
-    # Nombre del contenedor
-    container_name: raices-pdf
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de felicitygirls
-  felicitygirls-tiquepos-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: felicitygirls-tiquepos-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6012 del host al puerto 80 del contenedor
-    ports:
-      - 6020:80
-    # Nombre del contenedor
-    container_name: felicitygirls-tiquepos-pdf
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de bodega-modelo
-  bodega-modelo-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: bodega-modelo-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6024 del host al puerto 80 del contenedor
-    ports:
-      - 6024:80
-    # Nombre del contenedor
-    container_name: bodega-modelo-pdf
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de unnagro
-  unnagro-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: unnagro-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6024 del host al puerto 80 del contenedor
-    ports:
-      - 6028:80
-    # Nombre del contenedor
-    container_name: unnagro-pdf
-    # Configuración para reiniciar siempre el contenedor
-    restart: always
-
-  # Servicio para la aplicación de leatsac
-  leatsac-pdf-services:
-    # Configuración para construir la imagen del contenedor
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Nombre de la imagen resultante
-    image: leatsac-pdf-image
-    # Conexión a la red llamada 'luis'
-    networks:
-      - luis
-    # Mapeo de puertos: Mapea el puerto 6024 del host al puerto 80 del contenedor
-    ports:
-      - 6032:80
-    # Nombre del contenedor
-    container_name: leatsac-pdf
+    container_name: pdf-principal
     # Configuración para reiniciar siempre el contenedor
     restart: always
 
