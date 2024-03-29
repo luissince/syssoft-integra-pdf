@@ -115,7 +115,7 @@ pip install -r requirements.txt
 
 ### 5. Configuración de Variables de Entorno
 
-A continuación, se presenta la configuración de las variables de entorno utilizadas en el front-end:
+A continuación, se presenta la configuración de las variables de entorno utilizadas:
 
 ```bash
 ORIGINS="http://localhost:3000"
