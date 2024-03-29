@@ -120,15 +120,8 @@ pip install -r requirements.txt
 A continuación, se presenta la configuración de las variables de entorno utilizadas en el front-end:
 
 ```bash
-APP_URL_FILES="http://localhost"
 ORIGINS="http://localhost:3000"
 PATH_WKHTMLTOPDF=""
-
-DB_HOST="localhost"
-DB_USER="root"
-DB_PASSWORD="root"
-DB_DATABASE="prueba"
-DB_PORT=3306
 ```
 
 ### 6. Ejecute el siguiente comando para ejecutar en modo desarrollo
