@@ -1,0 +1,29 @@
+name: Docker Image CI - SysSoftIntegra Pdf
+
+on:
+  push:
+    branches: 
+      - "test"
+
+jobs:
+  build-and-deploy-app-test:
+    runs-on: self-hosted
+
+    env:  
+      ORIGINS: ${{ secrets.ORIGINS }}
+      PATH_WKHTMLTOPDF: ${{ secrets.PATH_WKHTMLTOPDF }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Copiar .env.example a .env
+        run: cp .env.example .env
+
+      - name: Configurar valores en .env
+        run: |
+          sed -i "s~ORIGINS=.*~ORIGINS=${ORIGINS}~" .env
+          sed -i "s~PATH_WKHTMLTOPDF=.*~PATH_WKHTMLTOPDF=${PATH_WKHTMLTOPDF}~" .env
+
+      - name: Creando y ejecutando contenedor
+        run: docker compose -f docker-compose.yml up --build pdf-services -d
