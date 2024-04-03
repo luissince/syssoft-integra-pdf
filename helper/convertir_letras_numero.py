@@ -10,7 +10,7 @@ class ConvertirMonedaCadena:
         self.CENTENAS = ["", "ciento ", "doscientos ", "trecientos ", "cuatrocientos ", "quinientos ", "seiscientos ",
                          "setecientos ", "ochocientos ", "novecientos "]
 
-    def convertir(self, numero, mayusculas, moneda):
+    def convertir(self, numero: str, mayusculas: bool, moneda: str):
         literal = ""
         parte_decimal = ""
 

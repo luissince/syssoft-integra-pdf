@@ -20,8 +20,7 @@ def generar_reporte(cotizacion: Cotizacion):
         valor_neto = valor_sub_neto + valor_impuesto
         sub_total += valor_sub_neto
         total += valor_neto
-    sub_total = sub_total.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
-    total = total.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+
     # Inicializar lista para impuestos
     impuestos = []
 
@@ -45,16 +44,15 @@ def generar_reporte(cotizacion: Cotizacion):
                 'nombre': item.impuesto.nombre,
                 'valor': impuesto_total
             })
+
     # Redondear valores de impuestos
-    for item in impuestos:
-        item["valor"] = item["valor"].quantize(
-            Decimal('0.00'), rounding=ROUND_HALF_UP)
+    impuestos = [
+        {**item, "valor": f"{cotizacion.moneda.simbolo}{rounded(item['valor'])}"} for item in impuestos]
 
     # Convertir total a letras
     convertidor = ConvertirMonedaCadena()
     letras = convertidor.convertir(
         rounded(total), True, cotizacion.moneda.nombre)
-    count = len(cotizacion.cotizacionDetalle)
 
     data_html = {
         "logo_emp": cotizacion.empresa.logoEmpresa,
@@ -78,9 +76,9 @@ def generar_reporte(cotizacion: Cotizacion):
         "direccion": cotizacion.persona.direccion,
 
         "result_list": cotizacion.cotizacionDetalle,
-        "subTotal": sub_total,
+        "subTotal": f"{cotizacion.moneda.simbolo}{rounded(sub_total)}",
         "impuestos": impuestos,
-        "total": total,
+        "total": f"{cotizacion.moneda.simbolo}{rounded(total)}",
         "total_letras": letras,
 
         "bancos": cotizacion.bancos,

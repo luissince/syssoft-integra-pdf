@@ -19,24 +19,78 @@
             font-family: 'Open Sans', sans-serif;
             background: white;
             font-size: 11px;
-            /* width: 820px; */
-            /* min-height: 1158px; */
-            /* margin: 105px auto 55px auto; */
         }
 
         table {
             table-layout: fixed;
-        }
-
-        table {
             border-collapse: collapse;
             border-spacing: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 2px 0px;
+            font-size: 9px;
+        }
+
+        p {
+            margin: 0;
+            padding: 2px 0px;
+            font-size: 9px;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .mt-1 {
+            margin-top: 1px;
+        }
+
+        .mt-2 {
+            margin-top: 2px;
+        }
+
+        .mt-3 {
+            margin-top: 3px;
+        }
+
+        .mb-1 {
+            margin-bottom: 1px;
+        }
+
+        .mb-2 {
+            margin-bottom: 2px;
+        }
+
+        .mb-3 {
+            margin-bottom: 3px;
+        }
+
+        .mb-4 {
+            margin-bottom: 4px;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #cccccc;
         }
 
         #container {
             margin: 0 auto;
             padding: 5px;
-            /* min-height: 1078px; */
         }
 
         #header {
@@ -56,77 +110,24 @@
         }
 
         #header .logo img {
-            width: 140px;
+            width: 120px;
         }
 
-        #header .company-info1 {
+        #header .company-info {
             float: left;
             width: 540px;
             padding: 0px 50px;
         }
 
-        #header .company-info1>div:first-child {
+        #header .company-info>div:first-child {
             font-weight: bold;
-            font-size: 20px;
+            font-size: 15px;
         }
 
-        #header .company-info1 div {
+        #header .company-info div {
             margin-bottom: 3px;
             text-align: center;
-        }
-
-        .editable-wrapper {
-            width: 100%;
-            display: inline-block;
-            position: relative;
-        }
-
-        #bill-to-info {
-            margin-left: 0;
-        }
-
-        #bill-to-info>div {
-            float: left;
-        }
-
-        #bill-to-info>div:nth-child(1) {
-            width: 40%;
-        }
-
-        #bill-to-info>div:nth-child(2) {
-            width: 30%;
-        }
-
-        #bill-to-info>div:nth-child(3) {
-            width: 30%;
-        }
-
-        #bill-to-info .bold-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        #bill-to-info>div {
-            margin-bottom: 3px;
-        }
-
-        #invoice-info {
-            width: 20%;
-            float: right;
-        }
-
-        #invoice-info>div {
-            margin-bottom: 10px;
-        }
-
-        #invoice-info>div>span {
-            display: block;
-            text-align: left;
-        }
-
-        #invoice-info>div>span:first-child {
-            font-weight: bold;
-            margin-top: 10px;
+            font-size: 11px;
         }
 
         .clearfix {
@@ -137,195 +138,37 @@
         #title p {
             text-align: center;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        #sub-title p {
-            text-align: left;
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        #invoice-title {
-            text-align: left;
-            font-size: 0.7rem;
-            font-weight: normal;
-            margin: 10px 0px;
+            font-size: 11px;
         }
 
         #items table {
             border-collapse: separate;
             width: 100%;
-        }
-
-        #items table tr:nth-child(odd) {
-            background: #fafafa;
-        }
-
-        #items .first-cell,
-        #items table th:first-child,
-        #items table td:first-child {
-            width: 3%;
-            text-align: right;
-        }
-
-        #items table th:nth-child(2) {
-            width: 35%;
-            text-align: left;
+            margin: 0px 0px 20px 0px;
         }
 
         #items table th {
             font-weight: bold;
             padding: 12px 10px;
-            text-align: right;
-            border-bottom: 2px solid #898989;
-            background: #f7f7f7;
+            border-bottom: 1px solid #898989;
+            font-size: 9px;
         }
 
         #items table td {
             border-bottom: 1px solid #e2e2e2;
             border-top: 1px solid #fff;
             padding: 12px 10px;
-            text-align: right;
+            font-size: 10px;
         }
 
-        #items table td:nth-child(2) {
-            text-align: left;
-        }
-
-        #sums {
-            margin-top: 10px;
-        }
-
-        #sums .label {
-            font-weight: bold;
-        }
-
-        #sums .text {
-            margin-top: 5px;
-        }
-
-        #sums>div:nth-child(1) {
-            float: left;
-            margin-top: 10px;
-        }
-
-        #sums>div:nth-child(2) {
-            float: right;
-            width: 280px;
-        }
-
-        #sums table {
+        .container-half {
             width: 100%;
+            overflow: hidden;
         }
 
-        #sums table tr th {
-            text-align: left !important;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #sums table tr.amount_total th,
-        #sums table tr.amount_total td {
-            font-weight: bold;
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 2px solid #898989;
-            background: #f7f7f7;
-        }
-
-        #sums table tr th {
-            text-align: left;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #terms {
-            margin-top: 10px;
-        }
-
-        #terms .label {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        #info {
-            position: relative;
-            margin-top: 10px;
-        }
-
-        #info .qr {
+        .half {
+            width: 33.3333333333333%;
             float: left;
-            width: 20%;
-        }
-
-        #info .qr img {
-            width: 120px;
-            height: 120px;
-            margin-left: -10px;
-        }
-
-        #info .detail {
-            float: left;
-            width: 80%;
-            height: 120px;
-            line-height: 120px;
-            margin-left: -30px;
-        }
-
-        #info .detail p {
-            display: inline-block;
-            line-height: 1.5;
-            vertical-align: middle;
-        }
-
-        #bank {
-            margin-top: 5px;
-        }
-
-        #bank p {
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        #bank table {
-            border-collapse: separate;
-            width: 100%;
-        }
-
-        #bank table tr:nth-child(odd) {
-            background: #fafafa;
-        }
-
-        #bank table thead th {
-            font-weight: bold;
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 2px solid #898989;
-            background: #f7f7f7;
-        }
-
-        #bank table tbody td {
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 1px solid #fff;
-            padding: 10px 8px;
-            text-align: left;
         }
     </style>
 </head>
@@ -337,122 +180,151 @@
                 <img src="{{logo_emp}}">
             </div>
 
-            <div class="company-info1">
+            <div class="company-info">
                 <div>
-                    <span class="editable-wrapper">{{empresa}}</span>
+                    {{empresa}}
                 </div>
 
                 <div>
-                    <span class="editable-wrapper">{{direccion_emp}}</span>
+                    {{direccion_emp}}
                 </div>
 
                 <div>
-                    <span class="editable-wrapper">{{ubigeo_emp}}</span>
+                    {{ubigeo_emp}}
                 </div>
 
                 <div>
-                    <span class="editable-wrapper">{{contacto}}</span>
+                    {{contacto}}
                 </div>
 
                 <div>
-                    <span class="editable-wrapper">{{web_email}}</span>
+                    {{web_email}}
                 </div>
             </div>
         </section>
 
         <div class="clearfix"></div>
 
-        <section id="title">
-            <p>REPORTE TRANSACCIONAL</p>
+        <section id="title" class="mb-4">
+            <p>REPORTE DE VENTAS</p>
         </section>
 
-        <section id="sub-title">
-            <p>PERIODO: {{periodo}}</p>
+        <section class="container-half mb-2">
+            <div class="half">
+                <p>PERIODO:</p>
+                <p>{{fechaInicio}} - {{fechaFinal}}</p>
+            </div>
+
+            <div class="half">
+                <p>SUCURSAL:</p>
+                <p>{{sucursal}}</p>
+            </div>
+
+            <div class="half">
+                <p>USUARIO:</p>
+                <p>{{usuario}} ({{rol}})</p>
+            </div>
         </section>
 
-        <section id="invoice-title">
-            <span>DETALLE TRANSACCIONAL</span>
-        </section>
+        <h3 class="mb-4">DETALLE</h3>
 
         <div class="clearfix"></div>
 
         <section id="items">
             <table cellpadding="0" cellspacing="0">
-                <tbody>
+                <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Concepto</th>
-                        <th>Cantidad</th>
-                        <th>Ingreso</th>
-                        <th>Salida</th>
-                        <th>Total</th>
+                        <th width="5%" class="text-center">#</th>
+                        <th width="20%" class="text-left">CLIENTE</th>
+                        <th width="15%" class="text-left">COMPROBANTE</th>
+                        <th width="10%" class="text-left">FECHA</th>
+                        <th width="15%" class="text-left">FORMA DE PAGO</th>
+                        <th width="10%" class="text-left">ESTADO</th>
+                        <th width="10%" class="text-center">MONTO</th>
                     </tr>
-                    {% for row in transaciones %}
+                </thead>
+                <tbody>
+                    {% for row in detalles %}
                     {% set count = loop.index %}
                     <tr data-iterate="item">
-                        <td style="position: relative;">{{ count }}</td>
-                        <td>{{row.concepto}}</td>
-                        <td>{{row.cantidad}}</td>
-                        <td>{{row.ingreso }}</td>
-                        <td>{{row.salida}}</td>
-                        <td></td>
+                        <td class="text-center">
+                            {% if row.estado == "ANULADO" %}
+                            <del>{{ count }}</del>
+                            {% else %}
+                            {{ count }}
+                            {% endif %}
+                        </td>
+                        <td class="text-left">
+                            {% if row.estado == "ANULADO" %}
+                            <del> {{row.documento}}<br />{{row.cliente}}</del>
+                            {% else %}
+                            {{row.documento}}<br />{{row.cliente}}
+                            {% endif %}
+                        </td>
+                        <td class="text-left">
+                            {% if row.estado == "ANULADO" %}
+                            <del> {{row.comprobante}}<br />{{row.serie}}-{{row.numeracion}}</del>
+                            {% else %}
+                            {{row.comprobante}}<br />{{row.serie}}-{{row.numeracion}}
+                            {% endif %}
+                        </td>
+                        <td class="text-left">
+                            {% if row.estado == "ANULADO" %}
+                            <del> {{row.fecha }}</del>
+                            {% else %}
+                            {{row.fecha }}
+                            {% endif %}
+                        </td>
+                        <td class="text-left">
+                            {% if row.estado == "ANULADO" %}
+                            <del>{{row.formaPago}}</del>
+                            {% else %}
+                            {{row.formaPago}}
+                            {% endif %}
+                        </td>
+                        <td class="text-left">
+                            {% if row.estado == "ANULADO" %}
+                            <del>{{ row.estado }}</del>
+                            {% else %}
+                            {{ row.estado }}
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                            {% if row.estado == "ANULADO" %}
+                            <del> {{row.monto}}</del>
+                            {% else %}
+                            {{row.monto}}
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Total:</th>
-                        <th>{{ingresos}}</th>
-                        <th>{{salidas}}</th>
-                        <th>{{ingresos+salidas}}</th>
-                    </tr>
-                </tfoot>
             </table>
         </section>
 
-        <br />
+        <section class="container-half mb-4">
+            <div class="half">
+                <h3>ESTADO:</h3>
+                <p>COBRADO: {{cobrado}} {{ 'COMPROBANTE' if cobrado == 1 else 'COMPROBANTES' }}</p>
+                <p>POR COBRAR: {{por_cobrar}} {{ 'COMPROBANTE' if por_cobrar == 1 else 'COMPROBANTES' }}</p>
+                <p>ANULADO: {{anulado}} {{ 'COMPROBANTE' if anulado == 1 else 'COMPROBANTES' }}</p>
+                <p>POR LLEVAR: {{por_llevar}} {{ 'COMPROBANTE' if por_llevar == 1 else 'COMPROBANTES' }}</p>
+            </div>
 
-        <div class="clearfix"></div>
+            <div class="half">
+                <h3>FORMA DE VENTA:</h3>
+                <p>AL CONTADO: {{contado}} {{ 'COMPROBANTE' if contado == 1 else 'COMPROBANTES' }}</p>
+                <p>AL CRÉDITO: {{credito}} {{ 'COMPROBANTE' if credito == 1 else 'COMPROBANTES' }}</p>
+            </div>
 
-        <section id="invoice-title">
-            <span>DETALLE BANCARIO</span>
-        </section>
-
-        <div class="clearfix"></div>
-
-        <section id="items">
-            <table cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr>
-                        <th>#</th>
-                        <th>Banco</th>
-                        <th>Monto</th>
-                        <th>Total</th>
-                    </tr>
-                    {% for row in bancos %}
-                    {% set count = loop.index %}
-                    <tr data-iterate="item">
-                        <td style="position: relative;">{{ count }}</td>
-                        <td>{{row.nombre}}</td>
-                        <td>{{row.monto}}</td>
-                        <td></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Total:</th>
-                        <th>{{sumas}}</th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="half">
+                <h3>MONTO POR COMPROBANTE:</h3>
+                {% for row in comprobantes %}
+                <p>{{row.nombre}}: {{row.monto}}</p>
+                {% endfor %}
+            </div>
         </section>
     </div>
-
 </body>
 
 </html>

@@ -3,8 +3,7 @@ from dotenv import load_dotenv
 from model.response import response_custom_error, response_custom_pdf
 from helper.convert_wkhtmltopdf import generar_a4
 
-from service.finanzas import Finanzas
-from service.finanzas import generar_reporte
+import service.finanzas as Finanzas
 
 routerFinanzas = APIRouter()
 
@@ -12,10 +11,10 @@ load_dotenv()
 
 tag = "Finanzas"
 
-@routerFinanzas.post('/', tags=[tag])
-async def generar_pdf_finanzas(finanzas: Finanzas):
+@routerFinanzas.post('/a4', tags=[tag])
+async def generar_pdf_finanzas(finanzas: Finanzas.Body):
     try:
-        data_html = generar_reporte(finanzas)
+        data_html = Finanzas.run(finanzas)
 
         # Generar PDF
         pdf_in_memory = generar_a4(

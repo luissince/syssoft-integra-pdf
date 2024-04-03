@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 import re
 from datetime import datetime
 import qrcode
@@ -44,22 +44,18 @@ def calculate_tax(porcentaje: float, valor: float) -> Decimal:
     return Decimal(valor) * igv
 
 
-def rounded(amount, decimal_count=2) -> str:
-    try:
-        amount = float(amount)
-        decimal_count = abs(int(decimal_count))
-        formatted_amount = "{:.{}f}".format(amount, decimal_count)
-        return formatted_amount
-    except ValueError:
-        return '0'
+def rounded(amount, num_decimales=2) -> str:
+    if isinstance(amount, (int, float, Decimal)) == False:
+        return "0.00"
+
+    value = Decimal(amount)
+    return str(value.quantize(Decimal('1.' + '0' * num_decimales), rounding=ROUND_HALF_UP))
 
 
 def format_number_with_zeros(numero) -> str:
-    # Convierte el número a cadena y maneja números negativos
     numero_absoluto = abs(numero)
     numero_formateado = str(numero_absoluto).zfill(6)
 
-    # Añade el signo negativo si el número original era negativo
     return f"-{numero_formateado}" if numero < 0 else numero_formateado
 
 
