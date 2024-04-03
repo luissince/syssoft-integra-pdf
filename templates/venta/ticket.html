@@ -125,11 +125,11 @@
         <p><span class="text-theme-default font-weight-bold">Forma de pago: </span> {{forma_pago}}</p>
     </div>
 
-    <table class="table-main-head mt-2">
+    <table class="table-main-head w-100 mt-2">
         <thead>
             <tr class="font-weight-bold mb-4">
                 <th>Cant.</th>
-                <th>Descripción</th>
+                <th class="text-left">Descripción</th>
                 <th>Precio </th>
                 <th>Importe</th>
             </tr>
@@ -137,10 +137,10 @@
         <tbody>
             {% for row in result_list %}
             <tr>
-                <td>{{ row.cantidad }}</td>
-                <td>{{ row.producto }}</td>
+                <td class="text-center">{{ row.cantidad }}</td>
+                <td class="text-left">{{ row.producto }}</td>
                 <td class="text-center">{{ row.precio }}</td>
-                <td class="text-center">{{ row.precio * row.cantidad }}</td>
+                <td class="text-center">{{ row.importe}}</td>
             </tr>
             {% endfor %}
         </tbody>

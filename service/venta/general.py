@@ -15,10 +15,10 @@ class DetalleVenta(BaseModel):
     medida: Optional[str] = None
     categoria: Optional[str] = None
     precio: Decimal = 0
-    cantidad: Optional[int] = None
+    cantidad: Decimal = 0
     idImpuesto: Optional[str] = None
     impuesto: Optional[str] = None
-    porcentaje: Optional[int] = None
+    porcentaje: Decimal = 0
 
 
 class Plazo(BaseModel):
@@ -47,7 +47,7 @@ class Cabecera(BaseModel):
     idFormaPago: Optional[str] = None
     numeroCuota: Optional[int] = None
     frecuenciaPago: Optional[str] = None
-    estado: Optional[bool] = None
+    estado: Optional[int] = None
     simbolo: Optional[str] = None
     codiso: Optional[str] = None
     moneda: Optional[str] = None
@@ -91,7 +91,7 @@ def run(body: Body):
 
     # Inicializar lista para impuestos
     impuestos = []
-    
+
     # Calcular impuestos
     for item in detalle:
         cantidad = item.cantidad
@@ -114,10 +114,26 @@ def run(body: Body):
                 'valor': Decimal(impuesto_total)
             })
 
+    nuevo_detalle = []
+    for item in detalle:
+        nuevo_detalle.append({
+            "producto": item.producto,
+            "medida": item.medida,
+            "categoria": item.categoria,
+            "precio": rounded(item.precio),
+            "cantidad": rounded(item.cantidad),
+            "idImpuesto": item.idImpuesto,
+            "impuesto": item.impuesto,
+            "porcentaje": item.porcentaje,
+            "importe": rounded(item.precio * item.cantidad)
+
+        })
+
     # Redondear valores de impuestos
     suma_impuesto = sum(impuesto["valor"] for impuesto in impuestos)
 
-    impuestos = [{**item, "valor": f"{cabecera.simbolo}{rounded(item['valor'])}"} for item in impuestos]
+    impuestos = [
+        {**item, "valor": f"{cabecera.simbolo}{rounded(item['valor'])}"} for item in impuestos]
 
     # Convertir total a letras
     convertidor = ConvertirMonedaCadena()
@@ -169,7 +185,7 @@ def run(body: Body):
         "direccion": cabecera.direccion,
         "simbolo": cabecera.moneda,
         "codiso": cabecera.codiso,
-        "result_list": detalle,
+        "result_list": nuevo_detalle,
         "subTotal": f"{cabecera.simbolo}{rounded(sub_total)}",
         "impuestos": impuestos,
         "total": f"{cabecera.simbolo}{rounded(total)}",
