@@ -74,6 +74,9 @@ def generar_reporte(cotizacion: Cotizacion):
         "informacion": cotizacion.persona.informacion,
         "documento": cotizacion.persona.documento,
         "direccion": cotizacion.persona.direccion,
+        
+        "moneda_nombre": cotizacion.moneda.nombre,
+        "moneda_codiso": cotizacion.moneda.codiso,
 
         "result_list": cotizacion.cotizacionDetalle,
         "subTotal": f"{cotizacion.moneda.simbolo}{rounded(sub_total)}",
