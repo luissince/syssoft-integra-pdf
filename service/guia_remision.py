@@ -42,20 +42,24 @@ class GuiaRemision(BaseModel):
     informacionCliente: Optional[str] = None
     codigoHash: Optional[str] = None
 
+class Body(BaseModel):
+    guiaRemision: GuiaRemision
     empresa: Empresa
     sucursal: Sucursal
     guiaRemisionDetalle: List[GuiaRemisionDetalle] = []
+    
 
+def generar_reporte(body: Body):
+    cabecera = body.guiaRemision
+    empresa = body.empresa
+    sucursal = body.sucursal
+    detalle = body.guiaRemisionDetalle
 
-def generar_reporte(guia_remision: GuiaRemision):
-    empresa = guia_remision.empresa
-    sucursal = guia_remision.sucursal
-    detalle = guia_remision.guiaRemisionDetalle
-    qr_generado = generar_qr(guia_remision.codigoHash)
+    qr_generado = generar_qr(cabecera.codigoHash)
     data_html = {
         "logo_emp": empresa.logoEmpresa,
         "logo": empresa.logoDesarrollador,
-        "title": f"{guia_remision.comprobante} {guia_remision.serie}-{format_number_with_zeros(guia_remision.numeracion)}",
+        "title": f"{cabecera.comprobante} {cabecera.serie}-{format_number_with_zeros(cabecera.numeracion)}",
         "empresa": empresa.razonSocial,
         "direccion": sucursal.direccion,
         "ubigeo": f"{sucursal.departamento} - {sucursal.provincia} - {sucursal.distrito}",
@@ -66,22 +70,22 @@ def generar_reporte(guia_remision: GuiaRemision):
         "web": f"{sucursal.paginaWeb}",
         "email": f"{sucursal.email}",
         "ruc": f"RUC: {empresa.documento}",
-        "comprobante": guia_remision.comprobante,
-        "serie_numeracion": f"{guia_remision.serie}-{format_number_with_zeros(guia_remision.numeracion)}",
-        "fecha_traslado": guia_remision.fechaTraslado,
-        "documento_relacionado": f"{guia_remision.serieRef}-{format_number_with_zeros(guia_remision.numeracionRef)}",
-        "destinatario_documento": guia_remision.documentoCliente,
-        "destinatario_informacion": guia_remision.informacionCliente,
-        "direccion_partida": guia_remision.direccionPartida,
-        "ubigeo_partida": guia_remision.ubigeoPartida,
-        "conductor_informacion": guia_remision.documentoConductor,
-        "conductor_documento": guia_remision.informacionConductor,
-        "modalidad_trasporte": guia_remision.modalidadTraslado,
-        "direccion_llegada": guia_remision.direccionLlegada,
-        "ubigeo_llegada":  guia_remision.ubigeoLlegada,
-        "vehiculo_licencia": guia_remision.licenciaConducir,
-        "vehiculo_placa": guia_remision.numeroPlaca,
-        "motivo_traslado": guia_remision.motivoTraslado,
+        "comprobante": cabecera.comprobante,
+        "serie_numeracion": f"{cabecera.serie}-{format_number_with_zeros(cabecera.numeracion)}",
+        "fecha_traslado": cabecera.fechaTraslado,
+        "documento_relacionado": f"{cabecera.serieRef}-{format_number_with_zeros(cabecera.numeracionRef)}",
+        "destinatario_documento": cabecera.documentoCliente,
+        "destinatario_informacion": cabecera.informacionCliente,
+        "direccion_partida": cabecera.direccionPartida,
+        "ubigeo_partida": cabecera.ubigeoPartida,
+        "conductor_informacion": cabecera.documentoConductor,
+        "conductor_documento": cabecera.informacionConductor,
+        "modalidad_trasporte": cabecera.modalidadTraslado,
+        "direccion_llegada": cabecera.direccionLlegada,
+        "ubigeo_llegada":  cabecera.ubigeoLlegada,
+        "vehiculo_licencia": cabecera.licenciaConducir,
+        "vehiculo_placa": cabecera.numeroPlaca,
+        "motivo_traslado": cabecera.motivoTraslado,
         "qr_generado": qr_generado,
 
         "tipo_envio": empresa.tipoEnvio,
