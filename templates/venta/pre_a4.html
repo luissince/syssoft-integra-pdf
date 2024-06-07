@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap');
+
+        *,
+        ::after,
+        ::before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: white;
+            font-size: 11px;
+            /* width: 820px; */
+            /* min-height: 1158px; */
+            /* margin: 105px auto 55px auto; */
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        #container {
+            margin: 0 auto;
+            padding: 5px;
+            /* min-height: 1078px; */
+        }
+
+        #header {
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        #header:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        #header .logo {
+            float: left;
+            margin-right: 20px;
+        }
+
+        #header .logo img {
+            width: 140px;
+        }
+
+        #header .company-info1 {
+            float: left;
+            width: 320px;
+        }
+
+        #header .company-info1>div:first-child {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #header .company-info1 div {
+            margin-bottom: 3px;
+        }
+
+        .editable-wrapper {
+            width: 100%;
+            display: inline-block;
+            position: relative;
+        }
+
+        #header .company-info2 {
+            float: right;
+            width: 220px;
+            padding: 15px 10px;
+            text-align: center;
+            border: 0.5px solid #000000;
+            position: relative;
+        }
+
+        #header .company-info2>div:first-child {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        #header .company-info2>div:not(:first-child) {
+            margin-bottom: 3px;
+            font-size: 0.75rem;
+        }
+
+        #bill-to-info {
+            margin-left: 0;
+        }
+
+        #bill-to-info>div {
+            float: left;
+        }
+
+        #bill-to-info>div:nth-child(1) {
+            width: 40%;
+        }
+
+        #bill-to-info>div:nth-child(2) {
+            width: 30%;
+        }
+
+        #bill-to-info>div:nth-child(3) {
+            width: 30%;
+        }
+
+        #bill-to-info .bold-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #bill-to-info>div {
+            margin-bottom: 3px;
+        }
+
+        #invoice-info {
+            width: 20%;
+            float: right;
+        }
+
+        #invoice-info>div {
+            margin-bottom: 10px;
+        }
+
+        #invoice-info>div>span {
+            display: block;
+            text-align: left;
+        }
+
+        #invoice-info>div>span:first-child {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .clearfix {
+            display: block;
+            clear: both;
+        }
+
+        #invoice-title {
+            text-align: left;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 10px 0px;
+        }
+
+        #items table {
+            border-collapse: separate;
+            width: 100%;
+        }
+
+        #items table tr:nth-child(odd) {
+            background: #fafafa;
+        }
+
+        #items .first-cell,
+        #items table th:first-child,
+        #items table td:first-child {
+            width: 3%;
+            text-align: right;
+        }
+
+        #items table th:nth-child(2) {
+            width: 35%;
+            text-align: left;
+        }
+
+        #items table th {
+            font-weight: bold;
+            padding: 12px 10px;
+            text-align: right;
+            border-bottom: 2px solid #898989;
+            background: #f7f7f7;
+        }
+
+        #items table td {
+            border-bottom: 1px solid #e2e2e2;
+            border-top: 1px solid #fff;
+            padding: 10px 8px;
+            text-align: right;
+        }
+
+        #items table td:nth-child(2) {
+            text-align: left;
+        }
+
+        #sums {
+            margin-top: 10px;
+        }
+
+        #sums .label {
+            font-weight: bold;
+        }
+
+        #sums .text {
+            margin-top: 5px;
+        }
+
+        #sums>div:nth-child(1) {
+            float: left;
+            margin-top: 10px;
+        }
+
+        #sums>div:nth-child(2) {
+            float: right;
+            width: 280px;
+        }
+
+        #sums table {
+            width: 100%;
+        }
+
+        #sums table tr th {
+            text-align: left !important;
+        }
+
+        #sums table tr th,
+        #sums table tr td {
+            width: 50%;
+            padding: 10px;
+            text-align: right;
+        }
+
+        #sums table tr th,
+        #sums table tr td {
+            width: 50%;
+            padding: 10px;
+            text-align: right;
+        }
+
+        #sums table tr.amount_total th,
+        #sums table tr.amount_total td {
+            font-weight: bold;
+            border-bottom: 1px solid #e2e2e2;
+            border-top: 2px solid #898989;
+            background: #f7f7f7;
+        }
+
+        #sums table tr th {
+            text-align: left;
+        }
+
+        #sums table tr th,
+        #sums table tr td {
+            width: 50%;
+            padding: 10px;
+            text-align: right;
+        }
+
+        #terms {
+            margin-top: 10px;
+        }
+
+        #terms .label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        #info {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        #info .qr {
+            float: left;
+            width: 20%;
+        }
+
+        #info .qr img {
+            width: 120px;
+            height: 120px;
+            margin-left: -10px;
+        }
+
+        #info .detail {
+            float: left;
+            width: 100%;
+        }
+
+        #info .detail p {
+            display: inline-block;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+
+        #bank {
+            margin-top: 5px;
+        }
+
+        #bank p {
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        #bank span {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        #bank table {
+            border-collapse: separate;
+            width: 100%;
+        }
+
+        #bank table tr:nth-child(odd) {
+            background: #fafafa;
+        }
+
+        #bank table thead th {
+            font-weight: bold;
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 2px solid #898989;
+            background: #f7f7f7;
+        }
+
+        #bank table tbody td {
+            border-bottom: 1px solid #e2e2e2;
+            border-top: 1px solid #fff;
+            padding: 10px 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <section id="header">
+            <div class="logo">
+                <img src="{{logo_emp}}">
+            </div>
+
+            <div class="company-info1">
+                <div>
+                    <span class="editable-wrapper">{{empresa}}</span>
+                </div>
+
+                <div>
+                    <span class="editable-wrapper">{{direccion_emp}}</span>
+                </div>
+
+                <div>
+                    <span class="editable-wrapper">{{ubigeo_emp}}</span>
+                </div>
+
+                <div>
+                    <span class="editable-wrapper">{{contacto}}</span>
+                </div>
+
+                <div>
+                    <span class="editable-wrapper">{{web_email}}</span>
+                </div>
+            </div>
+
+            <div class="company-info2">
+                <div>
+                    <span>R.U.C: {{ruc}}</span>
+                </div>
+
+                <div>
+                    <span>{{comprobante}}</span>
+                </div>
+
+                <div>
+                    <span>{{serie}}-{{numeracion}}</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="bill-to-info">
+            <div>
+                <div class="bold-title">
+                    <span>CLIENTE:</span>
+                </div>
+
+                <div>
+                    <span>RUC / D.N.I.: {{documento}}</span>
+                </div>
+                <div><span>Informacion: </span>{{informacion}}</div>
+                <div>
+                    <span>Dirección: {{direccion}}</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="bold-title">
+                    <span>FECHA DE EMISIÓN:</span>
+                </div>
+
+                <div>
+                    <span>{{fecha}}</span>
+                </div>
+
+                <div>
+                    <span>{{ubigeo_llegada}}</span>
+                </div>
+
+                <div class="bold-title">
+                    <span>FORMA DE PAGO:</span>
+                </div>
+
+                <div>
+                    <span>{{forma_pago}}</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="bold-title">
+                    <span>MONEDA:</span>
+                </div>
+
+                <div>
+                    <span>{{simbolo}} - {{codiso}}</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="clearfix"></div>
+
+        <section id="invoice-title">
+            <span>DETALLE</span>
+        </section>
+
+        <div class="clearfix"></div>
+
+        <section id="items">
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Unid/Med</th>
+                        <th>Afect. Igv</th>
+                        <th>Importe</th>
+                    </tr>
+                    {% for row in result_list %}
+                    {% set count = loop.index %}
+                    <tr data-iterate="item">
+                        <td style="position: relative;">{{ count }}</td>
+                        <td>{{row.producto}}</td>
+                        <td>{{row.precio}}</td>
+                        <td>{{row.cantidad }}</td>
+                        <td>{{row.medida}}</td>
+                        <td>{{row.impuesto}}</td>
+                        <td>{{row.importe}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sums">
+            <div>
+                <div class="label">
+                    <span>MONTO EN LETRAS</span>
+                </div>
+
+                <div class="text">
+                    <span>
+                        SON: {{total_letras}}
+                    </span>
+                </div>
+            </div>
+            <div>
+                <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <th>SUB TOTAL:</th>
+                            <td>{{subTotal}}</td>
+                        </tr>
+                        <tr style="display: table-row;">
+                            {%for row in impuestos %}
+                            <th> {{row.nombre}}</th>
+                            <td>{{row.valor}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr style="display: none;">
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr class="amount_total">
+                            <th>TOTAL:</th>
+                            <td>{{total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- <div class="clearfix"></div>
+
+        <section id="terms">
+            <div class="label">
+                <span>MONTO EN LETRAS</span>
+            </div>
+
+            <div class="text">
+                <span>
+                    SON: {{total_letras}}
+                </span>
+            </div>
+        </section> -->
+
+        <div class="clearfix"></div>
+
+        <section id="info">          
+            <div class="detail">
+                <p>
+                Representación Impresa del pre comprobante. No tiene Validez!                 
+                </p>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
