@@ -123,6 +123,9 @@
         <p><span class="font-weight-bold">RUC / D.N.I.</span> {{documento}}</p>
         <p><span class="font-weight-bold">Dirección:</span> {{direccion}}</p>
         <p><span class="text-theme-default font-weight-bold">Forma de pago: </span> {{forma_pago}}</p>
+        {% if comentario is not none and comentario != '' %}
+            <p><span class="text-theme-default font-weight-bold">Comentario: </span> {{comentario}}</p>
+        {% endif %}        
     </div>
 
     <table class="table-main-head w-100 mt-2">

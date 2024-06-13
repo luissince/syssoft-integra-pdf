@@ -52,6 +52,7 @@ class Cabecera(BaseModel):
     codiso: Optional[str] = None
     moneda: Optional[str] = None
     formaPago: Optional[str] = None
+    comentario: Optional[str] = ""
 
 
 class Body(BaseModel):
@@ -193,6 +194,7 @@ def run(body: Body):
         "qr_generado": qr_generado,
         "codigo_hash": '' if cabecera.codigoHash is None else cabecera.codigoHash,
         "usuario": cabecera.usuario,
+        "comentario": cabecera.comentario,
         "tipo_envio": empresa.tipoEnvio,
         "bancos": bancos,
         "plazos": plazos_formato

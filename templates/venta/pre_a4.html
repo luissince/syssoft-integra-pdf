@@ -427,6 +427,16 @@
                 <div>
                     <span>{{simbolo}} - {{codiso}}</span>
                 </div>
+
+                {% if comentario is not none and comentario != '' %}
+                    <div class="bold-title">
+                        <span>COMENTARIO:</span>
+                    </div>
+
+                    <div>
+                        <span>{{comentario}}</span>
+                    </div>
+                {% endif %}
             </div>
         </section>
 
