@@ -1,14 +1,47 @@
 import re
 
+
 class ConvertirMonedaCadena:
 
     def __init__(self):
-        self.UNIDADES = ["", "uno ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve "]
-        self.DECENAS = ["diez ", "once ", "doce ", "trece ", "catorce ", "quince ", "dieciseis ",
-                        "diecisiete ", "dieciocho ", "diecinueve", "veinte ", "treinta ", "cuarenta ",
-                        "cincuenta ", "sesenta ", "setenta ", "ochenta ", "noventa "]
-        self.CENTENAS = ["", "ciento ", "doscientos ", "trecientos ", "cuatrocientos ", "quinientos ", "seiscientos ",
-                         "setecientos ", "ochocientos ", "novecientos "]
+        self.UNIDADES = ["", 
+                        "uno ", 
+                        "dos ", 
+                        "tres ", 
+                        "cuatro ",
+                        "cinco ", 
+                        "seis ", 
+                        "siete ", 
+                        "ocho ",
+                        "nueve "]
+        self.DECENAS = ["diez ", 
+                        "once ", 
+                        "doce ", 
+                        "trece ", 
+                        "catorce ", 
+                        "quince ", 
+                        "dieciseis ",
+                        "diecisiete ", 
+                        "dieciocho ", 
+                        "diecinueve", 
+                        "veinte ", 
+                        "treinta ", 
+                        "cuarenta ",
+                        "cincuenta ", 
+                        "sesenta ", 
+                        "setenta ", 
+                        "ochenta ", 
+                        "noventa "]
+        self.CENTENAS = ["", 
+                        "ciento ", 
+                        "doscientos ", 
+                        "trecientos ", 
+                        "cuatrocientos ", 
+                        "quinientos ", 
+                        "seiscientos ",
+                        "setecientos ", 
+                        "ochocientos ", 
+                        "novecientos "]
 
     def convertir(self, numero: str, mayusculas: bool, moneda: str):
         literal = ""
@@ -99,5 +132,6 @@ class ConvertirMonedaCadena:
         miles = numero[-6:]
         # se obtiene los millones
         millon = numero[:-6]
-        n = self.get_centenas(millon) + "millones " if len(millon) > 1 else self.get_unidades(millon) + "millon "
+        n = self.get_centenas(
+            millon) + "millones " if len(millon) > 1 else self.get_unidades(millon) + "millon "
         return n + self.get_miles(miles)

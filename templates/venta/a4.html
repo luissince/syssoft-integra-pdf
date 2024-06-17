@@ -301,6 +301,21 @@
             vertical-align: middle;
         }
 
+        #info .comment {
+            float: left;
+            width: 100%;         
+        }
+
+        #info .comment span {
+            font-weight: bold;
+        }
+
+        #info .comment p {
+            display: inline-block;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+
         #bank {
             margin-top: 5px;
         }
@@ -430,16 +445,6 @@
                 <div>
                     <span>{{simbolo}} - {{codiso}}</span>
                 </div>
-
-                {% if comentario is not none and comentario != '' %}
-                    <div class="bold-title">
-                        <span>COMENTARIO:</span>
-                    </div>
-
-                    <div>
-                        <span>{{comentario}}</span>
-                    </div>
-                {% endif %}
             </div>
         </section>
 
@@ -516,6 +521,19 @@
                 </table>
             </div>
         </section>
+
+        {% if comentario is not none and comentario != '' %}
+            <div class="clearfix"></div>
+
+            <section id="info">    
+                <span>COMENTARIO:</span>      
+                <div class="comment">
+                    <p>
+                    * {{comentario}}                
+                    </p>
+                </div>
+            </section>
+        {% endif %}
 
         <!-- <div class="clearfix"></div>
 

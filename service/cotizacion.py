@@ -1,8 +1,6 @@
 from helper.convertir_letras_numero import ConvertirMonedaCadena
 from helper.tools import calculate_tax, calculate_tax_bruto, format_date, format_number_with_zeros, format_time, rounded
 from model.base_model import Cotizacion
-from decimal import Decimal, ROUND_HALF_UP
-
 
 def generar_reporte(cotizacion: Cotizacion):
     # Inicializar variables para cálculos
@@ -70,6 +68,7 @@ def generar_reporte(cotizacion: Cotizacion):
         "numeracion": format_number_with_zeros(cotizacion.numeracion),
         "fecha": format_date(cotizacion.fecha),
         "hora": format_time(cotizacion.hora),
+        "nota": cotizacion.nota,
 
         "informacion": cotizacion.persona.informacion,
         "documento": cotizacion.persona.documento,
