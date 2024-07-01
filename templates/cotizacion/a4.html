@@ -1,573 +1,518 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{{title}}</title>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap");
 
-        *,
-        ::after,
-        ::before {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
+      *,
+      ::after,
+      ::before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: white;
-            font-size: 11px;
-            /* width: 820px; */
-            /* min-height: 1158px; */
-            /* margin: 105px auto 55px auto; */
-        }
+      body {
+        font-family: "Open Sans", sans-serif;
+        background: white;
+        font-size: 11px; /* Cambia este valor para ajustar la escala de fuentes */
+      }
 
-        table {
-            table-layout: fixed;
-        }
+      .text-center {
+        text-align: center;
+      }
 
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
+      .text-left {
+        text-align: left;
+      }
 
-        #container {
-            margin: 0 auto;
-            padding: 5px;
-            /* min-height: 1078px; */
-        }
+      .text-right {
+        text-align: right;
+      }
 
-        #header {
-            padding-bottom: 10px;
-            position: relative;
-        }
+      table {
+        table-layout: fixed;
+      }
 
-        #header:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
 
-        #header .logo {
-            float: left;
-            margin-right: 20px;
-        }
+      #container {
+        margin: 0 auto;
+        padding: 5px;
+        /* min-height: 1078px; */
+      }
 
-        #header .logo img {
-            width: 140px;
-        }
+      #header {
+        padding-bottom: 10px;
+        position: relative;
+      }
 
-        #header .company-info1 {
-            float: left;
-            width: 320px;
-            text-align: center;
-        }
+      #header:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
 
-        #header .company-info1>div:first-child {
-            font-weight: bold;
-            font-size: 17px;
-        }
+      #header .logo {
+        float: left;
+        margin-right: 20px;
+      }
 
-        #header .company-info1 div {
-            margin-bottom: 3px;
-        }
+      #header .logo img {
+        width: 120px;
+      }
 
-        .editable-wrapper {
-            width: 100%;
-            display: inline-block;
-            position: relative;
-        }
+      #header .company-info1 {
+        float: left;
+        width: 320px;
+        text-align: center;
+      }
 
-        #header .company-info2 {
-            float: right;
-            width: 220px;
-            padding: 15px 10px;
-            text-align: center;
-            border: 0.5px solid #000000;
-            position: relative;
-        }
+      #header .company-info1 > div:first-child {
+        font-weight: bold;
+        font-size: 1em; /* Ajuste relativo a font-size de body */
+      }
 
-        #header .company-info2>div:first-child {
-            font-weight: bold;
-            font-size: 1rem;
-            margin-bottom: 6px;
-        }
+      #header .company-info1 div {
+        margin-bottom: 3px;
+      }
 
-        #header .company-info2>div:not(:first-child) {
-            margin-bottom: 3px;
-            font-size: 0.75rem;
-        }
+      .editable-wrapper {
+        width: 100%;
+        display: inline-block;
+        position: relative;
+      }
 
-        #bill-to-info {
-            margin-left: 0;
-        }
+      #header .company-info2 {
+        float: right;
+        width: 220px;
+        padding: 15px 10px;
+        text-align: center;
+        border: 0.5px solid #000000;
+        position: relative;
+      }
 
-        #bill-to-info>div {
-            float: left;
-        }
+      #header .company-info2 > div:first-child {
+        font-weight: bold;
+        font-size: 1em; /* Ajuste relativo a font-size de body */
+        margin-bottom: 6px;
+      }
 
-        #bill-to-info>div:nth-child(1) {
-            width: 40%;
-        }
+      #header .company-info2 > div:not(:first-child) {
+        margin-bottom: 3px;
+        font-size: 0.75em; /* Ajuste relativo a font-size de body */
+      }
 
-        #bill-to-info>div:nth-child(2) {
-            width: 30%;
-        }
+      #bill-to-info {
+        margin-left: 0;
+      }
 
-        #bill-to-info>div:nth-child(3) {
-            width: 30%;
-        }
+      #bill-to-info > div {
+        float: left;
+      }
 
-        #bill-to-info .bold-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
+      #bill-to-info > div:nth-child(1) {
+        width: 40%;
+      }
 
-        #bill-to-info>div {
-            margin-bottom: 3px;
-        }
+      #bill-to-info > div:nth-child(2) {
+        width: 30%;
+      }
 
-        #invoice-info {
-            width: 20%;
-            float: right;
-        }
+      #bill-to-info > div:nth-child(3) {
+        width: 30%;
+      }
 
-        #invoice-info>div {
-            margin-bottom: 10px;
-        }
+      #bill-to-info .bold-title {
+        font-weight: bold;
+        margin-top: 10px;
+      }
 
-        #invoice-info>div>span {
-            display: block;
-            text-align: left;
-        }
+      #bill-to-info > div {
+        margin-bottom: 3px;
+      }
 
-        #invoice-info>div>span:first-child {
-            font-weight: bold;
-            margin-top: 10px;
-        }
+      #invoice-info {
+        width: 20%;
+        float: right;
+      }
 
-        .clearfix {
-            display: block;
-            clear: both;
-        }
+      #invoice-info > div {
+        margin-bottom: 10px;
+      }
 
-        #invoice-title {
-            text-align: left;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin: 10px 0px;
-        }
+      #invoice-info > div > span {
+        display: block;
+        text-align: left;
+      }
 
-        #items table {
-            border-collapse: separate;
-            width: 100%;
-        }
+      #invoice-info > div > span:first-child {
+        font-weight: bold;
+        margin-top: 10px;
+      }
 
-        #items table tr:nth-child(odd) {
-            background: #fafafa;
-        }
+      .clearfix {
+        display: block;
+        clear: both;
+      }
 
-        #items .first-cell,
-        #items table th:first-child,
-        #items table td:first-child {
-            width: 3%;
-            text-align: right;
-        }
+      #invoice-title {
+        text-align: left;
+        font-size: 0.8em; /* Ajuste relativo a font-size de body */
+        font-weight: bold;
+        margin: 10px 0px;
+      }
 
-        #items table th:nth-child(2) {
-            width: 35%;
-            text-align: left;
-        }
+      #items table {
+        border-collapse: separate;
+        width: 100%;
+      }
 
-        #items table th {
-            font-weight: bold;
-            padding: 12px 10px;
-            text-align: right;
-            border-bottom: 2px solid #898989;
-            background: #f7f7f7;
-        }
+      #items table th {
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #898989;
+        background: #f7f7f7;
+      }
 
-        #items table td {
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 1px solid #fff;
-            padding: 10px 8px;
-            text-align: right;
-        }
+      #items table td {
+        border-bottom: 1px solid #e2e2e2;
+        border-top: 1px solid #fff;
+        padding: 8px;
+      }
 
-        #items table td:nth-child(2) {
-            text-align: left;
-        }
+      #sums {
+        margin-top: 10px;
+      }
 
-        #sums {
-            margin-top: 10px;
-        }
+      #sums .label {
+        font-weight: bold;
+      }
 
-        #sums .label {
-            font-weight: bold;
-        }
+      #sums .text {
+        margin-top: 5px;
+      }
 
-        #sums .text {
-            margin-top: 5px;
-        }
+      #sums > div:nth-child(1) {
+        float: left;
+        margin-top: 10px;
+      }
 
-        #sums>div:nth-child(1) {
-            float: left;
-            margin-top: 10px;
-        }
+      #sums > div:nth-child(2) {
+        float: right;
+        width: 280px;
+      }
 
-        #sums>div:nth-child(2) {
-            float: right;
-            width: 280px;
-        }
+      #sums table {
+        width: 100%;
+      }
 
-        #sums table {
-            width: 100%;
-        }
+      #sums table tr th {
+        text-align: left !important;
+      }
 
-        #sums table tr th {
-            text-align: left !important;
-        }
+      #sums table tr th,
+      #sums table tr td {
+        width: 50%;
+        padding: 5px;
+        text-align: right;
+      }
 
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
+      #sums table tr th,
+      #sums table tr td {
+        width: 50%;
+        padding: 5px;
+        text-align: right;
+      }
 
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
+      #sums table tr.amount_total th,
+      #sums table tr.amount_total td {
+        font-weight: bold;
+        border-bottom: 1px solid #e2e2e2;
+        border-top: 1px solid #898989;
+        background: #f7f7f7;
+      }
 
-        #sums table tr.amount_total th,
-        #sums table tr.amount_total td {
-            font-weight: bold;
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 2px solid #898989;
-            background: #f7f7f7;
-        }
+      #sums table tr th {
+        text-align: left;
+      }
 
-        #sums table tr th {
-            text-align: left;
-        }
+      #sums table tr th,
+      #sums table tr td {
+        width: 50%;
+        padding: 5px;
+        text-align: right;
+      }
 
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
+      #terms {
+        margin-top: 10px;
+      }
 
-        #terms {
-            margin-top: 10px;
-        }
+      #terms .label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
 
-        #terms .label {
-            font-weight: bold;
-            margin-right: 5px;
-        }
+      #info {
+        position: relative;
+        margin-top: 10px;
+      }
 
-        #info {
-            position: relative;
-            margin-top: 10px;
-        }
+      #info .qr {
+        float: left;
+        width: 20%;
+      }
 
-        #info .qr {
-            float: left;
-            width: 20%;
-        }
+      #info .qr img {
+        width: 120px;
+        height: 120px;
+        margin-left: -10px;
+      }
 
-        #info .qr img {
-            width: 120px;
-            height: 120px;
-            margin-left: -10px;
-        }
+      #info .detail {
+        float: left;
+        width: 100%;
+      }
 
-        #info .detail {
-            float: left;
-            width: 100%;
-        }
+      #info .detail span {
+        font-weight: bold;
+      }
 
-        #info .detail span {
-            font-weight: bold;
-        }
+      #info .detail p {
+        display: inline-block;
+        line-height: 1.5;
+        vertical-align: middle;
+      }
 
-        #info .detail p {
-            display: inline-block;
-            line-height: 1.5;
-            vertical-align: middle;
-        }
+      #bank {
+        margin-top: 5px;
+      }
 
-        #bank {
-            margin-top: 5px;
-        }
+      #bank p {
+        font-weight: bold;
+        font-size: 0.8em; /* Ajuste relativo a font-size de body */
+      }
 
-        #bank p {
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
+      #bank span {
+        display: block;
+        margin-bottom: 2px;
+      }
 
-        #bank span {
-            display: block;
-            margin-bottom: 2px;
-        }
+      #bank table {
+        border-collapse: separate;
+        width: 100%;
+      }
 
-        #bank table {
-            border-collapse: separate;
-            width: 100%;
-        }
+      #bank table thead th {
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+        border-bottom: qpx solid #898989;
+        background: #f7f7f7;
+      }
 
-        #bank table tr:nth-child(odd) {
-            background: #fafafa;
-        }
-
-        #bank table thead th {
-            font-weight: bold;
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 2px solid #898989;
-            background: #f7f7f7;
-        }
-
-        #bank table tbody td {
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 1px solid #fff;
-            padding: 10px 8px;
-            text-align: left;
-        }
+      #bank table tbody td {
+        border-bottom: 1px solid #e2e2e2;
+        border-top: 1px solid #fff;
+        padding: 8px;
+        text-align: left;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <section id="header">
-            <div class="logo">
-                <img src="{{logo_emp}}">
-            </div>
+      <section id="header">
+        <div class="logo">
+          <img src="{{logo_emp}}" />
+        </div>
 
-            <div class="company-info1">
-                <div>
-                    <span class="editable-wrapper">{{empresa}}</span>
-                </div>
+        <div class="company-info1">
+          <div>
+            <span class="editable-wrapper">{{empresa}}</span>
+          </div>
 
-                <div>
-                    <span class="editable-wrapper">{{direccion_emp}}</span>
-                </div>
+          <div>
+            <span class="editable-wrapper">{{direccion_emp}}</span>
+          </div>
 
-                <div>
-                    <span class="editable-wrapper">{{ubigeo_emp}}</span>
-                </div>
+          <div>
+            <span class="editable-wrapper">{{ubigeo_emp}}</span>
+          </div>
 
-                <div>
-                    <span class="editable-wrapper">{{telefono}} | {{celular}}</span>
-                </div>
+          <div>
+            <span class="editable-wrapper">{{telefono}} | {{celular}}</span>
+          </div>
 
-                <div>
-                    <span class="editable-wrapper">{{paginaWeb}} | {{email}}</span>
-                </div>
-            </div>
+          <div>
+            <span class="editable-wrapper">{{paginaWeb}} | {{email}}</span>
+          </div>
+        </div>
 
-            <div class="company-info2">
-                <div>
-                    <span>R.U.C: {{ruc}}</span>
-                </div>
+        <div class="company-info2">
+          <div>
+            <span>R.U.C: {{ruc}}</span>
+          </div>
 
-                <div>
-                    <span>{{comprobante}}</span>
-                </div>
+          <div>
+            <span>{{comprobante}}</span>
+          </div>
 
-                <div>
-                    <span>{{serie}}-{{numeracion}}</span>
-                </div>
-            </div>
-        </section>
+          <div>
+            <span>{{serie}}-{{numeracion}}</span>
+          </div>
+        </div>
+      </section>
 
-        <section id="bill-to-info">
-            <div>
-                <div class="bold-title">
-                    <span>CLIENTE:</span>
-                </div>
+      <section id="bill-to-info">
+        <div>
+          <div class="bold-title">
+            <span>CLIENTE:</span>
+          </div>
 
-                <div>
-                    <span>RUC / D.N.I.: {{documento}}</span>
-                </div>
-                <div><span>Informacion: </span>{{informacion}}</div>
-                <div>
-                    <span>Dirección: {{direccion}}</span>
-                </div>
-            </div>
+          <div>
+            <span>RUC / D.N.I.: {{documento}}</span>
+          </div>
+          <div><span>Informacion: </span>{{informacion}}</div>
+          <div>
+            <span>Dirección: {{direccion}}</span>
+          </div>
+        </div>
 
-            <div>
-                <div class="bold-title">
-                    <span>FECHA DE EMISIÓN:</span>
-                </div>
+        <div>
+          <div class="bold-title">
+            <span>FECHA DE EMISIÓN:</span>
+          </div>
 
-                <div>
-                    <span>{{fecha}}</span>
-                </div>
+          <div>
+            <span>{{fecha}}</span>
+          </div>
 
-                <div>
-                    <span>{{ubigeo_llegada}}</span>
-                </div>
-            </div>
+          <div>
+            <span>{{ubigeo_llegada}}</span>
+          </div>
+        </div>
 
-            <div>
-                <div class="bold-title">
-                    <span>MONEDA:</span>
-                </div>
+        <div>
+          <div class="bold-title">
+            <span>MONEDA:</span>
+          </div>
 
-                <div>
-                    <span>{{moneda_nombre}} - {{moneda_codiso}}</span>
-                </div>
-            </div>
-        </section>
+          <div>
+            <span>{{moneda_nombre}} - {{moneda_codiso}}</span>
+          </div>
+        </div>
+      </section>
 
-        <div class="clearfix"></div>
+      <div class="clearfix"></div>
 
-        <section id="invoice-title">
-            <span>DETALLE</span>
-        </section>
+      <section id="invoice-title">
+        <span>DETALLE</span>
+      </section>
 
-        <div class="clearfix"></div>
+      <div class="clearfix"></div>
 
-        <section id="items">
-            <table cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr>
-                        <th>Ítem</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Unid/Med</th>
-                        <th>Importe</th>
-                    </tr>
-                    {% for row in result_list %}
-                    {% set count = loop.index %}
-                    <tr data-iterate="item">
-                        <td style="position: relative;">{{ count }}</td>
-                        <td>{{row.producto.nombre }}</td>
-                        <td>{{row.precio}}</td>
-                        <td>{{row.cantidad }}</td>
-                        <td>{{row.medida.nombre}}</td>
-                        <td>{{row.precio * row.cantidad}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
+      <section id="items">
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <th width="5%">Ítem</th>
+              <th width="10%">Cantidad</th>
+              <th width="10%">Unid/Med</th>
+              <th width="20%">Descripción</th>
+              <th width="15%">Precio</th>
+              <th width="10%">Importe</th>
+            </tr>
+            {% for row in result_list %} {% set count = loop.index %}
+            <tr>
+              <td class="text-center">{{ count }}</td>
+              <td class="text-center">{{row.cantidad }}</td>
+              <td class="text-center">{{row.medida.nombre}}</td>
+              <td class="text-left">{{row.producto.nombre }}</td>
+              <td class="text-right">{{row.precio}}</td>
+              <td class="text-right">{{row.precio * row.cantidad}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
 
-        <section id="sums">
-            <div>
-                <div class="label">
-                    <span>MONTO EN LETRAS</span>
-                </div>
+      <section id="sums">
+        <div>
+          <div class="label">
+            <span>MONTO EN LETRAS</span>
+          </div>
 
-                <div class="text">
-                    <span>
-                        SON: {{total_letras}}
-                    </span>
-                </div>
-            </div>
-            <div>
-                <table cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <th>SUB TOTAL:</th>
-                            <td>{{subTotal}}</td>
-                        </tr>
-                        <tr style="display: table-row;">
-                            {%for row in impuestos %}
-                            <th> {{row.nombre}}</th>
-                            <td>{{row.valor}}</td>
-                            {% endfor %}
-                        </tr>
-                        <tr style="display: none;">
-                            <th></th>
-                            <td></td>
-                        </tr>
-                        <tr class="amount_total">
-                            <th>TOTAL:</th>
-                            <td>{{total}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+          <div class="text">
+            <span> SON: {{total_letras}} </span>
+          </div>
+        </div>
+        <div>
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <th>SUB TOTAL:</th>
+                <td>{{subTotal}}</td>
+              </tr>
+              <tr>
+                {%for row in impuestos %}
+                <th>{{row.nombre}}</th>
+                <td>{{row.valor}}</td>
+                {% endfor %}
+              </tr>
+              <tr class="amount_total">
+                <th>TOTAL:</th>
+                <td>{{total}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-        <div class="clearfix"></div>
+      <div class="clearfix"></div>
 
-        <section id="info">        
-            <span>NOTA:</span>        
-            <div class="detail">
-                <p>
-                * {{nota}}                
-                </p>
-            </div>
-        </section>
+      <section id="info">
+        <span>NOTA:</span>
+        <div class="detail">
+          <p>* {{nota}}</p>
+        </div>
+      </section>
 
-        {%if bancos|length > 0%}
+      {%if bancos|length > 0%}
 
-        <div class="clearfix"></div>
+      <section id="invoice-title">
+        <span>DETALLE</span>
+      </section>
 
-        <section id="bank">
-            <p>CUENTAS BANCARIAS</p>
-            <table cellpadding="0" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>BANCO</th>
-                        <th>CUENTA</th>
-                        <th>CCI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {%for row in bancos%}
-                    <tr>
-                        <td>{{row.nombre}}</td>
-                        <td>{{row.numCuenta}}</td>
-                        <td>{{row.cci}}</td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        </section>
-        {%endif %}
+      <div class="clearfix"></div>
 
-
-        {%if plazos|length > 0%}
-
-        <div class="clearfix"></div>
-
-        <section id="bank">
-            <p>INFORMACIÓN DEL CRÉDITO</p>
-            <span>TOTAL DE CUOTAS: {{numero_cuota}}</span>
-            <span>FRECUENCIA DE PAGO: {{frecuencia_pago}} DÍAS</span>
-            <table cellpadding="0" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>N° CUOTA</th>
-                        <th>FECHA DE VENCIMIENTO</th>
-                        <th>MONTO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {%for row in plazos%}
-                    <tr>
-                        <td>{{row.cuota}}</td>
-                        <td>{{row.fecha}}</td>
-                        <td>{{row.monto}}</td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        </section>
-        {%endif %}
+      <section id="bank">
+        <table cellpadding="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th>BANCO</th>
+              <th>CUENTA</th>
+              <th>CCI</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for row in bancos%}
+            <tr>
+              <td>{{row.nombre}}</td>
+              <td>{{row.numCuenta}}</td>
+              <td>{{row.cci}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </section>
+      {%endif %}
     </div>
-
-</body>
-
+  </body>
 </html>
