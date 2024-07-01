@@ -9,7 +9,6 @@ from helper.tools import calculate_tax, calculate_tax_bruto, format_date, format
 from model.base_model import Banco, Empresa, Sucursal
 from model.forma_pago import FormaPago
 
-
 class DetalleVenta(BaseModel):
     producto: Optional[str] = None
     medida: Optional[str] = None
