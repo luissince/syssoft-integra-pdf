@@ -13,30 +13,117 @@
         ::before {
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-
+        
         body {
             font-family: 'Open Sans', sans-serif;
             background: white;
             font-size: 11px;
-            /* width: 820px; */
-            /* min-height: 1158px; */
-            /* margin: 105px auto 55px auto; */
         }
 
-        table {
-            table-layout: fixed;
+        .text-center {
+            text-align: center;
         }
 
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        /* Margins left and right */
+        .mx-1 { margin-left: 1px; margin-right: 1px; }
+        .mx-2 { margin-left: 2px; margin-right: 2px; }
+        .mx-3 { margin-left: 3px; margin-right: 3px; }
+        .mx-4 { margin-left: 4px; margin-right: 4px; }
+        .mx-5 { margin-left: 5px; margin-right: 5px; }
+        .mx-6 { margin-left: 6px; margin-right: 6px; }
+        .mx-7 { margin-left: 7px; margin-right: 7px; }
+        .mx-8 { margin-left: 8px; margin-right: 8px; }
+        .mx-9 { margin-left: 9px; margin-right: 9px; }
+        .mx-10 { margin-left: 10px; margin-right: 10px; }
+
+        /* Margin left */
+        .ml-1 { margin-left: 1px; }
+        .ml-2 { margin-left: 2px; }
+        .ml-3 { margin-left: 3px; }
+        .ml-4 { margin-left: 4px; }
+        .ml-5 { margin-left: 5px; }
+        .ml-6 { margin-left: 6px; }
+        .ml-7 { margin-left: 7px; }
+        .ml-8 { margin-left: 8px; }
+        .ml-9 { margin-left: 9px; }
+        .ml-10 { margin-left: 10px; }
+
+        /* Margin right */
+        .mr-1 { margin-right: 1px; }
+        .mr-2 { margin-right: 2px; }
+        .mr-3 { margin-right: 3px; }
+        .mr-4 { margin-right: 4px; }
+        .mr-5 { margin-right: 5px; }
+        .mr-6 { margin-right: 6px; }
+        .mr-7 { margin-right: 7px; }
+        .mr-8 { margin-right: 8px; }
+        .mr-9 { margin-right: 9px; }
+        .mr-10 { margin-right: 10px; }
+
+        /* Margins top and bottom */
+        .my-1 { margin-top: 1px; margin-bottom: 1px; }
+        .my-2 { margin-top: 2px; margin-bottom: 2px; }
+        .my-3 { margin-top: 3px; margin-bottom: 3px; }
+        .my-4 { margin-top: 4px; margin-bottom: 4px; }
+        .my-5 { margin-top: 5px; margin-bottom: 5px; }
+        .my-6 { margin-top: 6px; margin-bottom: 6px; }
+        .my-7 { margin-top: 7px; margin-bottom: 7px; }
+        .my-8 { margin-top: 8px; margin-bottom: 8px; }
+        .my-9 { margin-top: 9px; margin-bottom: 9px; }
+        .my-10 { margin-top: 10px; margin-bottom: 10px; }
+
+        /* Margin top */
+        .mt-1 { margin-top: 1px; }
+        .mt-2 { margin-top: 2px; }
+        .mt-3 { margin-top: 3px; }
+        .mt-4 { margin-top: 4px; }
+        .mt-5 { margin-top: 5px; }
+        .mt-6 { margin-top: 6px; }
+        .mt-7 { margin-top: 7px; }
+        .mt-8 { margin-top: 8px; }
+        .mt-9 { margin-top: 9px; }
+        .mt-10 { margin-top: 10px; }
+
+        /* Margin bottom */
+        .mb-1 { margin-bottom: 1px; }
+        .mb-2 { margin-bottom: 2px; }
+        .mb-3 { margin-bottom: 3px; }
+        .mb-4 { margin-bottom: 4px; }
+        .mb-5 { margin-bottom: 5px; }
+        .mb-6 { margin-bottom: 6px; }
+        .mb-7 { margin-bottom: 7px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-9 { margin-bottom: 9px; }
+        .mb-10 { margin-bottom: 10px; }
+
+        .align-baseline { vertical-align: baseline; }
+        .align-top { vertical-align: top; }
+        .align-middle { vertical-align: middle; }
+        .align-bottom { vertical-align: bottom; }
+        .align-text-top { vertical-align: text-top; }
+        .align-text-bottom { vertical-align: text-bottom; }
+        .align-sub { vertical-align: sub; }
+        .align-super { vertical-align: super; }
+
         table {
+            width: 100%;
             border-collapse: collapse;
-            border-spacing: 0;
         }
 
         #container {
             margin: 0 auto;
             padding: 5px;
-            /* min-height: 1078px; */
         }
 
         #header {
@@ -56,17 +143,13 @@
         }
 
         #header .logo img {
-            width: 140px;
+            width: 120px;
         }
 
         #header .company-info1 {
             float: left;
             width: 320px;
-        }
-
-        #header .company-info1>div:first-child {
-            font-weight: bold;
-            font-size: 20px;
+            text-align: center;
         }
 
         #header .company-info1 div {
@@ -88,166 +171,28 @@
             position: relative;
         }
 
-        #header .company-info2>div:first-child {
-            font-weight: bold;
-            font-size: 1rem;
-            margin-bottom: 6px;
-        }
-
-        #header .company-info2>div:not(:first-child) {
-            margin-bottom: 3px;
-            font-size: 0.75rem;
-        }
-
-        #bill-to-info {
-            width: 40%;
-            float: left;
-            margin-left: 0;
-        }
-
-        #bill-to-info .bold-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        #bill-to-info>div {
-            margin-bottom: 3px;
-        }
-
-        #invoice-info {
-            width: 20%;
-            float: right;
-        }
-
-        #invoice-info>div {
-            margin-bottom: 10px;
-        }
-
-        #invoice-info>div>span {
-            display: block;
-            text-align: left;
-        }
-
-        #invoice-info>div>span:first-child {
-            font-weight: bold;
-            margin-top: 10px;
-        }
 
         .clearfix {
             display: block;
             clear: both;
         }
 
-        #invoice-title {
-            text-align: left;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin: 10px 0px;
-        }
-
-        #items table {
-            border-collapse: separate;
-            width: 100%;
-        }
-
-        #items table tr:nth-child(odd) {
-            background: #fafafa;
-        }
-
-        #items .first-cell,
-        #items table th:first-child,
-        #items table td:first-child {
-            width: 3%;
-            text-align: right;
-        }
-
-        #items table th:nth-child(2) {
-            width: 35%;
-            text-align: left;
-        }
-
         #items table th {
             font-weight: bold;
-            padding: 12px 10px;
-            text-align: right;
-            border-bottom: 2px solid #898989;
+            padding: 10px;
+            border-bottom: 1px solid #898989;
             background: #f7f7f7;
+            text-transform: uppercase;
         }
 
         #items table td {
             border-bottom: 1px solid #e2e2e2;
             border-top: 1px solid #fff;
-            padding: 10px 8px;
-            text-align: right;
-        }
-
-        #items table td:nth-child(2) {
-            text-align: left;
-        }
-
-        #sums {
-            float: right;
-            margin-top: 30px;
-            width: 280px;
-        }
-
-        #sums table {
-            width: 100%;
-        }
-
-        #sums table tr th {
-            text-align: left !important;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #sums table tr.amount_total th,
-        #sums table tr.amount_total td {
-            font-weight: bold;
-            border-bottom: 1px solid #e2e2e2;
-            border-top: 2px solid #898989;
-            background: #f7f7f7;
-        }
-
-        #sums table tr th {
-            text-align: left;
-        }
-
-        #sums table tr th,
-        #sums table tr td {
-            width: 50%;
-            padding: 10px;
-            text-align: right;
-        }
-
-        #terms {
-            margin-top: 80px;
-        }
-
-        #terms .label {
-            font-weight: bold;
-        }
-
-        #terms .text {
-            margin-top: 10px;
-            min-height: 70px;
+            padding: 8px;
         }
 
         #info {
             position: relative;
-            margin-top: 20px;
         }
 
         #info .qr {
@@ -285,154 +230,158 @@
             </div>
 
             <div class="company-info1">
-                <div>
-                    <span class="editable-wrapper">{{empresa}}</span>
+                <div class="editable-wrapper">
+                    <h1 >{{empresa}}</h1>
                 </div>
 
-                <div>
-                    <span class="editable-wrapper">{{direccion}}</span>
+                <div class="editable-wrapper">
+                    <span>{{direccion}}</span>
                 </div>
 
-                <div>
-                    <span class="editable-wrapper">{{ubigeo}}</span>
+                <div class="editable-wrapper">
+                    <span>{{ubigeo}}</span>
                 </div>
 
-                <div>
-                    <span class="editable-wrapper">{{contacto}}</span>
+                <div class="editable-wrapper">
+                    <span>{{contacto}}</span>
                 </div>
 
-                <div>
-                    <span class="editable-wrapper">{{web_email}}</span>
+                <div class="editable-wrapper">
+                    <span>{{web_email}}</span>
                 </div>
             </div>
 
             <div class="company-info2">
-                <div>
-                    <span>{{ruc}}</span>
+                <div class="mb-6">
+                    <h3>{{ruc}}</h3>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <span>{{comprobante}}</span>
                 </div>
 
-                <div>
+                <div class="mb3">
                     <span>{{serie_numeracion}}</span>
                 </div>
             </div>
         </section>
 
-        <section id="bill-to-info">
-            <div class="bold-title">
-                <span>Dirección de Partida:</span>
-            </div>
-
-            <div>
-                <span>{{direccion_partida}}</span>
-            </div>
-            <div>
-                <span>{{ubigeo_partida}}</span>
-            </div>
-
-            <div class="bold-title">
-                <span>Transportista:</span>
-            </div>
-
-            <div>
-                <span>Apellidos y Nombres: {{conductor_informacion}}</span>
-            </div>
-
-            <div>
-                <span>Ruc/Dni: {{conductor_documento}}</span>
-            </div>
-
-            <div class="bold-title">
-                <span>Modalidad Traslado:</span>
-            </div>
-
-            <div>
-                <span>{{modalidad_trasporte}}</span>
-            </div>
+        <section class="mb-10">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="40%" class="text-left">
+                            <h3>Dirección de Partida:</h3>
+                        </th>
+                        <th width="40%" class="text-left">
+                            <h3>Dirección de Llegada:</h3>
+                        </th>
+                        <th width="20%" class="text-left">
+                            <h3>Fecha de Traslado:</h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left align-top">
+                            <p class="mb-5">{{direccion_partida}}</p>
+                            <p>{{ubigeo_partida}}</p>
+                        </td>
+                        <td class="text-left align-top">
+                            <p class="mb-5">{{direccion_llegada}}</p>
+                            <p>{{ubigeo_llegada}}</p>
+                        </td>
+                        <td class="text-left align-top">{{fecha_traslado}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
-        <section id="bill-to-info">
-            <div class="bold-title">
-                <span>Dirección de Llegada:</span>
-            </div>
-
-            <div>
-                <span>{{direccion_llegada}}</span>
-            </div>
-            <div>
-                <span>{{ubigeo_llegada}}</span>
-            </div>
-
-            <div class="bold-title">
-                <span>Unidad de Transporte:</span>
-            </div>
-
-            <div>
-                <span>Licencia de Conducir: {{vehiculo_licencia}}</span>
-            </div>
-
-            <div>
-                <span>Número de Placa: {{vehiculo_placa}}</span>
-            </div>
-
-            <div class="bold-title">
-                <span>Motivo Traslado:</span>
-            </div>
-
-            <div>
-                <span>{{motivo_traslado}}</span>
-            </div>
+        <section class="mb-10">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="40%" class="text-left">
+                            <h3>Transportista:</h3>
+                        </th>
+                        <th width="40%" class="text-left">
+                            <h3>Unidad de Transporte:</h3>
+                        </th>
+                        <th width="20%" class="text-left">
+                            <h3>Doc. Relacionado:</h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left align-top">
+                            <p class="mb-5">Apellidos y Nombres: {{conductor_informacion}}</p>
+                            <p>Ruc/Dni: {{conductor_documento}}</p>
+                        </td>
+                        <td class="text-left align-top">
+                            <p class="mb-5">Licencia de Conducir: {{vehiculo_licencia}}</p>
+                            <p>Número de Placa: {{vehiculo_placa}}</p>
+                        </td>
+                        <td class="text-left align-top">{{documento_relacionado}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
-        <section id="invoice-info">
-            <div>
-                <span>Fecha de Traslado:</span>
-                <span>{{fecha_traslado}}</span>
-            </div>
-
-            <div>
-                <span>Doc. Relacionado:</span>
-                <span>{{documento_relacionado}}</span>
-            </div>
-
-            <div>
-                <span>Destinatario:</span>
-                <span>{{destinatario_documento}}</span>
-                <span>{{destinatario_informacion}}</span>
-            </div>
+        <section class="mb-10">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="40%" class="text-left">
+                            <h3>Modalidad Traslado:</h3>
+                        </th>
+                        <th width="40%" class="text-left">
+                            <h3>Motivo Traslado:</h3>
+                        </th>
+                        <th width="20%" class="text-left">
+                            <h3>Destinatario:</h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left align-top">
+                            <p>{{modalidad_trasporte}}</p>
+                        </td>
+                        <td class="text-left align-top">
+                            <p> {{motivo_traslado}}</p>
+                        </td>
+                        <td class="text-left align-top">
+                            <p>{{destinatario_documento}}</p>
+                            <p>{{destinatario_informacion}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
-        <div class="clearfix"></div>
-
-        <section id="invoice-title">
-            <span>Bienes a transportar</span>
-        </section>
-
-        <div class="clearfix"></div>
+        <h3 class="my-10">Bienes a transportar</h3>
 
         <section id="items">
             <table cellpadding="0" cellspacing="0">
                 <tbody>
                     <tr>
-                        <th>#</th>
-                        <th>Producto</th>
-                        <th>Código Bien</th>
-                        <th>Código SUNAT</th>
-                        <th>Unidad de Medida</th>
-                        <th>Cantidad</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Producto</th>
+                        <th class="text-center">Código Bien</th>
+                        <th class="text-center">Código SUNAT</th>
+                        <th class="text-center">Unidad de Medida</th>
+                        <th class="text-center">Cantidad</th>
                     </tr>
                     {% for row in detalle %}
                     {% set count = loop.index %}
-                    <tr data-iterate="item">
-                        <td style="position: relative;">{{ count }}</td>
-                        <td>{{row.nombre}}</td>
-                        <td>{{row.codigo}}</td>
-                        <td>-</td>
-                        <td>{{row.medida}}</td>
-                        <td>{{row.cantidad}}</td>
+                    <tr>
+                        <td width="5%">{{ count }}</td>
+                        <td width="30%">{{row.nombre}}</td>
+                        <td width="15%">{{row.codigo}}</td>
+                        <td width="15%">-</td>
+                        <td width="15%">{{row.medida}}</td>
+                        <td width="15%">{{row.cantidad}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -441,7 +390,7 @@
 
         <div class="clearfix"></div>
 
-        <section id="info">
+        <section id="info" class="mt-5">
             <div class="qr">
                 <img src="data:image/png;base64,{{qr_generado}}" />
             </div>
@@ -456,10 +405,12 @@
                         {%else%}
                             Este es una representación impresa sin valor tributario de la Guía de Remisión Electrínica generada en el sistema de la SUNAT.
                         {%endif %}
-                      </span>
+                    </span>
                 </p>
             </div>
         </section>
+
+        <div class="clearfix"></div>
     </div>
 
 </body>
