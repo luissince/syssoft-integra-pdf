@@ -9,7 +9,8 @@ from helper.tools import calculate_tax, calculate_tax_bruto, format_date, format
 from model.base_model import Banco, Empresa, Sucursal
 from model.forma_pago import FormaPago
 
-class DetalleVenta(BaseModel):
+class VentaDetalle(BaseModel):
+    codigo: Optional[str] = ""
     producto: Optional[str] = None
     medida: Optional[str] = None
     categoria: Optional[str] = None
@@ -58,7 +59,7 @@ class Body(BaseModel):
     cabecera: Cabecera
     empresa: Empresa
     sucursal: Sucursal
-    ventaDetalle: List[DetalleVenta] = []
+    ventaDetalle: List[VentaDetalle] = []
     plazos: List[Plazo] = []
     bancos: List[Banco] = []
 
@@ -117,6 +118,7 @@ def run(body: Body):
     nuevo_detalle = []
     for item in detalle:
         nuevo_detalle.append({
+            "codigo": item.codigo,
             "producto": item.producto,
             "medida": item.medida,
             "categoria": item.categoria,

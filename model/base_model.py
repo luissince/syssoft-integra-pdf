@@ -113,7 +113,7 @@ class Producto(BaseModel):
     idConcepto: Optional[str] = None
     idMedida: Optional[str] = None
     nombre: Optional[str] = None
-    codigo: Optional[str] = None
+    codigo: Optional[str] = ""
     idCodigoSunat: Optional[int] = None
     descripcion: Optional[str] = None
     idTipoTratamientoProducto: Optional[str] = None
