@@ -48,3 +48,21 @@ async def generar_pdf_a4(cotizacion: Cotizacion):
     except Exception as ex:
         # Manejar errores generales
         return response_custom_error(message="Error de servidor: "+str(ex), code=500)
+    
+@routerCotizacion.post('/pedido/a4/', tags=[tag])
+async def generar_pdf_a4(cotizacion: Cotizacion):
+    try:
+        data_html = generar_reporte(cotizacion)
+
+        # Generar PDF
+        pdf_in_memory = generar_a4(
+            path_template='templates/cotizacion',
+            name_html='pedido_a4.html',
+            data=data_html)
+
+        # Devolver el PDF como respuesta
+        return response_custom_pdf(data=pdf_in_memory.getvalue(), file_name="file_a4_cotizacion.pdf")
+    except Exception as ex:
+        print(ex)
+        # Manejar errores generales
+        return response_custom_error(message="Error de servidor: "+str(ex), code=500)

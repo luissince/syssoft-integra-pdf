@@ -51,7 +51,7 @@ def generar_reporte(cotizacion: Cotizacion):
     convertidor = ConvertirMonedaCadena()
     letras = convertidor.convertir(
         rounded(total), True, cotizacion.moneda.nombre)
-    
+        
     data_html = {
         "logo_emp": cotizacion.empresa.logoEmpresa,
         "logo": cotizacion.empresa.logoDesarrollador,

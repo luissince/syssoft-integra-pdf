@@ -124,7 +124,7 @@ class Producto(BaseModel):
     negativo: Optional[bool] = None
     preferido: Optional[bool] = False
     estado: Optional[bool] = None
-    imagen: Optional[str] = None
+    imagen: Optional[str] = "https://app.syssoftintegra.com/assets/noimage-dPicTXI6.jpg"
     fecha: Optional[str] = None
     hora: Optional[str] = None
     fupdate: Optional[str] = None
